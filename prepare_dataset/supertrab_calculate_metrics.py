@@ -3,6 +3,7 @@ This script measures variance and mean value of patches in a .zarr dataset and a
 dataset. 
 It requires a .zarr file which wan be created with for example: https://github.com/gianthk/pyfabric/blob/master/scripts/supertrab_isq_to_zarr_script.py
 Code is based on: https://github.com/dveni/pneumodomo/blob/main/scripts/add_mask.py 
+write more description
 """
 
 
