@@ -25,7 +25,7 @@ from torch.utils.data import DataLoader
 
 def main():
     PATCH_SIZE = 1, 128, 128
-    zarr_patch_sampler = zds.PatchSampler(PATCH_SIZE, min_area=1)
+    zarr_patch_sampler = zds.PatchSampler(PATCH_SIZE, min_area=0.999)
     file_path =  Path("/usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab_small.zarr")
     
     root: zarr.hierarchy.Group = zarr.open(str(file_path))
@@ -98,7 +98,7 @@ def main():
     n_rows = (n_plots + n_cols - 1) // n_cols  # Ceiling division to get required rows
 
     # Create one figure with multiple subplots
-    fig, axes = plt.subplots(n_rows, n_cols, figsize=(15, 3 * n_rows))
+    fig, axes = plt.subplots(n_rows, n_cols, figsize=(15, 3 * n_rows), dpi=500)
     axes = axes.flatten()  # Flatten the 2D array of axes for easier indexing
 
     # Loop through the positions
