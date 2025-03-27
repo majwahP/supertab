@@ -1,8 +1,8 @@
 """
-This script creates masking to select patches containing bone from zarr dataset containing images of hip-bone.
+This script creates masking to select patches containing cortical bone from zarr dataset containing images of hip-bone.
 Before running is a .zarr dataset required which wan be created with:https://github.com/gianthk/pyfabric/blob/master/scripts/supertrab_isq_to_zarr_script.py
 and metrics mean and varainace calculated which is done with: supertrab_calculate_metrics.py
-The patch size defines the area of one patch that is defined as valid or non valid. So one patch is either
+The patch size defines the area of one patch that is valid or non valid. So one patch is either
 true or false (bone/not bone)
 code based on: https://github.com/dveni/pneumodomo/blob/main/scripts/add_mask.py
 """
@@ -18,7 +18,7 @@ import tqdm
 
 #variables
 patch_size = (1, 32, 32) #-Change to preferred size
-greyvalue_threshold = 4000 
+greyvalue_threshold = 3900 
 
 
 def main():
@@ -39,20 +39,20 @@ def main():
                 continue
             dataset: zarr.Array = scan_group[dataset_name]
             #calculate how many patches that fits in dataset ex data is (1,512,521) and patch (1,64,64) -> (1,8,8)
-            variance_mask_shape = tuple(
+            metrics_mask_shape = tuple(
                 dim // patch for dim, patch in zip(dataset.shape, patch_size)
             )
             #create a new dataset in the group of type boolean
             mask_dataset = scan_group.create_dataset(
                 f"{dataset_name}_bone_mask",
-                shape=variance_mask_shape,
+                shape=metrics_mask_shape,
                 dtype="uint8",
                 overwrite=True,
                 chunks=(1, dataset.shape[-2], dataset.shape[-1]),
             )
 
             #initiate dataset with 0 for varance mask
-            variance_mask = zarr.zeros(variance_mask_shape, dtype="uint8")
+            cortical_mask = zarr.zeros(metrics_mask_shape, dtype="uint8")
 
             def get_slice_patched(position: list, patch_size: tuple):
                 return (
@@ -70,19 +70,17 @@ def main():
                     compressed_position = get_slice_patched(
                         patch_info["position"], patch_size
                     )
-                    variance_mask[compressed_position] = 1
+                    cortical_mask[compressed_position] = 1
             #debug
             if scan_group.attrs:
                 print(f"Attributes in {group_name}: {list(scan_group.attrs.keys())}")
-                #for key, value in scan_group.attrs.items():
-                #    print(f"{key}: {value}")
             else:
                 print(f"No attributes found in {group_name}.")
 
-            position_variance_map = scan_group.attrs["variance_map"]
+            position_metrics_map = scan_group.attrs["metrics_map"]
 
             variance_patch_list = list(
-                position_variance_map.values()
+                position_metrics_map.values()
             )  # Convert dict values to list for iteration
 
             for patch_info in tqdm.tqdm(variance_patch_list, desc="Processing Patches"):
@@ -92,7 +90,7 @@ def main():
 
             #variance_mask[:] = binary_opening(binary_closing(binary_closing(variance_mask[:])))
 
-            mask_dataset[:] = variance_mask #change to mask after operations
+            mask_dataset[:] = cortical_mask #change to mask after operations
 
             print("Mask dtype:", mask_dataset.dtype)  # Should be uint8 or uint16
             print("Mask shape:", mask_dataset.shape)

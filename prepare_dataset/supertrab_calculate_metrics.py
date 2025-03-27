@@ -1,9 +1,10 @@
 """
-This script measures variance and mean value of patches in a .zarr dataset and adds the information to the
-dataset. 
+This script measures variance and mean value of patches in a .zarr dataset and adds the information 
+to the dataset. 
 It requires a .zarr file which wan be created with for example: https://github.com/gianthk/pyfabric/blob/master/scripts/supertrab_isq_to_zarr_script.py
-Code is based on: https://github.com/dveni/pneumodomo/blob/main/scripts/add_mask.py 
-write more description
+Code is based on: https://github.com/dveni/pneumodomo/blob/main/scripts/dataset_metrics.py
+The patch size should match the desired patch size in a mask created from these metrics. 
+The information is retrieved by scan_group.attrs["metrics_map"].
 """
 
 
@@ -57,7 +58,7 @@ def main():
             prefetch_factor=4,
         )
 
-        position_variance_map = {}
+        position_metrics_map = {}
 
 
         # calculate variance and mean for each patch and save it as attribute in dataset with position
@@ -70,7 +71,7 @@ def main():
                     pos.flatten().tolist()
                 )
                 global_idx = i * BATCH_SIZE + idx
-                position_variance_map[global_idx] = {
+                position_metrics_map[global_idx] = {
                     "variance": var.item(),
                     "mean": mean.item(),
                     "position": position_tuple,
@@ -78,7 +79,7 @@ def main():
                 }
 
         scan_group = root[group_name]
-        scan_group.attrs["variance_map"] = position_variance_map
+        scan_group.attrs["metrics_map"] = position_metrics_map
 
     print("done")
 
