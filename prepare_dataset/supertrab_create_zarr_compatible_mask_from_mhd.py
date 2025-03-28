@@ -25,7 +25,7 @@ for group_name in tqdm.tqdm(root):
         ):
             continue
         ## Load mask ##
-        mhd_mask_path = Path(f"path/to/your_mask.mhd")
+        mhd_mask_path = Path(f"path/to/your_mask.mhd") # TODO change to correct paths
 
         #Check if mask exist
         if not mhd_mask_path.exists():
