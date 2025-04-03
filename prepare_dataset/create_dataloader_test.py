@@ -18,8 +18,6 @@ import zarr.hierarchy
 import zarrdataset as zds
 from tqdm import tqdm
 import matplotlib.patches as patches
-import shutil
-
 from torch.utils.data import DataLoader
 
 

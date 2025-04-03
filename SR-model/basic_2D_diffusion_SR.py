@@ -1,8 +1,9 @@
 """
 Implementation of a simple Denoising diffusion probebilistic Model based on: 
 https://huggingface.co/docs/diffusers/en/tutorials/basic_training
-The code is adjusted to use the dataloader created for trabeclular bone in this library in supertrab_create_dataloader.py
-and to implement superresolution instead of generating data. 
+The code is adjusted to use the dataloader created for trabeclular bone in 
+this library in supertrab_create_dataloader.py
+and to implement super-resolution instead of generating data. 
 """
 
 from dataclasses import dataclass
@@ -18,6 +19,8 @@ from accelerate import Accelerator
 from huggingface_hub import create_repo, upload_folder
 from tqdm.auto import tqdm
 from pathlib import Path
+from prepare_dataset.create_dataloader import create_dataloader
+from accelerate import notebook_launcher
 
 #Define the configuration and parameters, adjust to the training dataloader
 @dataclass
@@ -37,9 +40,11 @@ class TrainingConfig:
 
 config = TrainingConfig()
 
+os.environ["WANDB_PROJECT"] = "ddpm-supertrab"
 
 ### Create the dataloader ###
-
+zarr_path = Path("/usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab_small.zarr")
+dataloader = create_dataloader(zarr_path)
 
 
 #Define the model --------------------------------------------------------------------
@@ -68,7 +73,8 @@ model = UNet2DModel(
 )
 
 # Check that images are same shape as output--------------------------------------------
-sample_image = dataset[0]["images"].unsqueeze(0)
+batch = next(iter(dataloader))
+sample_image = batch[1][0]
 print("Input shape:", sample_image.shape)
 print("Output shape:", model(sample_image, timestep=0).sample.shape)
 
@@ -80,7 +86,9 @@ noise = torch.randn(sample_image.shape) # create noise with the same shape as th
 timesteps = torch.LongTensor([50])
 noisy_image = noise_scheduler.add_noise(sample_image, noise, timesteps)
 
-Image.fromarray(((noisy_image.permute(0, 2, 3, 1) + 1.0) * 127.5).type(torch.uint8).numpy()[0])
+#Convert tensor representation to PIL image format
+pil_image = Image.fromarray(((noisy_image.permute(0, 2, 3, 1) + 1.0) * 127.5).type(torch.uint8).numpy()[0])
+pil_image.show()
 
 
 # Calculate loss -----------------------------------------------------------------------
@@ -91,15 +99,17 @@ loss = F.mse_loss(noise_pred, noise)
 # Training -----------------------------------------------------------------------------
 
 optimizer = torch.optim.AdamW(model.parameters(), lr=config.learning_rate)
+#Scheduler to adjust learning rate during training
 lr_scheduler = get_cosine_schedule_with_warmup(
     optimizer=optimizer,
     num_warmup_steps=config.lr_warmup_steps,
-    num_training_steps=(len(train_dataloader) * config.num_epochs),
+    num_training_steps=(len(dataloader) * config.num_epochs),
 )
 
 def evaluate(config, epoch, pipeline):
     # Sample some images from random noise (this is the backward diffusion process).
     # The default pipeline output type is `List[PIL.Image]`
+
     images = pipeline(
         batch_size=config.eval_batch_size,
         generator=torch.Generator(device='cpu').manual_seed(config.seed), # Use a separate torch generator to avoid rewinding the random state of the main training loop
@@ -122,14 +132,11 @@ def train_loop(config, model, noise_scheduler, optimizer, train_dataloader, lr_s
         log_with="wandb",
         project_dir=os.path.join(config.output_dir, "logs"),
     )
+    # assure only one process creates directories or logs
     if accelerator.is_main_process:
         if config.output_dir is not None:
             os.makedirs(config.output_dir, exist_ok=True)
-        if config.push_to_hub:
-            repo_id = create_repo(
-                repo_id=config.hub_model_id or Path(config.output_dir).name, exist_ok=True
-            ).repo_id
-        accelerator.init_trackers("train_example")
+        accelerator.init_trackers("supertrab")
 
     # Prepare everything
     # There is no specific order to remember, you just need to unpack the
@@ -161,12 +168,14 @@ def train_loop(config, model, noise_scheduler, optimizer, train_dataloader, lr_s
             # (this is the forward diffusion process)
             noisy_images = noise_scheduler.add_noise(clean_images, noise, timesteps)
 
+            # Backpropagation
             with accelerator.accumulate(model):
                 # Predict the noise residual
                 noise_pred = model(noisy_images, timesteps, return_dict=False)[0]
                 loss = F.mse_loss(noise_pred, noise)
                 accelerator.backward(loss)
 
+                # Avoid exploding gradients
                 if accelerator.sync_gradients:
                     accelerator.clip_grad_norm_(model.parameters(), 1.0)
                 optimizer.step()
@@ -185,14 +194,10 @@ def train_loop(config, model, noise_scheduler, optimizer, train_dataloader, lr_s
 
             if (epoch + 1) % config.save_image_epochs == 0 or epoch == config.num_epochs - 1:
                 evaluate(config, epoch, pipeline)
-
             if (epoch + 1) % config.save_model_epochs == 0 or epoch == config.num_epochs - 1:
-                if config.push_to_hub:
-                    upload_folder(
-                        repo_id=repo_id,
-                        folder_path=config.output_dir,
-                        commit_message=f"Epoch {epoch}",
-                        ignore_patterns=["step_*", "epoch_*"],
-                    )
-                else:
-                    pipeline.save_pretrained(config.output_dir)
+                pipeline.save_pretrained(config.output_dir)
+                #load saved model by: pipeline = DDPMPipeline.from_pretrained(config.output_dir)
+
+
+if __name__ == "__main__":
+    train_loop(config, model, noise_scheduler, optimizer, dataloader, lr_scheduler)
