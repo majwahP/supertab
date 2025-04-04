@@ -10,7 +10,7 @@ import torch
 import torch.nn.functional as F
 import torchvision.transforms as T
 
-def get_superresolution_batch_fn(sigma=1.3, downsample_factor=4):
+def get_superresolution_batch_fn(sigma, downsample_factor):
     """
     Creates a batch function that generates low-resolution (LR) images 
     from high-resolution (HR) patches by applying Gaussian blur and downsampling.
@@ -131,32 +131,39 @@ def create_dataloader(zarr_path, patch_size=(1, 128, 128), batch_size=30, num_wo
 
 def check_patch_uniqueness(dataloader):
     """
-    Checks whether all patches in the dataloader have unique positions.
+    Checks how many times each patch position occurs in the dataloader.
 
     Args:
         dataloader: The DataLoader created by `create_dataloader`.
 
-    Returns:
-        bool: True if all patch positions are unique, False otherwise.
+    Prints:
+        Each position that occurs more than once and how many times it appears.
     """
-    seen_positions = set()
+    from collections import defaultdict
+
+    position_counts = defaultdict(int)  # maps position → number of times seen
     total_checked = 0
 
     for batch in tqdm(dataloader, desc="Checking patch positions"):
         positions = batch["position"]   # batch[0] = position tensor, shape [B, 3, 2]
         for pos in positions:
-            # Each pos = tensor of shape [3, 2], convert to hashable format
+            # Make position hashable
             hashable_pos = tuple((int(dim[0]), int(dim[1])) for dim in pos)
 
-            if hashable_pos in seen_positions:
-                print(f"Duplicate position found: {hashable_pos}")
-                print(seen_positions)
-                return False
-            seen_positions.add(hashable_pos)
+            position_counts[hashable_pos] += 1  # Increment count
             total_checked += 1
 
-    print(f"All {total_checked} patch positions are unique.")
-    return True
+    print(f"Checked {total_checked} patches.\n")
+
+    # Find all positions that occur more than once
+    duplicates = {pos: count for pos, count in position_counts.items() if count > 1}
+
+    if len(duplicates) == 0:
+        print("All patch positions are unique!")
+    else:
+        print(f"Found {len(duplicates)} positions that occur multiple times:\n")
+        for pos, count in sorted(duplicates.items(), key=lambda x: -x[1]):  # sort by most common
+            print(f"Position {pos}: {count} times")
 
 
 def plot_random_samples_from_dataloader(dataloader, output_path="samples.png", max_samples=50):
@@ -207,10 +214,7 @@ def main():
 
     dataloader = create_dataloader(zarr_path)
     plot_random_samples_from_dataloader(dataloader, output_path)
-    if check_patch_uniqueness(dataloader):
-        print("Unique patches")
-    else:
-        print("Duplicates of patches")
+    check_patch_uniqueness(dataloader)
 
 
 if __name__ == "__main__":
