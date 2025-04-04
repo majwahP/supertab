@@ -129,41 +129,56 @@ def create_dataloader(zarr_path, patch_size=(1, 128, 128), batch_size=30, num_wo
         prefetch_factor=2,
     )
 
-def check_patch_uniqueness(dataloader):
+def check_patch_uniqueness(dataloader, compare_patches=True):
     """
-    Checks how many times each patch position occurs in the dataloader.
+    Checks for duplicate patch positions in the dataloader.
+
+    If compare_patches=True, it also checks if the patch contents are identical.
 
     Args:
         dataloader: The DataLoader created by `create_dataloader`.
 
     Prints:
-        Each position that occurs more than once and how many times it appears.
+        Each position that occurs more than once, and whether the patches are identical.
     """
     from collections import defaultdict
 
-    position_counts = defaultdict(int)  # maps position → number of times seen
+    position_to_patches = defaultdict(list)
     total_checked = 0
 
     for batch in tqdm(dataloader, desc="Checking patch positions"):
-        positions = batch["position"]   # batch[0] = position tensor, shape [B, 3, 2]
-        for pos in positions:
+        positions = batch["position"]
+        hr_images = batch["hr_image"]  # High-resolution patches
+
+        for pos, patch in zip(positions, hr_images):
             # Make position hashable
             hashable_pos = tuple((int(dim[0]), int(dim[1])) for dim in pos)
 
-            position_counts[hashable_pos] += 1  # Increment count
+            position_to_patches[hashable_pos].append(patch)
             total_checked += 1
 
     print(f"Checked {total_checked} patches.\n")
 
-    # Find all positions that occur more than once
-    duplicates = {pos: count for pos, count in position_counts.items() if count > 1}
+    # Find duplicates
+    duplicates = {pos: patches for pos, patches in position_to_patches.items() if len(patches) > 1}
 
     if len(duplicates) == 0:
         print("All patch positions are unique!")
     else:
         print(f"Found {len(duplicates)} positions that occur multiple times:\n")
-        for pos, count in sorted(duplicates.items(), key=lambda x: -x[1]):  # sort by most common
-            print(f"Position {pos}: {count} times")
+        for pos, patches in sorted(duplicates.items(), key=lambda x: -len(x[1])):
+            print(f"Position {pos}: {len(patches)} patches")
+
+            if compare_patches:
+                # Compare all patches at this position
+                first_patch = patches[0]
+                identical = all(torch.equal(first_patch, other_patch) for other_patch in patches[1:])
+
+                if identical:
+                    print(f"    -> Patches at {pos} are IDENTICAL ✅")
+                else:
+                    print(f"    -> Patches at {pos} are DIFFERENT ❌")
+
 
 
 def plot_random_samples_from_dataloader(dataloader, output_path="samples.png", max_samples=50):
