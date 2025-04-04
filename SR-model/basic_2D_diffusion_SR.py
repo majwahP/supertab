@@ -74,7 +74,7 @@ model = UNet2DModel(
 
 # Check that images are same shape as output--------------------------------------------
 batch = next(iter(dataloader))
-sample_image = batch[1][0]
+sample_image = batch["hr_image"][0].unsqueeze(0)
 print("Input shape:", sample_image.shape)
 print("Output shape:", model(sample_image, timestep=0).sample.shape)
 
@@ -153,7 +153,7 @@ def train_loop(config, model, noise_scheduler, optimizer, train_dataloader, lr_s
         progress_bar.set_description(f"Epoch {epoch}")
 
         for step, batch in enumerate(train_dataloader):
-            clean_images = batch["images"]
+            clean_images = batch["hr_image"]
             # Sample noise to add to the images
             noise = torch.randn(clean_images.shape, device=clean_images.device)
             bs = clean_images.shape[0]
