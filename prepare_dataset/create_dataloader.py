@@ -101,13 +101,24 @@ def create_dataloader(zarr_path, patch_size=(1, 128, 128), batch_size=30, num_wo
     all_mask_specs = []
     all_groups = [f"{zarr_path}/{name}" for name, _ in named_groups]
 
-    for _, group in named_groups:
-        all_file_specs.append(
-            zds.ImagesDatasetSpecs(filenames=all_groups, data_group="image", source_axes="ZYX")
-        )
-        all_mask_specs.append(
-            zds.MasksDatasetSpecs(filenames=all_groups, data_group="image_trabecular_mask", source_axes="ZYX")
-        )
+    #debug, try with first group
+    name, group = named_groups[0]
+    first_group_path = f"{zarr_path}/{name}"
+
+    all_file_specs.append(
+        zds.ImagesDatasetSpecs(filenames=[first_group_path], data_group="image", source_axes="ZYX")
+    )
+    all_mask_specs.append(
+        zds.MasksDatasetSpecs(filenames=[first_group_path], data_group="image_trabecular_mask", source_axes="ZYX")
+    )
+
+    #for _, group in named_groups:
+    #    all_file_specs.append(
+    #        zds.ImagesDatasetSpecs(filenames=all_groups, data_group="image", source_axes="ZYX")
+    #    )
+    #    all_mask_specs.append(
+    #        zds.MasksDatasetSpecs(filenames=all_groups, data_group="image_trabecular_mask", source_axes="ZYX")
+    #    )
 
     dataset = zds.ZarrDataset(
         all_file_specs + all_mask_specs,
@@ -221,7 +232,7 @@ def plot_random_samples_from_dataloader(dataloader, output_path="samples.png", m
 
 
 def main():
-    zarr_path = Path("/usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab_small.zarr")
+    zarr_path = Path("/usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr")
     output_path = "images/random_patches.png"
 
     dataloader = create_dataloader(zarr_path)
