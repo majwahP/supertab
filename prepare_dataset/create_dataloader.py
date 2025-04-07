@@ -9,6 +9,7 @@ from tqdm import tqdm
 import torch
 import torch.nn.functional as F
 import torchvision.transforms as T
+from collections import defaultdict
 
 def get_superresolution_batch_fn(sigma, downsample_factor):
     """
@@ -129,11 +130,9 @@ def create_dataloader(zarr_path, patch_size=(1, 128, 128), batch_size=30, num_wo
         prefetch_factor=2,
     )
 
-def check_patch_uniqueness(dataloader, compare_patches=True):
+def check_patch_uniqueness(dataloader):
     """
     Checks for duplicate patch positions in the dataloader.
-
-    If compare_patches=True, it also checks if the patch contents are identical.
 
     Args:
         dataloader: The DataLoader created by `create_dataloader`.
@@ -141,7 +140,6 @@ def check_patch_uniqueness(dataloader, compare_patches=True):
     Prints:
         Each position that occurs more than once, and whether the patches are identical.
     """
-    from collections import defaultdict
 
     position_to_patches = defaultdict(list)
     total_checked = 0
@@ -169,15 +167,14 @@ def check_patch_uniqueness(dataloader, compare_patches=True):
         for pos, patches in sorted(duplicates.items(), key=lambda x: -len(x[1])):
             print(f"Position {pos}: {len(patches)} patches")
 
-            if compare_patches:
-                # Compare all patches at this position
-                first_patch = patches[0]
-                identical = all(torch.equal(first_patch, other_patch) for other_patch in patches[1:])
+            
+            # Compare all patches at this position
+            identical = all(torch.equal(p1, p2) for i, p1 in enumerate(patches) for p2 in patches[i+1:]) # compare every patch to every other patch
 
-                if identical:
-                    print(f"    -> Patches at {pos} are IDENTICAL ✅")
-                else:
-                    print(f"    -> Patches at {pos} are DIFFERENT ❌")
+            if identical:
+                print(f"    -> Patches at {pos} are IDENTICAL")
+            else:
+                print(f"    -> Patches at {pos} are DIFFERENT")
 
 
 
