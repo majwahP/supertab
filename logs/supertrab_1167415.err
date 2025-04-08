@@ -1,34 +1,5 @@
-Collecting samples for plot: 0it [00:00, ?it/s]
-
-Preloading zarr files:   0%|          | 0/1 [00:00<?, ?it/s][A[A
-
-Preloading image /usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr/1955_L:   0%|          | 0/1 [00:00<?, ?it/s][A[A
-Preloading zarr files:   0%|          | 0/1 [00:00<?, ?it/s][APreloading zarr files:   0%|          | 0/1 [00:00<?, ?it/s]
-Preloading image /usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr/1955_L:   0%|          | 0/1 [00:00<?, ?it/s][APreloading image /usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr/1955_L:   0%|          | 0/1 [00:00<?, ?it/s]
-
-
-Preloading zarr files:   0%|          | 0/1 [00:00<?, ?it/s][A[A[A
-
-
-Preloading image /usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr/1955_L:   0%|          | 0/1 [00:00<?, ?it/s][A[A[A
-
-
-
-
-Preloading zarr files:   0%|          | 0/1 [00:00<?, ?it/s][A[A[A[A[A
-
-
-
-
-Preloading image /usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr/1955_L:   0%|          | 0/1 [00:00<?, ?it/s][A[A[A[A[A
-
-
-
-Preloading zarr files:   0%|          | 0/1 [00:00<?, ?it/s][A[A[A[A
-
-
-
-Preloading image /usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr/1955_L:   0%|          | 0/1 [00:00<?, ?it/s][A[A[A[ACollecting samples for plot: 0it [01:46, ?it/s]
+Collecting samples for plot: 0it [00:00, ?it/s]Preloading zarr files:   0%|          | 0/1 [00:00<?, ?it/s]Preloading image /usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr/1955_L:   0%|          | 0/1 [00:00<?, ?it/s]Preloading image /usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr/1955_L: 100%|██████████| 1/1 [00:00<00:00, 294.94it/s]
+Collecting samples for plot: 0it [15:33, ?it/s]
 Traceback (most recent call last):
   File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1243, in _try_get_data
     data = self._data_queue.get(timeout=timeout)
@@ -44,7 +15,7 @@ Traceback (most recent call last):
     fd_event_list = self._selector.poll(timeout)
   File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/torch/utils/data/_utils/signal_handling.py", line 73, in handler
     _error_if_any_worker_fails()
-RuntimeError: DataLoader worker (pid 172747) is killed by signal: Killed. 
+RuntimeError: DataLoader worker (pid 179994) is killed by signal: Killed. 
 
 The above exception was the direct cause of the following exception:
 
@@ -65,5 +36,5 @@ Traceback (most recent call last):
     success, data = self._try_get_data()
   File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1256, in _try_get_data
     raise RuntimeError(
-RuntimeError: DataLoader worker (pid(s) 172747) exited unexpectedly
-slurmstepd: error: Detected 1 oom_kill event in StepId=1167361.batch. Some of the step tasks have been OOM Killed.
+RuntimeError: DataLoader worker (pid(s) 179994) exited unexpectedly
+slurmstepd: error: Detected 1 oom_kill event in StepId=1167415.batch. Some of the step tasks have been OOM Killed.
