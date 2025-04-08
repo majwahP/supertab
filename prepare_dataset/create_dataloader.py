@@ -1,75 +1,217 @@
+"""
+Write a description, code inspired by  https://github.com/dveni/pneumodomo/blob/main/scripts/lung_dataloader.py
+the way to create LR pairs is based on: https://gist.github.com/dveni/8bab9b25f7e9c0873a8ef360c45b27e9
+"""
 
-from pathlib import Path
-from torch.utils.data import DataLoader
-import zarr
-import numpy as np
-import zarrdataset as zds
-import matplotlib.pyplot as plt
-from tqdm import tqdm
+
+
 import torch
 import torch.nn.functional as F
 import torchvision.transforms as T
+import zarrdataset as zds
+import numpy as np
+import random
+from pathlib import Path
+from torch.utils.data import DataLoader
+from tqdm import tqdm
+import matplotlib.pyplot as plt
 from collections import defaultdict
+import zarr
+import gc
 
-def get_superresolution_batch_fn(sigma, downsample_factor):
+class ImageSample:
     """
-    Creates a batch function that generates low-resolution (LR) images 
-    from high-resolution (HR) patches by applying Gaussian blur and downsampling.
-
-    Args:
-        sigma (float): Standard deviation for the Gaussian blur applied before downsampling.
-        downsample_factor (int): Factor by which to downsample the HR images to create LR images.
-
-    Returns:
-        Callable: A collate function that takes a list of samples and returns a batch dictionary with:
-            - 'position': Tensor of patch positions
-            - 'hr_image': Tensor of high-resolution patches
-            - 'lr_image': Tensor of corresponding low-resolution patches
+    A helper class to manage sampling patches within a chunk.
+    
+    Attributes:
+        im_id (int): Image ID.
+        chk_id (int): Chunk ID.
+        shuffle (bool): Whether to shuffle patch sampling.
     """
-    gaussian_blur = T.GaussianBlur(kernel_size=5, sigma=sigma)
+    _current_patch_idx = 0
+    _ordering = None
+    _rng_seed = None
+    num_patches = None
 
-    def LR_batch_fn(batch):
-        positions, hr_images = [], []
+    def __init__(self, im_id: int, chk_id: int, shuffle: bool = False):
+        self.im_id = im_id
+        self.chk_id = chk_id
+        self._shuffle = shuffle
 
-        for sample in batch:
-            position = torch.from_numpy(sample[0])  # First = position
-            hr_image = torch.from_numpy(sample[1])  # Second = HR image
-            
-            positions.append(position)
-            hr_images.append(hr_image.float())
+        if self._shuffle:
+            self._rng_seed = random.randint(1, 100000)
+
+    def free_sampler(self):
+        """Free the memory used for the current patch ordering."""
+        del self._ordering
+        self._ordering = None
+
+    def next_patch(self):
+        """
+        Get the next patch index to sample.
+
+        Returns:
+            (int, bool): (patch_index, is_empty)
+        """
+        if self._shuffle and self._ordering is None:
+            curr_state = random.getstate()
+            random.seed(self._rng_seed)
+            self._ordering = list(range(self.num_patches))
+            random.shuffle(self._ordering)
+            random.setstate(curr_state)
+
+        if self._shuffle:
+            curr_patch = self._ordering[self._current_patch_idx]
+        else:
+            curr_patch = self._current_patch_idx
+
+        self._current_patch_idx += 1
+        is_empty = self._current_patch_idx >= self.num_patches
+
+        return curr_patch, is_empty
+
+
+class SRDataset(zds.ZarrDataset):
+    def __init__(self, sigma=1.3, downsample_factor=4, **kwargs):
+        super().__init__(**kwargs)
+        self.sigma = sigma
+        self.downsample_factor = downsample_factor
+        self.gaussian_blur = T.GaussianBlur(kernel_size=5, sigma=sigma)
+    
+    def generate_lr(self, hr_patch):
+        #gaussian blurr, downsampling and resize
         
-        lr_images = []
+        # Add channel dimension: [1, H, W] for blurr function to work on 2D
+        hr_patch = hr_patch.unsqueeze(0).unsqueeze(0)
+        smoothed = self.gaussian_blur(hr_patch)
 
-        for hr_img in hr_images:
-            smoothed = gaussian_blur(hr_img).unsqueeze(0) #for correct interpolation size
-            #Downsample
-            lr_img_down = F.interpolate(
-                smoothed,
-                scale_factor=1 / downsample_factor,
-                mode="bilinear",
-                align_corners=False
-            )
+        lr_downsampled = F.interpolate(
+            smoothed,
+            scale_factor=1/self.downsample_factor,
+            mode="bilinear",
+            align_corners=False
+        )
+        lr_resized = F.interpolate(
+            lr_downsampled,
+            size=hr_patch.shape[-2:],  # Restore original HR shape
+            mode="bilinear",
+            align_corners=False
+        )
+        return lr_resized.squeeze(0).squeeze(0)
 
-            # Upsample back to original HR size
-            lr_img_up = F.interpolate(
-                lr_img_down,
-                size=hr_img.shape[-2:],  # Match original HR size
-                mode="bilinear",
-                align_corners=False
-            )
-            lr_img_up = lr_img_up.squeeze(0)
-            lr_images.append(lr_img_up)
+    def __iter__(self):
+        print("Get samples")
+        self._initialize()
 
-        return {
-            "position": torch.stack(positions),
-            "hr_image": torch.stack(hr_images),
-            "lr_image": torch.stack(lr_images),
-        }
+        print("Get samples 2")
+        # Create a list of samples togheter with witch image and chunk id they correspond to, shuffle chnks to get random chunk
+        samples = [
+            ImageSample(im_id, chk_id, shuffle=self._shuffle)
+            for im_id in range(len(self._arr_lists))
+            for chk_id in range(len(self._toplefts[im_id]))
+        ]
 
-    return LR_batch_fn
+        print("Shuffle")
+        #randomly shuffle the samples if shuffeling is enabeled and we want samples from same chunk untill we have all samples from that chunk
+        if self._shuffle and self._draw_same_chunk:
+            random.shuffle(samples)
+        
+        #initilize -1 (not loaded yet)
+        prev_im_id = -1
+        prev_chk_id = -1
+        prev_chk = -1
+        #First sample
+        current_chk = 0
+        #No image data loaded yet, loaded to memory when needed
+        self._curr_collection = None
+
+        print("While samples loop")
+        while samples:
+            print("in loop")
+            #draw a random chunk from samples if not want from same untill have gotten all
+            if self._shuffle and not self._draw_same_chunk:
+                current_chk = random.randrange(0, len(samples))
+            
+            im_id = samples[current_chk].im_id
+            chk_id = samples[current_chk].chk_id
+            position = self._toplefts[im_id][chk_id]
+
+            if prev_im_id != im_id or chk_id != prev_chk_id: #if have gotten a new chunk
+                #if alsready had a previous chunk, free memory
+                if prev_chk >= 0:
+                    samples[prev_chk].free_sampler()
+
+                #update to current chunk
+                prev_chk = current_chk
+                prev_chk_id = chk_id
+
+                #update if have sample from new image, load the new image
+                if prev_im_id != im_id:
+                    prev_im_id = im_id
+                    self._curr_collection = self._arr_lists[im_id]
+
+                if self._patch_sampler is not None:
+                    patches_position = self._patch_sampler.compute_patches(self._curr_collection, position)
+                else:
+                    patches_position = [position]
+
+                #set how many available patches
+                samples[current_chk].num_patches = len(patches_position)
+
+                # if no valid patches, remove chunk from samples and reset tracking (no acitve chunk anymore)
+                if not patches_position:
+                    samples.pop(current_chk)
+                    prev_chk = -1
+                    continue #go to next sample
+
+            #get indes the patch and if there is more patches in the chunk after this one
+            current_patch, is_empty = samples[current_chk].next_patch()
+
+            # if all patches in the chunk has been samples, remove chunk from samples list
+            if is_empty:
+                samples.pop(current_chk)
+                prev_chk = -1
+
+            #load the patch from zarr file
+            patch_position = patches_position[current_patch]
+            patches = self.__getitem__(patch_position)[0]
+
+            #only grayscale images
+            if patches.shape[0] > 1:
+                raise ValueError("Only single channel images are supported")
+
+            #to torch tensor
+            hr_patch = torch.from_numpy(patches[0]).float()
+
+            # Normalize HR patch to [0, 1]
+            hr_patch = hr_patch / 65535.0
+
+            # Create LR patch
+            lr_patch = self.generate_lr(hr_patch)
+
+            example = {
+                "hr_image": hr_patch.unsqueeze(0),  # [1, H, W]
+                "lr_image": lr_patch.unsqueeze(0),  # [1, H, W]
+            }
+
+            #find positon    
+            if self._return_positions:
+                pos = [
+                    [patch_position[ax].start if patch_position[ax].start is not None else 0,
+                     patch_position[ax].stop if patch_position[ax].stop is not None else -1]
+                    if ax in patch_position else [0, -1]
+                    for ax in self._collections[self._ref_mod][0]["axes"]
+                ]
+                example["position"] = torch.tensor(pos, dtype=torch.int64)
+
+            if self._return_worker_id:
+                example["wid"] = torch.tensor(self._worker_id, dtype=torch.int64)
+
+            print("Have an example")
+            yield example
 
 
-def create_dataloader(zarr_path, patch_size=(1, 128, 128), batch_size=30, num_workers=10, min_area=0.999, sigma=1.3, downsample_factor=4):
+def create_dataloader(zarr_path, patch_size=(1, 128, 128), batch_size=4, num_workers=1, min_area=0.999, sigma=1.3, downsample_factor=4):
     """
     Creates a DataLoader that samples patches from all groups in a Zarr dataset. The dataloader returns both 
     high resolution patches and corresponding low resolution (downsampled) patches.
@@ -120,24 +262,23 @@ def create_dataloader(zarr_path, patch_size=(1, 128, 128), batch_size=30, num_wo
     #        zds.MasksDatasetSpecs(filenames=all_groups, data_group="image_trabecular_mask", source_axes="ZYX")
     #    )
 
-    dataset = zds.ZarrDataset(
-        all_file_specs + all_mask_specs,
-        patch_sampler=patch_sampler,
+    dataset = SRDataset(
+        dataset_specs=all_file_specs + all_mask_specs,
+        patch_sampler= patch_sampler,
         return_positions=True,
         shuffle=True,
         progress_bar=True,
         draw_same_chunk=False,
         return_worker_id=False,
+        sigma=sigma,
+        downsample_factor=downsample_factor,
     )
-
-    LR_batch_fn = get_superresolution_batch_fn(sigma=sigma, downsample_factor=downsample_factor)
 
     return DataLoader(
         dataset,
         batch_size=batch_size,
         num_workers=num_workers,
         worker_init_fn=zds.zarrdataset_worker_init_fn,
-        collate_fn = LR_batch_fn,
         prefetch_factor=2,
     )
 
@@ -189,44 +330,63 @@ def check_patch_uniqueness(dataloader):
 
 
 
-def plot_random_samples_from_dataloader(dataloader, output_path="samples.png", max_samples=50):
+def plot_random_samples_from_dataloader(dataloader, output_path="samples.png", max_samples=10):
+    """
+    Plots random HR/LR patch pairs from a dataloader and saves them in a grid.
 
-    hr_samples, lr_samples = [], []
+    Args:
+        dataloader: PyTorch DataLoader yielding batches with 'hr_image' and 'lr_image'.
+        output_path (str): Where to save the figure.
+        max_samples (int): How many total samples to plot.
+    """
+
     output_path = Path(output_path)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
 
-    for batch in tqdm(dataloader, desc="Collecting samples"):
-        hr_images = batch["hr_image"]
-        lr_images = batch["lr_image"]
+    grid_cols = 5
+    grid_rows = (max_samples + grid_cols - 1) // grid_cols
 
-        for hr, lr in zip(hr_images, lr_images):
-            hr_samples.append(hr)
-            lr_samples.append(lr)
-            if len(hr_samples) >= max_samples:
+    fig, axes = plt.subplots(grid_rows, grid_cols, figsize=(grid_cols * 3, grid_rows * 3))
+    axes = axes.flatten()
+
+    collected = 0
+    print("Collecting batches")
+    for batch in tqdm(dataloader, desc="Collecting samples for plot"):
+        print("next batch")
+        batch_hr = batch["hr_image"]
+        batch_lr = batch["lr_image"]
+
+        batch_size = batch_hr.shape[0]
+        indices = random.sample(range(batch_size), min(batch_size, max_samples - collected))
+
+        for idx in indices:
+            print("Collected: ")
+            print(collected)
+            if collected >= max_samples:
                 break
-        if len(hr_samples) >= max_samples:
+
+            hr = batch_hr[idx]
+            lr = batch_lr[idx]
+            pair = torch.cat([lr, hr], dim=-1)  # concat left-right
+
+            ax = axes[collected]
+            ax.imshow(pair[0].cpu().numpy(), cmap="gray")
+            ax.axis("off")
+            collected += 1
+
+        if collected >= max_samples:
             break
 
-    print(f"Collected {len(hr_samples)} HR/LR pairs.")
-
-    # Concatenate HR and upsampled LR images horizontally for each sample
-    pairs = [torch.cat([lr, hr], dim=-1) for lr, hr in zip(lr_samples, hr_samples)]
-    all_pairs = torch.stack(pairs)  # Shape: [B, 1, H, 2*W]
-
-    # Plot in a grid
-    num_samples = all_pairs.shape[0]
-    grid_cols = min(5, num_samples)
-    grid_rows = int(np.ceil(num_samples / grid_cols))
-    plt.figure(figsize=(grid_cols * 4, grid_rows * 4))
-
-    for i in range(num_samples):
-        plt.subplot(grid_rows, grid_cols, i + 1)
-        plt.imshow(all_pairs[i, 0].numpy(), cmap="gray")
-        plt.axis("off")
-
+    # Hide any unused subplots
+    for idx in range(collected, len(axes)):
+        axes[idx].axis('off')
+    print("Saving image")
     plt.tight_layout()
-    output_path.parent.mkdir(parents=True, exist_ok=True)
     plt.savefig(output_path)
-    plt.close()
+    plt.close(fig)  # Important to free memory!
+    gc.collect()
+
+
 
 
 
@@ -236,8 +396,12 @@ def main():
     output_path = "images/random_patches.png"
 
     dataloader = create_dataloader(zarr_path)
+    print("done grreating dataloader")
+    print("Plotting samples")
     plot_random_samples_from_dataloader(dataloader, output_path)
+    print("Check uniqueness")
     check_patch_uniqueness(dataloader)
+    print("Done!")
 
 
 if __name__ == "__main__":

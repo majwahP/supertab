@@ -5,7 +5,7 @@ Found 6 groups:
   - 2005_L
   - 2007_L
   - 2019_L
-Collected 47 HR/LR pairs.
-Checked 47 patches.
-
-All patch positions are unique!
+done grreating dataloader
+Plotting samples
+Collecting batches
+Get samples
