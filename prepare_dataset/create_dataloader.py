@@ -203,7 +203,7 @@ class SRDataset(zds.ZarrDataset):
             yield example
 
 
-def create_dataloader(zarr_path, patch_size=(1, 128, 128), batch_size=4, num_workers=1, min_area=0.5, sigma=1.3, downsample_factor=4):
+def create_dataloader(zarr_path, patch_size=(1, 128, 128), batch_size=4, num_workers=1, min_area=0.999, sigma=1.3, downsample_factor=4):
     """
     Creates a DataLoader that samples patches from all groups in a Zarr dataset. The dataloader returns both 
     high resolution patches and corresponding low resolution (downsampled) patches.

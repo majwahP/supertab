@@ -51,7 +51,7 @@ def main():
             mask_dataset = scan_group.create_dataset(
                 f"{dataset_name}_trabecular_mask_mean_variance",
                 shape=mask_shape,
-                dtype=bool,
+                dtype="i2",
                 overwrite=True,
                 chunks=(1, dataset.shape[-2], dataset.shape[-1]),
             )

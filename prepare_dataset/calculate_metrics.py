@@ -18,9 +18,9 @@ import torch
 
 def main():
     PATCH_SIZE = (
-        32,
-        64,
-        64,
+        2,
+        4,
+        4,
     )  # Patch size must be a factor of the shape of the image array
     BATCH_SIZE = 4
     NWORKERS = 4

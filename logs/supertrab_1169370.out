@@ -1,0 +1,3 @@
+Original imported mask shape: (592, 460, 460)
+Resized mask shape: (128, 512, 512)
+Patch-compressed mask shape: (64, 128, 128)
