@@ -60,9 +60,11 @@ import numpy as np
 import SimpleITK as sitk
 from pathlib import Path
 from skimage.transform import resize
+import torch
 
 # Define patch size
 patch_size = (2, 4, 4) #Define interpoplation size of mask
+variance_threshold = 100000 
 
 # Open .zarr file
 file_path = Path("/usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab_testf32_128x512x512.zarr")
@@ -72,6 +74,7 @@ root: zarr.hierarchy.Group = zarr.open(str(file_path))
 
 group_name = "1955_L"
 scan_group: zarr.hierarchy.Group = root[group_name]
+position_metrics_map = scan_group.attrs["metrics_map"]
 
 for dataset_name in scan_group:
     # Skip creation of folder for already existing masks
@@ -117,9 +120,9 @@ for dataset_name in scan_group:
 
     print(f"Patch-compressed mask shape: {mask_shape}")
 
-    # Create a patch-based mask like first script
+    # Create a patch-based mask
     trabecular_mask_patch = np.zeros(mask_shape, dtype=bool)
-
+    
     # reduce resolution of mask, if any voxel is true, ser whole voxel to true
     for z in range(mask_shape[0]):
         for y in range(mask_shape[1]):
@@ -129,8 +132,26 @@ for dataset_name in scan_group:
                     y * patch_size[1] : (y + 1) * patch_size[1],
                     x * patch_size[2] : (x + 1) * patch_size[2]
                 ]
-                if np.any(patch):
+                patch_torch = torch.tensor(patch, dtype=torch.float32)
+                variance = torch.var(patch_torch).item()
+                if np.any(patch): 
                     trabecular_mask_patch[z, y, x] = 1
+    
+    for patch_idx, patch_info in position_metrics_map.items():
+        variance = patch_info["variance"]
+        position = patch_info["position"]
+
+        # if variance>0:
+        #         print(variance)
+
+        z = position[0] // patch_size[0]
+        y = position[2] // patch_size[1]
+        x = position[4] // patch_size[2]
+
+        if z < mask_shape[0] and y < mask_shape[1] and x < mask_shape[2]:
+            if variance < variance_threshold:
+                trabecular_mask_patch[z, y, x] = 0 
+            
 
     trabecular_mask_patch.astype(np.int8)
     print(trabecular_mask_patch.shape)
