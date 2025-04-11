@@ -10,5 +10,4 @@
 #export NUMEXPR_MAX_THREADS=6
 
 ##################################################################################
-#python /usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/prepare_dataset/dani_dl.py
-python /usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/prepare_dataset/create_dataloader.py
+python /usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/prepare_dataset/convert_zarr_datatype.py

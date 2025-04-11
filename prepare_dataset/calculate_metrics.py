@@ -18,17 +18,17 @@ import torch
 
 def main():
     PATCH_SIZE = (
-        1,
         32,
-        32,
+        64,
+        64,
     )  # Patch size must be a factor of the shape of the image array
-    BATCH_SIZE = 64
-    NWORKERS = 8
+    BATCH_SIZE = 4
+    NWORKERS = 4
 
     zarr_patch_sampler = zds.PatchSampler(PATCH_SIZE)
 
     # Change to path to .zarr dataset
-    file_path =  Path("/usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab_small.zarr")
+    file_path =  Path("/usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab_testf32_128x512x512.zarr")
     root: zarr.hierarchy.Group = zarr.open(str(file_path))
 
     for group_name in tqdm(root):
@@ -60,9 +60,10 @@ def main():
 
         position_metrics_map = {}
 
-
+        print("dataloader created")
         # calculate variance and mean for each patch and save it as attribute in dataset with position
         for i, (position, patch) in enumerate(tqdm(dataloader)):
+            #print("in loop")
             patch = patch.float()
             variances = torch.var(patch, dim=(1, 2, 3))
             means = torch.mean(patch, dim=(1, 2, 3))
@@ -71,12 +72,14 @@ def main():
                     pos.flatten().tolist()
                 )
                 global_idx = i * BATCH_SIZE + idx
+                #print("have metrics")
                 position_metrics_map[global_idx] = {
                     "variance": var.item(),
                     "mean": mean.item(),
                     "position": position_tuple,
                     #can here add more metrics
                 }
+
 
         scan_group = root[group_name]
         scan_group.attrs["metrics_map"] = position_metrics_map

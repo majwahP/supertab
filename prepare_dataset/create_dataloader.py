@@ -100,18 +100,13 @@ class SRDataset(zds.ZarrDataset):
         return lr_resized.squeeze(0).squeeze(0)
 
     def __iter__(self):
-        print("Get samples")
         self._initialize()
-
-        print("Get samples 2")
         # Create a list of samples togheter with witch image and chunk id they correspond to, shuffle chnks to get random chunk
         samples = [
             ImageSample(im_id, chk_id, shuffle=self._shuffle)
             for im_id in range(len(self._arr_lists))
             for chk_id in range(len(self._toplefts[im_id]))
         ]
-
-        print("Shuffle")
         #randomly shuffle the samples if shuffeling is enabeled and we want samples from same chunk untill we have all samples from that chunk
         if self._shuffle and self._draw_same_chunk:
             random.shuffle(samples)
@@ -125,9 +120,7 @@ class SRDataset(zds.ZarrDataset):
         #No image data loaded yet, loaded to memory when needed
         self._curr_collection = None
 
-        print("While samples loop")
         while samples:
-            print("in loop")
             #draw a random chunk from samples if not want from same untill have gotten all
             if self._shuffle and not self._draw_same_chunk:
                 current_chk = random.randrange(0, len(samples))
@@ -207,7 +200,6 @@ class SRDataset(zds.ZarrDataset):
             if self._return_worker_id:
                 example["wid"] = torch.tensor(self._worker_id, dtype=torch.int64)
 
-            print("Have an example")
             yield example
 
 
@@ -237,8 +229,8 @@ def create_dataloader(zarr_path, patch_size=(1, 128, 128), batch_size=4, num_wor
     for name, _ in named_groups:
         print(f"  - {name}")
 
-    #patch_sampler = zds.PatchSampler(patch_size, min_area=min_area)
-    patch_sampler = None
+    patch_sampler = zds.PatchSampler(patch_size, min_area=min_area)
+    #patch_sampler = None
 
     all_file_specs = []
     all_mask_specs = []
@@ -264,17 +256,16 @@ def create_dataloader(zarr_path, patch_size=(1, 128, 128), batch_size=4, num_wor
     #    )
 
     dataset = SRDataset(
-        dataset_specs=all_file_specs + all_mask_specs,
+        dataset_specs=all_file_specs+ all_mask_specs,
         patch_sampler= patch_sampler,
         return_positions=True,
         shuffle=True,
-        progress_bar=True,
+        progress_bar=False,
         draw_same_chunk=False,
         return_worker_id=False,
         sigma=sigma,
         downsample_factor=downsample_factor,
     )
-
     return DataLoader(
         dataset,
         batch_size=batch_size,
@@ -331,7 +322,7 @@ def check_patch_uniqueness(dataloader):
 
 
 
-def plot_random_samples_from_dataloader(dataloader, output_path="samples.png", max_samples=10):
+def plot_random_samples_from_dataloader(dataloader, output_path="samples.png", max_samples=50):
     """
     Plots random HR/LR patch pairs from a dataloader and saves them in a grid.
 
@@ -351,9 +342,7 @@ def plot_random_samples_from_dataloader(dataloader, output_path="samples.png", m
     axes = axes.flatten()
 
     collected = 0
-    print("Collecting batches")
     for batch in tqdm(dataloader, desc="Collecting samples for plot"):
-        print("next batch")
         batch_hr = batch["hr_image"]
         batch_lr = batch["lr_image"]
 
@@ -361,8 +350,6 @@ def plot_random_samples_from_dataloader(dataloader, output_path="samples.png", m
         indices = random.sample(range(batch_size), min(batch_size, max_samples - collected))
 
         for idx in indices:
-            print("Collected: ")
-            print(collected)
             if collected >= max_samples:
                 break
 
@@ -393,15 +380,14 @@ def plot_random_samples_from_dataloader(dataloader, output_path="samples.png", m
 
 
 def main():
-    zarr_path = Path("/usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr")
-    output_path = "images/random_patches.png"
-
+    zarr_path = Path("/usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab_testf32_128x512x512.zarr")
+    output_path = "images/random_patches.png"       
     dataloader = create_dataloader(zarr_path)
-    print("done grreating dataloader")
+    print("done creating dataloader")
     print("Plotting samples")
     plot_random_samples_from_dataloader(dataloader, output_path)
-    print("Check uniqueness")
-    check_patch_uniqueness(dataloader)
+    #print("Check uniqueness")
+    #check_patch_uniqueness(dataloader)
     print("Done!")
 
 
