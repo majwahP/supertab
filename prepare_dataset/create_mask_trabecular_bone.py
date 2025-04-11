@@ -18,14 +18,14 @@ from skimage.morphology import binary_closing, binary_opening
 
 
 #variables
-patch_size = (1, 32, 32) #-Change to preferred size
+patch_size = (32, 64, 64) #-Change to preferred size
 variance_threshold = 1200000 
 cortical_bone_threshold = 4000 
 trabecular_bone_threshold = 2200
 
 def main():
     #set path to desired .zarr file
-    file_path =  Path("/usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab_small.zarr")
+    file_path =  Path("/usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab_testf32_128x512x512.zarr")
     root: zarr.hierarchy.Group = zarr.open(str(file_path))
     for group_name in tqdm.tqdm(root):
         scan_group: zarr.hierarchy.Group = root[group_name]
@@ -34,28 +34,32 @@ def main():
             if (
                 dataset_name.endswith("_bone_mask")
                 or dataset_name.endswith("_trabecular_mask")
+                or dataset_name.endswith("_trabecular_mask_mean_variance")
                 or dataset_name.endswith("_variance")
                 or dataset_name.endswith("_mean")
             ):
                 continue
             dataset: zarr.Array = scan_group[dataset_name]
+            print(dataset.shape)
+            print(dataset.chunks)
             #calculate how many patches that fits in dataset ex data is (1,512,521) and patch (1,64,64) -> (1,8,8)
-            mask_shape = tuple(
-                dim // patch for dim, patch in zip(dataset.shape, patch_size)
-            )
+            # mask_shape = tuple(
+            #     dim // patch for dim, patch in zip(dataset.shape, patch_size)
+            # )
+            mask_shape = dataset.chunks
             #create a new dataset in the group of type boolean
             mask_dataset = scan_group.create_dataset(
-                f"{dataset_name}_trabecular_mask",
+                f"{dataset_name}_trabecular_mask_mean_variance",
                 shape=mask_shape,
-                dtype="uint8",
+                dtype=bool,
                 overwrite=True,
                 chunks=(1, dataset.shape[-2], dataset.shape[-1]),
             )
 
             #initiate dataset with 0 for varance mask
-            variance_mask = zarr.zeros(mask_shape, dtype="uint8")
-            cortical_mask = zarr.zeros(mask_shape, dtype="uint8")
-            mean_lower_mask = zarr.zeros(mask_shape, dtype="uint8")
+            variance_mask = zarr.zeros(mask_shape, dtype=bool)
+            cortical_mask = zarr.zeros(mask_shape, dtype=bool)
+            mean_lower_mask = zarr.zeros(mask_shape, dtype=bool)
 
             def get_slice_patched(position: list, patch_size: tuple):
                 return (

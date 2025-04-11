@@ -1,34 +1,48 @@
-Collecting samples: 0it [00:00, ?it/s]Preloading zarr files:   0%|          | 0/1 [00:00<?, ?it/s]Preloading image /usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr/1955_L:   0%|          | 0/1 [00:00<?, ?it/s]
-Preloading zarr files:   0%|          | 0/1 [00:00<?, ?it/s][A
-Preloading image /usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr/1955_L:   0%|          | 0/1 [00:00<?, ?it/s][A
 
-Preloading zarr files:   0%|          | 0/1 [00:00<?, ?it/s][A[A
+Collecting samples: 0it [00:00, ?it/s]
+Preloading zarr files:   0%|          | 0/1 [00:00<?, ?it/s]
+Preloading image /usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr/1955_L:   0%|          | 0/1 [00:00<?, ?it/s]
 
-Preloading image /usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr/1955_L:   0%|          | 0/1 [00:00<?, ?it/s][A[A
+Preloading zarr files:   0%|          | 0/1 [00:00<?, ?it/s][A
 
-
-Preloading zarr files:   0%|          | 0/1 [00:00<?, ?it/s][A[A[A
+Preloading image /usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr/1955_L:   0%|          | 0/1 [00:00<?, ?it/s][A
 
 
-Preloading image /usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr/1955_L:   0%|          | 0/1 [00:00<?, ?it/s][A[A[A
+Preloading zarr files:   0%|          | 0/1 [00:00<?, ?it/s][A[A
 
 
-
-
-Preloading zarr files:   0%|          | 0/1 [00:00<?, ?it/s][A[A[A[A[A
+Preloading image /usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr/1955_L:   0%|          | 0/1 [00:00<?, ?it/s][A[A
 
 
 
-
-Preloading image /usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr/1955_L:   0%|          | 0/1 [00:00<?, ?it/s][A[A[A[A[A
-
-
-
-Preloading zarr files:   0%|          | 0/1 [00:00<?, ?it/s][A[A[A[A
+Preloading zarr files:   0%|          | 0/1 [00:00<?, ?it/s][A[A[A
 
 
 
-Preloading image /usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr/1955_L:   0%|          | 0/1 [00:00<?, ?it/s][A[A[A[ACollecting samples: 0it [02:20, ?it/s]
+Preloading image /usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr/1955_L:   0%|          | 0/1 [00:00<?, ?it/s][A[A[A
+
+
+
+
+
+Preloading zarr files:   0%|          | 0/1 [00:00<?, ?it/s][A[A[A[A[A
+
+
+
+
+
+Preloading image /usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr/1955_L:   0%|          | 0/1 [00:00<?, ?it/s][A[A[A[A[A
+
+
+
+
+Preloading zarr files:   0%|          | 0/1 [00:00<?, ?it/s][A[A[A[A
+
+
+
+
+Preloading image /usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr/1955_L:   0%|          | 0/1 [00:00<?, ?it/s][A[A[A[A
+Collecting samples: 0it [02:20, ?it/s]
 Traceback (most recent call last):
   File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1243, in _try_get_data
     data = self._data_queue.get(timeout=timeout)
