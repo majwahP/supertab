@@ -1,0 +1,14 @@
+The following values were not passed to `accelerate launch` and had defaults used instead:
+	`--num_processes` was set to a value of `1`
+	`--num_machines` was set to a value of `1`
+	`--mixed_precision` was set to a value of `'no'`
+	`--dynamo_backend` was set to a value of `'no'`
+To avoid this warning pass in values for each of the problematic parameters or run `accelerate config`.
+wandb: Using wandb-core as the SDK backend.  Please refer to https://wandb.me/wandb-core for more information.
+wandb: Currently logged in as: mwahlin (mwahlin-eth-z-rich) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: Tracking run with wandb version 0.19.7
+wandb: Run data is saved locally in /usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/wandb/run-20250425_091130-4fasa56b
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run supertrab_ddpm_128px_ds8
+wandb: ⭐️ View project at https://wandb.ai/mwahlin-eth-z-rich/supertrab
+wandb: 🚀 View run at https://wandb.ai/mwahlin-eth-z-rich/supertrab/runs/4fasa56b

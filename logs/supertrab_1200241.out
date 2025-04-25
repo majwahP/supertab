@@ -1,0 +1,15 @@
+Found 6 groups:
+  - 1955_L
+  - 1956_L
+  - 1996_R
+  - 2005_L
+  - 2007_L
+  - 2019_L
+done creating dataloader
+Plotting samples
+Saving image
+Check uniqueness
+Checked 120335 patches.
+
+All patch positions are unique!
+Done!

@@ -1,59 +1,3 @@
-# import numpy as np
-# from pathlib import Path
-# import zarr
-# import zarr.hierarchy
-# import tqdm
-# import SimpleITK as sitk
-# from skimage.transform import resize
-
-# patch_size = (32, 64, 64) 
-
-# ## Open .zarr file
-# file_path = Path("/usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab_testf32_128x512x512.zarr")
-# data_dir = "/usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/00_resampled_data/1955_L" # define group
-
-# root: zarr.hierarchy.Group = zarr.open(str(file_path))
-
-# group_name = "1955_L" # define group
-# scan_group: zarr.hierarchy.Group = root[group_name]
-
-
-# for dataset_name in scan_group:
-#     #create group of not already exist
-#     if (
-#         dataset_name.endswith("_bone_mask")
-#         or dataset_name.endswith("_trabecular_mask")
-#         or dataset_name.endswith("_trabecular_mask_mean_variance")
-#         or dataset_name.endswith("_variance")
-#         or dataset_name.endswith("_mean")
-#     ):
-#         continue
-#     ## Load mask ##
-#     mhd_mask_path = Path(f"{data_dir}/QCT/QCTFEMUR_1955L/masks/QCTFEMUR_1955L_R_HR_trab.mhd") # define group
-
-#     #Check if mask exist
-#     if not mhd_mask_path.exists():
-#         print(f"Skipping {group_name}, no mask file found.")
-#         continue
-        
-#     mhd_mask = sitk.ReadImage(mhd_mask_path)
-#     import_mask = sitk.GetArrayFromImage(mhd_mask) 
-#     import_mask = import_mask.astype(bool)
-#     import_mask_resized = resize(import_mask, (128, 512, 512), order=0, preserve_range=True, anti_aliasing=False).astype(bool)
-
-#     print(f"{import_mask.shape=}")
-
-#     ## Save mask to group ## 
-#     scan_group.create_dataset(
-#         f"{dataset_name}_trabecular_mask",
-#         data=import_mask_resized,
-#         dtype=bool,
-#         overwrite=True,
-#         chunks=(1, import_mask.shape[-2], import_mask.shape[-1])  
-#     )
-
-# print("done")
-# print(root.tree())
 
 import zarr
 import numpy as np
@@ -61,20 +5,23 @@ import SimpleITK as sitk
 from pathlib import Path
 from skimage.transform import resize
 import torch
+from create_dataloader import create_dataloader
+from tqdm import tqdm
+
 
 # Define patch size
 patch_size = (2, 4, 4) #Define interpoplation size of mask
-variance_threshold = 100000 
+variance_threshold = 1
 
 # Open .zarr file
-file_path = Path("/usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab_testf32_128x512x512.zarr")
-data_dir = "/usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/00_resampled_data/1955_L"
+file_path = Path("/usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr")
+data_dir = "/usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/00_resampled_data/2019_L"
 
 root: zarr.hierarchy.Group = zarr.open(str(file_path))
 
-group_name = "1955_L"
+group_name = "2019_L"
 scan_group: zarr.hierarchy.Group = root[group_name]
-position_metrics_map = scan_group.attrs["metrics_map"]
+#position_metrics_map = scan_group.attrs["metrics_map"]
 
 for dataset_name in scan_group:
     # Skip creation of folder for already existing masks
@@ -88,7 +35,7 @@ for dataset_name in scan_group:
         continue
     
     # Load external mask
-    mhd_mask_path = Path(f"{data_dir}/QCT/QCTFEMUR_1955L/masks/QCTFEMUR_1955L_R_HR_trab.mhd")
+    mhd_mask_path = Path(f"{data_dir}/QCT/QCTFEMUR_2019L/masks/QCTFEMUR_2019L_R_HR_trab.mhd")
     
     if not mhd_mask_path.exists():
         print(f"Skipping {group_name}, no mask file found.")
@@ -100,7 +47,7 @@ for dataset_name in scan_group:
 
     print(f"Original imported mask shape: {import_mask.shape}")
 
-    # Resize using nearest neighbor interpolation carefully
+    # Resize using nearest neighbor interpolation
     import_mask_resized = resize(
         import_mask,
         (128, 512, 512),
@@ -121,7 +68,7 @@ for dataset_name in scan_group:
     print(f"Patch-compressed mask shape: {mask_shape}")
 
     # Create a patch-based mask
-    trabecular_mask_patch = np.zeros(mask_shape, dtype=bool)
+    trabecular_mask = np.zeros(mask_shape, dtype=bool)
     
     # reduce resolution of mask, if any voxel is true, ser whole voxel to true
     for z in range(mask_shape[0]):
@@ -132,34 +79,60 @@ for dataset_name in scan_group:
                     y * patch_size[1] : (y + 1) * patch_size[1],
                     x * patch_size[2] : (x + 1) * patch_size[2]
                 ]
-                patch_torch = torch.tensor(patch, dtype=torch.float32)
-                variance = torch.var(patch_torch).item()
                 if np.any(patch): 
-                    trabecular_mask_patch[z, y, x] = 1
+                    trabecular_mask[z, y, x] = 1
     
-    for patch_idx, patch_info in position_metrics_map.items():
-        variance = patch_info["variance"]
-        position = patch_info["position"]
 
-        # if variance>0:
-        #         print(variance)
+    # Save to zarr
+    # trabecular_mask.astype(np.int8)
+    # scan_group.create_dataset(
+    #     f"{dataset_name}_trabecular_mask",
+    #     data=trabecular_mask,
+    #     dtype="i2",
+    #     overwrite=True,
+    #     chunks=(1, mask_shape[-2], mask_shape[-1])
+    # )
 
-        z = position[0] // patch_size[0]
-        y = position[2] // patch_size[1]
-        x = position[4] // patch_size[2]
+    #take patch variance into account
 
-        if z < mask_shape[0] and y < mask_shape[1] and x < mask_shape[2]:
-            if variance < variance_threshold:
-                trabecular_mask_patch[z, y, x] = 0 
+    variance_filtered_mask = np.zeros_like(trabecular_mask, dtype=bool)
+    dataloader = create_dataloader(file_path, draw_same_chunk=True, patch_size=patch_size, shuffle=False, num_workers=6, isSRDataset=False)
+    expected_patches = np.sum(trabecular_mask)
+    print(f"Expecting ~{expected_patches} patches")
+    image_shape = (5921, 4608, 4608) 
+    mask_shape = (64, 128, 128)
+    #print(f"Length of dataset: {len(dataloader.dataset)}")
+
+
+    for i, batch in enumerate(tqdm(dataloader, desc="Filtering patches by variance")):
+        # Unpack batch
+        positions = batch[0]  
+        patch = batch[1]      
+
+        # Compute variance
+        variances = torch.var(patch, dim=(1, 2, 3), unbiased=False)
+
+        for idx, (pos, var) in enumerate(zip(positions, variances)):
             
+            z_start, y_start, x_start = [int(p[0].item()) for p in pos]
 
-    trabecular_mask_patch.astype(np.int8)
-    print(trabecular_mask_patch.shape)
+            z = round(z_start / (image_shape[0] / mask_shape[0]))
+            y = round(y_start / (image_shape[1] / mask_shape[1]))
+            x = round(x_start / (image_shape[2] / mask_shape[2]))
+
+            if var.item() > variance_threshold:
+                variance_filtered_mask[z, y, x] = True
+
+
+
+    print("Loop done")
+    variance_filtered_mask.astype(np.int8)
+    print(variance_filtered_mask.shape)
 
     # Save to zarr
     scan_group.create_dataset(
-        f"{dataset_name}_trabecular_mask",
-        data=trabecular_mask_patch,
+        f"{dataset_name}_trabecular_mask_variance",
+        data=variance_filtered_mask,
         dtype="i2",
         overwrite=True,
         chunks=(1, mask_shape[-2], mask_shape[-1])

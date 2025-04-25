@@ -12,116 +12,188 @@ import torch.nn.functional as F
 from diffusers.optimization import get_cosine_schedule_with_warmup
 import torch
 from PIL import Image 
+from torchvision.transforms.functional import to_pil_image
 from diffusers import DDPMPipeline
 from diffusers.utils import make_image_grid
 import os
 from accelerate import Accelerator
-from huggingface_hub import create_repo, upload_folder
 from tqdm.auto import tqdm
 from pathlib import Path
 from prepare_dataset.create_dataloader import create_dataloader
-from accelerate import notebook_launcher
+from PIL import Image, ImageDraw
+import wandb
+
 
 #Define the configuration and parameters, adjust to the training dataloader
 @dataclass
 class TrainingConfig:
-    image_size = 128  # the generated image resolution
-    train_batch_size = 16
-    eval_batch_size = 16  # how many images to sample during evaluation
+    image_size = 256  # the generated image resolution
+    train_batch_size = 8
+    eval_batch_size = 8  # how many images to sample during evaluation
     num_epochs = 50
     gradient_accumulation_steps = 1
     learning_rate = 1e-4
     lr_warmup_steps = 500
     save_image_epochs = 10
-    save_model_epochs = 30
+    ds_factor = 4
     mixed_precision = "fp16"  # `no` for float32, `fp16` for automatic mixed precision
-    output_dir = "ddpm-supertrab-128-2D"  # the model name
+    output_dir = "ddpm-supertrab-256-2D"  # the model name
     seed = 0
+    cfg_dropout_prob = 0.1  # 10% of the time, drop the LR image during training
+
+# helper functions------------------------------------------------------
+
+def normalize_tensor(tensor):
+    return (tensor - tensor.min()) / (tensor.max() - tensor.min() + 1e-8)
+
+def create_sample_image(lr_imgs, sr_imgs, hr_imgs, padding=10, header_height=30, footer_height=20):
+    assert len(lr_imgs) == len(sr_imgs) == len(hr_imgs), "Image lists must be same length"
+    n = len(lr_imgs)
+
+    # Convert to PIL
+    lr_pil = [to_pil_image(normalize_tensor(img.squeeze(0))) for img in lr_imgs]
+    sr_pil = [to_pil_image(normalize_tensor(img.squeeze(0))) for img in sr_imgs]
+    hr_pil = [to_pil_image(normalize_tensor(img.squeeze(0))) for img in hr_imgs]
+    diff_pil = [to_pil_image(normalize_tensor(torch.abs(sr - hr).squeeze(0))) for sr, hr in zip(sr_imgs, hr_imgs)]
+    mses = [torch.mean((sr - hr) ** 2).item() for sr, hr in zip(sr_imgs, hr_imgs)]
+
+    # Assume all images have the same size
+    w, h = lr_pil[0].size
+
+    # Full grid size
+    total_width = 4 * w + 5 * padding
+    total_height = n * (h + footer_height + padding) + header_height + padding
+
+    grid_img = Image.new("L", (total_width, total_height), color=255)
+    draw = ImageDraw.Draw(grid_img)
+
+    # Draw headers
+    headers = ["LR", "SR", "HR", "Diff"]
+    for i, text in enumerate(headers):
+        x = padding + i * (w + padding) + w // 2
+        draw.text((x, header_height // 2), text, fill=0, anchor="mm")
+
+    # Draw each sample row
+    for idx in range(n):
+        y_offset = header_height + padding + idx * (h + footer_height + padding)
+
+        x_offsets = [padding + i * (w + padding) for i in range(4)]
+        images = [lr_pil[idx], sr_pil[idx], hr_pil[idx], diff_pil[idx]]
+
+        for x, img in zip(x_offsets, images):
+            grid_img.paste(img, (x, y_offset))
+
+        # Draw MSE below diff image
+        mse_text = f"MSE: {mses[idx]:.4f}"
+        mse_x = x_offsets[3] + w // 2
+        mse_y = y_offset + h + footer_height // 4
+        draw.text((mse_x, mse_y), mse_text, fill=0, anchor="mm")
+
+    return grid_img
+
 
 config = TrainingConfig()
 
 os.environ["WANDB_PROJECT"] = "ddpm-supertrab"
 
 ### Create the dataloader ###
-zarr_path = Path("/usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab_small.zarr")
-dataloader = create_dataloader(zarr_path)
+zarr_path = Path("/usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr")
+#dataloader = create_dataloader(zarr_path, draw_same_chunk=True, downsample_factor=10)
+dataloader = create_dataloader(zarr_path, downsample_factor=config.ds_factor, patch_size=(1,config.image_size,config.image_size))
 
 
 #Define the model --------------------------------------------------------------------
 model = UNet2DModel(
-    sample_size=config.image_size,  # the target image resolution
-    in_channels=1,  # the number of input channels, black-and-white images
-    out_channels=1,  # the number of output channels
-    layers_per_block=2,  # how many ResNet layers to use per UNet block
-    block_out_channels=(128, 128, 256, 256, 512, 512),  # the number of output channels for each UNet block
-    down_block_types=(
-        "DownBlock2D",  # a regular ResNet downsampling block
-        "DownBlock2D",
-        "DownBlock2D",
-        "DownBlock2D",
-        "AttnDownBlock2D",  # a ResNet downsampling block with spatial self-attention
-        "DownBlock2D",
+    sample_size=config.image_size,
+    in_channels=2,  # [noisy HR | LR conditioning]
+    out_channels=1,
+    layers_per_block=2,
+    block_out_channels=(128, 128, 256, 256, 512, 512),
+    down_block_types=( 
+        "DownBlock2D", "DownBlock2D", "DownBlock2D", "DownBlock2D", "AttnDownBlock2D", "DownBlock2D"
     ),
     up_block_types=(
-        "UpBlock2D",  # a regular ResNet upsampling block
-        "AttnUpBlock2D",  # a ResNet upsampling block with spatial self-attention
-        "UpBlock2D",
-        "UpBlock2D",
-        "UpBlock2D",
-        "UpBlock2D",
+        "UpBlock2D", "AttnUpBlock2D", "UpBlock2D", "UpBlock2D", "UpBlock2D", "UpBlock2D"
     ),
 )
 
-# Check that images are same shape as output--------------------------------------------
+
+#Testing ---------------------------------------------------------------------------------
+# Check that images are same shape as output
 batch = next(iter(dataloader))
 sample_image = batch["hr_image"][0].unsqueeze(0)
 print("Input shape:", sample_image.shape)
-print("Output shape:", model(sample_image, timestep=0).sample.shape)
+sample_lr = batch["lr_image"][0].unsqueeze(0)
+sample_lr_resized = F.interpolate(sample_lr, size=sample_image.shape[-2:], mode='bilinear', align_corners=False)
+model_input = torch.cat([sample_image, sample_lr_resized], dim=1)
+print("Output shape:", model(model_input, timestep=0).sample.shape)
 
-
-# Define noise scheduler----------------------------------------------------------------
+# Define noise scheduler
 
 noise_scheduler = DDPMScheduler(num_train_timesteps=1000)
 noise = torch.randn(sample_image.shape) # create noise with the same shape as the sample image
 timesteps = torch.LongTensor([50])
 noisy_image = noise_scheduler.add_noise(sample_image, noise, timesteps)
-
-#Convert tensor representation to PIL image format
-pil_image = Image.fromarray(((noisy_image.permute(0, 2, 3, 1) + 1.0) * 127.5).type(torch.uint8).numpy()[0])
-pil_image.show()
-
-
-# Calculate loss -----------------------------------------------------------------------
-
-noise_pred = model(noisy_image, timesteps).sample
-loss = F.mse_loss(noise_pred, noise)
+#-------------------------------------------------------------------------------------------
 
 # Training -----------------------------------------------------------------------------
 
 optimizer = torch.optim.AdamW(model.parameters(), lr=config.learning_rate)
 #Scheduler to adjust learning rate during training
+steps_per_epoch = 1000
 lr_scheduler = get_cosine_schedule_with_warmup(
     optimizer=optimizer,
     num_warmup_steps=config.lr_warmup_steps,
-    num_training_steps=(len(dataloader) * config.num_epochs),
+    num_training_steps = steps_per_epoch * config.num_epochs,
 )
 
-def evaluate(config, epoch, pipeline):
-    # Sample some images from random noise (this is the backward diffusion process).
-    # The default pipeline output type is `List[PIL.Image]`
 
-    images = pipeline(
-        batch_size=config.eval_batch_size,
-        generator=torch.Generator(device='cpu').manual_seed(config.seed), # Use a separate torch generator to avoid rewinding the random state of the main training loop
-    ).images
+@torch.no_grad()
+def evaluate(config, epoch, model, noise_scheduler, dataloader, device="cuda", global_step=None):
+    model.eval()
+    model.to(device)
 
-    # Make a grid out of the images
-    image_grid = make_image_grid(images, rows=4, cols=4)
+    save_dir = os.path.join(config.output_dir, "samples_supertrab_2D_simple")
+    os.makedirs(save_dir, exist_ok=True)
 
-    # Save the images
-    test_dir = os.path.join(config.output_dir, "samples_supertrab_2D_simple")
-    os.makedirs(test_dir, exist_ok=True)
-    image_grid.save(f"{test_dir}/{epoch:04d}.png")
+    batch = next(iter(dataloader))
+    lr_images = batch["lr_image"].to(device)
+    hr_images = batch["hr_image"].to(device)
+
+    # Resize LR to HR size
+    lr_resized = F.interpolate(
+        lr_images, size=(config.image_size, config.image_size), mode="bilinear", align_corners=False
+    )
+
+    # Initialize noise
+    noisy_images = torch.randn((lr_images.size(0), 1, config.image_size, config.image_size), device=device)
+
+    for t in reversed(range(noise_scheduler.config.num_train_timesteps)):
+        timesteps = torch.full((lr_images.size(0),), t, device=device, dtype=torch.long)
+        model_input = torch.cat([noisy_images, lr_resized], dim=1)
+        noise_pred = model(model_input, timesteps).sample
+        noisy_images = noise_scheduler.step(noise_pred, t, noisy_images).prev_sample
+
+    # Clamp and bring to CPU
+    sr_images = noisy_images.clamp(0.0, 1.0).cpu()
+    lr_images_up = lr_resized.cpu().clamp(0.0, 1.0)
+    hr_images = hr_images.cpu().clamp(0.0, 1.0)
+
+    # Build grid row by row
+    grid_rows = []
+    for lr, sr, hr in zip(lr_images_up, sr_images, hr_images):
+        row = torch.cat([lr, sr, hr], dim=-1)  # concatenate side-by-side
+        grid_rows.append(row)
+
+    # Stack rows vertically
+    final_image = create_sample_image(lr_images_up, sr_images, hr_images)
+
+    final_image.save(os.path.join(save_dir, f"{epoch:04d}_ds{config.ds_factor}_size{config.image_size}.png"))
+    if wandb.run is not None:
+        wandb.log({f"sample_epoch_{epoch}": wandb.Image(final_image)}, step=global_step)
+
+
+
 
 
 def train_loop(config, model, noise_scheduler, optimizer, train_dataloader, lr_scheduler):
@@ -136,7 +208,13 @@ def train_loop(config, model, noise_scheduler, optimizer, train_dataloader, lr_s
     if accelerator.is_main_process:
         if config.output_dir is not None:
             os.makedirs(config.output_dir, exist_ok=True)
-        accelerator.init_trackers("supertrab")
+        run_name = f"supertrab_ddpm_{config.image_size}px_ds{config.ds_factor}"
+        accelerator.init_trackers(
+            project_name="supertrab", 
+            config=vars(config),
+            init_kwargs={"wandb": {"name": run_name}}
+        )
+
 
     # Prepare everything
     # There is no specific order to remember, you just need to unpack the
@@ -149,29 +227,42 @@ def train_loop(config, model, noise_scheduler, optimizer, train_dataloader, lr_s
 
     # Now you train the model
     for epoch in range(config.num_epochs):
-        progress_bar = tqdm(total=len(train_dataloader), disable=not accelerator.is_local_main_process)
-        progress_bar.set_description(f"Epoch {epoch}")
+        if accelerator.is_local_main_process:
+            print(f"Starting Epoch {epoch}...")
+
 
         for step, batch in enumerate(train_dataloader):
+            if step >= steps_per_epoch:
+                break
             clean_images = batch["hr_image"]
+            conditioning = batch["lr_image"]
             # Sample noise to add to the images
-            noise = torch.randn(clean_images.shape, device=clean_images.device)
-            bs = clean_images.shape[0]
+            noise = torch.randn_like(clean_images)
+            
 
             # Sample a random timestep for each image
-            timesteps = torch.randint(
-                0, noise_scheduler.config.num_train_timesteps, (bs,), device=clean_images.device,
-                dtype=torch.int64
-            )
+            timesteps = torch.randint(0, noise_scheduler.config.num_train_timesteps, (clean_images.size(0),), device=clean_images.device)
 
             # Add noise to the clean images according to the noise magnitude at each timestep
             # (this is the forward diffusion process)
             noisy_images = noise_scheduler.add_noise(clean_images, noise, timesteps)
 
+
             # Backpropagation
             with accelerator.accumulate(model):
                 # Predict the noise residual
-                noise_pred = model(noisy_images, timesteps, return_dict=False)[0]
+                conditioning_resized = F.interpolate(conditioning, size=clean_images.shape[-2:], mode='bilinear', align_corners=False)
+
+                # Classifier-Free Guidance: randomly drop conditioning
+                if torch.rand(1).item() < config.cfg_dropout_prob:
+                    conditioning_resized = torch.zeros_like(conditioning_resized)
+
+
+                # Concatenate LR with noisy HR as input to the model
+                model_input = torch.cat([noisy_images, conditioning_resized], dim=1)
+
+                # Predict noise
+                noise_pred = model(model_input, timesteps).sample
                 loss = F.mse_loss(noise_pred, noise)
                 accelerator.backward(loss)
 
@@ -182,22 +273,17 @@ def train_loop(config, model, noise_scheduler, optimizer, train_dataloader, lr_s
                 lr_scheduler.step()
                 optimizer.zero_grad()
 
-            progress_bar.update(1)
             logs = {"loss": loss.detach().item(), "lr": lr_scheduler.get_last_lr()[0], "step": global_step}
-            progress_bar.set_postfix(**logs)
             accelerator.log(logs, step=global_step)
             global_step += 1
 
         # After each epoch you optionally sample some demo images with evaluate() and save the model
         if accelerator.is_main_process:
-            pipeline = DDPMPipeline(unet=accelerator.unwrap_model(model), scheduler=noise_scheduler)
-
+            #evaluate every save_image:apochs
             if (epoch + 1) % config.save_image_epochs == 0 or epoch == config.num_epochs - 1:
-                evaluate(config, epoch, pipeline)
-            if (epoch + 1) % config.save_model_epochs == 0 or epoch == config.num_epochs - 1:
-                pipeline.save_pretrained(config.output_dir)
-                #load saved model by: pipeline = DDPMPipeline.from_pretrained(config.output_dir)
+                evaluate(config, epoch, model, noise_scheduler, train_dataloader, device=accelerator.device, global_step=global_step)
 
 
 if __name__ == "__main__":
+
     train_loop(config, model, noise_scheduler, optimizer, dataloader, lr_scheduler)

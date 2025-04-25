@@ -83,6 +83,7 @@ def main():
 
         scan_group = root[group_name]
         scan_group.attrs["metrics_map"] = position_metrics_map
+        print("group done")
 
     print("done")
 

@@ -1,0 +1,16 @@
+{"time":"2025-04-24T21:53:51.741130773+02:00","level":"INFO","msg":"stream: starting","core version":"0.19.7","symlink path":"/usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/wandb/run-20250424_215351-ndlh9jel/logs/debug-core.log"}
+{"time":"2025-04-24T21:53:51.858565683+02:00","level":"INFO","msg":"created new stream","id":"ndlh9jel"}
+{"time":"2025-04-24T21:53:51.858609994+02:00","level":"INFO","msg":"stream: started","id":"ndlh9jel"}
+{"time":"2025-04-24T21:53:51.858643794+02:00","level":"INFO","msg":"writer: Do: started","stream_id":"ndlh9jel"}
+{"time":"2025-04-24T21:53:51.859023828+02:00","level":"INFO","msg":"sender: started","stream_id":"ndlh9jel"}
+{"time":"2025-04-24T21:53:51.859075119+02:00","level":"INFO","msg":"handler: started","stream_id":"ndlh9jel"}
+{"time":"2025-04-24T21:53:52.085359314+02:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-04-25T01:03:12.673492458+02:00","level":"INFO","msg":"api: retrying HTTP error","status":500,"url":"https://api.wandb.ai/files/mwahlin-eth-z-rich/supertrab/ndlh9jel/file_stream","body":"{\"error\":\"context deadline exceeded\"}"}
+{"time":"2025-04-25T07:12:27.487578701+02:00","level":"INFO","msg":"stream: closing","id":"ndlh9jel"}
+{"time":"2025-04-25T07:12:27.487655722+02:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-04-25T07:12:27.488953185+02:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-04-25T07:12:28.252157093+02:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-04-25T07:12:28.452576813+02:00","level":"INFO","msg":"handler: closed","stream_id":"ndlh9jel"}
+{"time":"2025-04-25T07:12:28.452603973+02:00","level":"INFO","msg":"sender: closed","stream_id":"ndlh9jel"}
+{"time":"2025-04-25T07:12:28.452595593+02:00","level":"INFO","msg":"writer: Close: closed","stream_id":"ndlh9jel"}
+{"time":"2025-04-25T07:12:28.454226169+02:00","level":"INFO","msg":"stream: closed","id":"ndlh9jel"}

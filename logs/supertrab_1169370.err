@@ -1,4 +1,0 @@
-Traceback (most recent call last):
-  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/prepare_dataset/create_zarr_compatible_mask_from_mhd.py", line 146, in <module>
-    trabecular_mask_patch[z, y, x] = 1
-IndexError: index 256 is out of bounds for axis 2 with size 128

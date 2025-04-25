@@ -169,10 +169,6 @@ class SRDataset(zds.ZarrDataset):
             patch_position = patches_position[current_patch]
             patches = self.__getitem__(patch_position)[0]
 
-            #only grayscale images
-            if patches.shape[0] > 1:
-                raise ValueError("Only single channel images are supported")
-
             #to torch tensor
             hr_patch = torch.from_numpy(patches[0]).float()
 
@@ -203,7 +199,7 @@ class SRDataset(zds.ZarrDataset):
             yield example
 
 
-def create_dataloader(zarr_path, patch_size=(1, 128, 128), batch_size=4, num_workers=1, min_area=0.999, sigma=1.3, downsample_factor=4):
+def create_dataloader(zarr_path, patch_size=(1, 128, 128), batch_size=4, num_workers=1, min_area=0.999, sigma=1.3, downsample_factor=4, draw_same_chunk = False, shuffle = True, isSRDataset = True):
     """
     Creates a DataLoader that samples patches from all groups in a Zarr dataset. The dataloader returns both 
     high resolution patches and corresponding low resolution (downsampled) patches.
@@ -216,6 +212,7 @@ def create_dataloader(zarr_path, patch_size=(1, 128, 128), batch_size=4, num_wor
         min_area (float): Minimum procentage of a patch that needs to be within mask for a valid patch. value (0,1]
         sigma (float): Standard deviation for Gaussian blur applied before downsampling.
         downsample_factor (int): Factor by which to downsample the HR patches to create LR patches.
+        draw_same_chunk: False -  randomly samples patches from anywhere in the dataset until manual termination, True - Return every valid patch exactly once.
     Returns:
         torch.utils.data.DataLoader: A DataLoader that yields batches containing:
         - 'position': Tensor with patch positions
@@ -236,36 +233,59 @@ def create_dataloader(zarr_path, patch_size=(1, 128, 128), batch_size=4, num_wor
     all_mask_specs = []
     all_groups = [f"{zarr_path}/{name}" for name, _ in named_groups]
 
-    #debug, try with first group
-    name, group = named_groups[0]
-    first_group_path = f"{zarr_path}/{name}"
+    # #debug, try with first group
+    # name, group = named_groups[0]
+    # first_group_path = f"{zarr_path}/{name}"
 
-    all_file_specs.append(
-        zds.ImagesDatasetSpecs(filenames=[first_group_path], data_group="image", source_axes="ZYX")
-    )
-    all_mask_specs.append(
-        zds.MasksDatasetSpecs(filenames=[first_group_path], data_group="image_trabecular_mask", source_axes="ZYX")
-    )
+    # all_file_specs.append(
+    #     zds.ImagesDatasetSpecs(filenames=[first_group_path], data_group="image", source_axes="ZYX")
+    # )
+    # all_mask_specs.append(
+    #     zds.MasksDatasetSpecs(filenames=[first_group_path], data_group="image_trabecular_mask", source_axes="ZYX")
+    # )
 
-    #for _, group in named_groups:
-    #    all_file_specs.append(
-    #        zds.ImagesDatasetSpecs(filenames=all_groups, data_group="image", source_axes="ZYX")
-    #    )
-    #    all_mask_specs.append(
-    #        zds.MasksDatasetSpecs(filenames=all_groups, data_group="image_trabecular_mask", source_axes="ZYX")
-    #    )
+    # # Load the mask directly from Zarr to check shape and content
+    # mask_loaded = zarr.open_array(f"{first_group_path}/image_trabecular_mask", mode='r')
+    # print(f"Loaded mask shape from file: {mask_loaded.shape}")
+    # print(f"Loaded mask dtype: {mask_loaded.dtype}")
+    # print(f"Loaded mask sum (True voxels): {np.sum(mask_loaded[:])}")
 
-    dataset = SRDataset(
+
+    for name, _ in named_groups:
+        group_path = f"{zarr_path}/{name}"
+        
+        all_file_specs.append(
+            zds.ImagesDatasetSpecs(filenames=[group_path], data_group="image", source_axes="ZYX")
+        )
+        all_mask_specs.append(
+            zds.MasksDatasetSpecs(filenames=[group_path], data_group="image_trabecular_mask", source_axes="ZYX")
+        )
+
+
+    if isSRDataset:
+        dataset = SRDataset(
+            dataset_specs=all_file_specs+ all_mask_specs,
+            patch_sampler= patch_sampler,
+            return_positions=True,
+            shuffle=shuffle,
+            progress_bar=False,
+            draw_same_chunk=draw_same_chunk,
+            return_worker_id=False,
+            sigma=sigma,
+            downsample_factor=downsample_factor,
+        )
+    else:
+        print("original zarr dataset")
+        dataset = zds.ZarrDataset(
         dataset_specs=all_file_specs+ all_mask_specs,
-        patch_sampler= patch_sampler,
+        patch_sampler=patch_sampler,
         return_positions=True,
-        shuffle=True,
+        shuffle=shuffle,
         progress_bar=False,
-        draw_same_chunk=False,
+        draw_same_chunk=draw_same_chunk,
         return_worker_id=False,
-        sigma=sigma,
-        downsample_factor=downsample_factor,
     )
+
     return DataLoader(
         dataset,
         batch_size=batch_size,
@@ -380,14 +400,14 @@ def plot_random_samples_from_dataloader(dataloader, output_path="samples.png", m
 
 
 def main():
-    zarr_path = Path("/usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab_testf32_128x512x512.zarr")
+    zarr_path = Path("/usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr")
     output_path = "images/random_patches.png"       
     dataloader = create_dataloader(zarr_path)
     print("done creating dataloader")
     print("Plotting samples")
     plot_random_samples_from_dataloader(dataloader, output_path)
-    #print("Check uniqueness")
-    #check_patch_uniqueness(dataloader)
+    print("Check uniqueness")
+    check_patch_uniqueness(dataloader)
     print("Done!")
 
 

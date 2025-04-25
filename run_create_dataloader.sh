@@ -4,7 +4,7 @@
 #SBATCH --error=logs/supertrab_%j.err
 #SBATCH --cpus-per-task=32
 #SBATCH --mem=64G
-#SBATCH --time=1:00:00
+#SBATCH --time=24:00:00
 
 # Variables section: 
 #export NUMEXPR_MAX_THREADS=6

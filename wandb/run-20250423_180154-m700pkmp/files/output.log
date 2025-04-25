@@ -1,0 +1,13 @@
+▶️ Starting Epoch 0...
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/SR-model/basic_2D_diffusion_SR.py", line 218, in <module>
+    train_loop(config, model, noise_scheduler, optimizer, dataloader, lr_scheduler)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/SR-model/basic_2D_diffusion_SR.py", line 204, in train_loop
+    progress_bar.update(1)
+NameError: name 'progress_bar' is not defined
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/SR-model/basic_2D_diffusion_SR.py", line 218, in <module>
+    train_loop(config, model, noise_scheduler, optimizer, dataloader, lr_scheduler)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/SR-model/basic_2D_diffusion_SR.py", line 204, in train_loop
+    progress_bar.update(1)
+NameError: name 'progress_bar' is not defined

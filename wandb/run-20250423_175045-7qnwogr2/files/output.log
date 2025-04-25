@@ -1,0 +1,20 @@
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/SR-model/basic_2D_diffusion_SR.py", line 217, in <module>
+    train_loop(config, model, noise_scheduler, optimizer, dataloader, lr_scheduler)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/SR-model/basic_2D_diffusion_SR.py", line 158, in train_loop
+    progress_bar = tqdm(total=len(train_dataloader), disable=not accelerator.is_local_main_process)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/accelerate/data_loader.py", line 930, in __len__
+    whole_length = len(self.base_dataloader)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 520, in __len__
+    length = self._IterableDataset_len_called = len(self.dataset)  # type: ignore[assignment, arg-type]
+TypeError: object of type 'SRDataset' has no len()
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/SR-model/basic_2D_diffusion_SR.py", line 217, in <module>
+    train_loop(config, model, noise_scheduler, optimizer, dataloader, lr_scheduler)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/SR-model/basic_2D_diffusion_SR.py", line 158, in train_loop
+    progress_bar = tqdm(total=len(train_dataloader), disable=not accelerator.is_local_main_process)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/accelerate/data_loader.py", line 930, in __len__
+    whole_length = len(self.base_dataloader)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 520, in __len__
+    length = self._IterableDataset_len_called = len(self.dataset)  # type: ignore[assignment, arg-type]
+TypeError: object of type 'SRDataset' has no len()

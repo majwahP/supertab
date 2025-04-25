@@ -1,0 +1,15 @@
+{"time":"2025-04-23T18:01:54.765503346+02:00","level":"INFO","msg":"stream: starting","core version":"0.19.7","symlink path":"/usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/wandb/run-20250423_180154-m700pkmp/logs/debug-core.log"}
+{"time":"2025-04-23T18:01:54.88321675+02:00","level":"INFO","msg":"created new stream","id":"m700pkmp"}
+{"time":"2025-04-23T18:01:54.883285031+02:00","level":"INFO","msg":"stream: started","id":"m700pkmp"}
+{"time":"2025-04-23T18:01:54.883348572+02:00","level":"INFO","msg":"writer: Do: started","stream_id":"m700pkmp"}
+{"time":"2025-04-23T18:01:54.884503813+02:00","level":"INFO","msg":"handler: started","stream_id":"m700pkmp"}
+{"time":"2025-04-23T18:01:54.884888847+02:00","level":"INFO","msg":"sender: started","stream_id":"m700pkmp"}
+{"time":"2025-04-23T18:01:55.129665016+02:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-04-23T18:02:20.235745996+02:00","level":"INFO","msg":"stream: closing","id":"m700pkmp"}
+{"time":"2025-04-23T18:02:20.235794067+02:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-04-23T18:02:20.236888747+02:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-04-23T18:02:20.839479529+02:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-04-23T18:02:21.005354893+02:00","level":"INFO","msg":"handler: closed","stream_id":"m700pkmp"}
+{"time":"2025-04-23T18:02:21.005376203+02:00","level":"INFO","msg":"writer: Close: closed","stream_id":"m700pkmp"}
+{"time":"2025-04-23T18:02:21.005394843+02:00","level":"INFO","msg":"sender: closed","stream_id":"m700pkmp"}
+{"time":"2025-04-23T18:02:21.008748166+02:00","level":"INFO","msg":"stream: closed","id":"m700pkmp"}
