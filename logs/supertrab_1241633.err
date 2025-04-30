@@ -12,3 +12,4 @@ wandb: Run `wandb offline` to turn off syncing.
 wandb: Syncing run supertrab_ddpm_256px_ds4_100ep
 wandb: ⭐️ View project at https://wandb.ai/mwahlin-eth-z-rich/supertrab
 wandb: 🚀 View run at https://wandb.ai/mwahlin-eth-z-rich/supertrab/runs/dtz5xuur
+slurmstepd: error: *** JOB 1241633 ON hardin01 CANCELLED AT 2025-04-30T14:06:36 ***

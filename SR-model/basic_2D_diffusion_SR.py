@@ -19,7 +19,7 @@ import os
 from accelerate import Accelerator
 from tqdm.auto import tqdm
 from pathlib import Path
-from prepare_dataset.create_dataloader import create_dataloader
+from supertrab.sr_dataset_utils import create_dataloader
 from PIL import Image, ImageDraw, ImageFont
 import PIL
 import wandb
@@ -40,7 +40,7 @@ class TrainingConfig:
     save_image_epochs: int = 20
     ds_factor: int = 4
     mixed_precision: str = "fp16"
-    output_dir: str = "ddpm-supertrab-256-2D-v2"
+    output_dir: str = "samples/ddpm-supertrab-256-2D-v2"
     seed: int = 0
     cfg_dropout_prob: float = 0.1 # 10% of the time, drop the LR image during training
 
