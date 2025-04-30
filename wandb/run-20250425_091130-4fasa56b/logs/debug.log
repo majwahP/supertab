@@ -21,3 +21,22 @@ config: {'_wandb': {}}
 2025-04-25 09:11:31,743 INFO    MainThread:926273 [wandb_run.py:_redirect():2317] Redirects installed.
 2025-04-25 09:11:31,748 INFO    MainThread:926273 [wandb_init.py:init():1037] run started, returning control to user process
 2025-04-25 09:11:31,748 INFO    MainThread:926273 [wandb_run.py:_config_callback():1261] config_cb None None {}
+2025-04-25 19:03:42,996 WARNING MsgRouterThr:926273 [router.py:message_loop():77] message_loop has been closed
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/wandb/sdk/interface/router_sock.py", line 28, in _read_message
+    resp = self._sock_client.read_server_response(timeout=1)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/wandb/sdk/lib/sock_client.py", line 285, in read_server_response
+    data = self._read_packet_bytes(timeout=timeout)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/wandb/sdk/lib/sock_client.py", line 270, in _read_packet_bytes
+    raise SockClientClosedError
+wandb.sdk.lib.sock_client.SockClientClosedError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/wandb/sdk/interface/router.py", line 70, in message_loop
+    msg = self._read_message()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/wandb/sdk/interface/router_sock.py", line 30, in _read_message
+    raise MessageRouterClosedError from e
+wandb.sdk.interface.router.MessageRouterClosedError
+2025-04-25 19:03:43,006 INFO    MsgRouterThr:926273 [mailbox.py:close():115] Closing mailbox, abandoning 1 handles.

@@ -1,0 +1,7 @@
+{"time":"2025-04-29T13:20:26.754411912+02:00","level":"INFO","msg":"stream: starting","core version":"0.19.7","symlink path":"/usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/wandb/run-20250429_132026-l4xo82rm/logs/debug-core.log"}
+{"time":"2025-04-29T13:20:26.870367592+02:00","level":"INFO","msg":"created new stream","id":"l4xo82rm"}
+{"time":"2025-04-29T13:20:26.870419253+02:00","level":"INFO","msg":"stream: started","id":"l4xo82rm"}
+{"time":"2025-04-29T13:20:26.870495634+02:00","level":"INFO","msg":"writer: Do: started","stream_id":"l4xo82rm"}
+{"time":"2025-04-29T13:20:26.870545324+02:00","level":"INFO","msg":"sender: started","stream_id":"l4xo82rm"}
+{"time":"2025-04-29T13:20:26.871029429+02:00","level":"INFO","msg":"handler: started","stream_id":"l4xo82rm"}
+{"time":"2025-04-29T13:20:27.127988561+02:00","level":"INFO","msg":"Starting system monitor"}

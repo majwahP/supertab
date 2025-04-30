@@ -1,0 +1,7 @@
+{"time":"2025-04-29T14:24:53.539444435+02:00","level":"INFO","msg":"stream: starting","core version":"0.19.7","symlink path":"/usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/wandb/run-20250429_142453-cv68wj6d/logs/debug-core.log"}
+{"time":"2025-04-29T14:24:53.653997543+02:00","level":"INFO","msg":"created new stream","id":"cv68wj6d"}
+{"time":"2025-04-29T14:24:53.654042244+02:00","level":"INFO","msg":"stream: started","id":"cv68wj6d"}
+{"time":"2025-04-29T14:24:53.654115034+02:00","level":"INFO","msg":"writer: Do: started","stream_id":"cv68wj6d"}
+{"time":"2025-04-29T14:24:53.654164815+02:00","level":"INFO","msg":"handler: started","stream_id":"cv68wj6d"}
+{"time":"2025-04-29T14:24:53.654235565+02:00","level":"INFO","msg":"sender: started","stream_id":"cv68wj6d"}
+{"time":"2025-04-29T14:24:53.978498617+02:00","level":"INFO","msg":"Starting system monitor"}

@@ -1,0 +1,16 @@
+{"time":"2025-04-29T14:53:23.195735753+02:00","level":"INFO","msg":"stream: starting","core version":"0.19.7","symlink path":"/usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/wandb/run-20250429_145323-fstfufd1/logs/debug-core.log"}
+{"time":"2025-04-29T14:53:23.319573352+02:00","level":"INFO","msg":"created new stream","id":"fstfufd1"}
+{"time":"2025-04-29T14:53:23.319628902+02:00","level":"INFO","msg":"stream: started","id":"fstfufd1"}
+{"time":"2025-04-29T14:53:23.319690283+02:00","level":"INFO","msg":"writer: Do: started","stream_id":"fstfufd1"}
+{"time":"2025-04-29T14:53:23.319760384+02:00","level":"INFO","msg":"handler: started","stream_id":"fstfufd1"}
+{"time":"2025-04-29T14:53:23.319810394+02:00","level":"INFO","msg":"sender: started","stream_id":"fstfufd1"}
+{"time":"2025-04-29T14:53:23.72846396+02:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-04-29T22:09:39.317182423+02:00","level":"INFO","msg":"api: retrying HTTP error","status":502,"url":"https://api.wandb.ai/files/mwahlin-eth-z-rich/supertrab/fstfufd1/file_stream","body":"\n<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html;charset=utf-8\">\n<title>502 Server Error</title>\n</head>\n<body text=#000000 bgcolor=#ffffff>\n<h1>Error: Server Error</h1>\n<h2>The server encountered a temporary error and could not complete your request.<p>Please try again in 30 seconds.</h2>\n<h2></h2>\n</body></html>\n"}
+{"time":"2025-04-30T11:49:11.204589949+02:00","level":"INFO","msg":"stream: closing","id":"fstfufd1"}
+{"time":"2025-04-30T11:49:11.204638969+02:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-04-30T11:49:11.205647239+02:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-04-30T11:49:11.817727121+02:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-04-30T11:49:12.039519923+02:00","level":"INFO","msg":"handler: closed","stream_id":"fstfufd1"}
+{"time":"2025-04-30T11:49:12.039545444+02:00","level":"INFO","msg":"writer: Close: closed","stream_id":"fstfufd1"}
+{"time":"2025-04-30T11:49:12.039551524+02:00","level":"INFO","msg":"sender: closed","stream_id":"fstfufd1"}
+{"time":"2025-04-30T11:49:12.041013818+02:00","level":"INFO","msg":"stream: closed","id":"fstfufd1"}

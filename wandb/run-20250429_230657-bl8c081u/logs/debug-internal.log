@@ -1,0 +1,8 @@
+{"time":"2025-04-29T23:06:57.054911174+02:00","level":"INFO","msg":"stream: starting","core version":"0.19.7","symlink path":"/usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/wandb/run-20250429_230657-bl8c081u/logs/debug-core.log"}
+{"time":"2025-04-29T23:06:57.276873056+02:00","level":"INFO","msg":"created new stream","id":"bl8c081u"}
+{"time":"2025-04-29T23:06:57.276943857+02:00","level":"INFO","msg":"stream: started","id":"bl8c081u"}
+{"time":"2025-04-29T23:06:57.277039469+02:00","level":"INFO","msg":"writer: Do: started","stream_id":"bl8c081u"}
+{"time":"2025-04-29T23:06:57.277068612+02:00","level":"INFO","msg":"sender: started","stream_id":"bl8c081u"}
+{"time":"2025-04-29T23:06:57.277119997+02:00","level":"INFO","msg":"handler: started","stream_id":"bl8c081u"}
+{"time":"2025-04-29T23:06:57.635803533+02:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-04-30T00:07:28.232048443+02:00","level":"INFO","msg":"api: retrying HTTP error","status":502,"url":"https://api.wandb.ai/files/mwahlin-eth-z-rich/supertrab/bl8c081u/file_stream","body":"\n<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html;charset=utf-8\">\n<title>502 Server Error</title>\n</head>\n<body text=#000000 bgcolor=#ffffff>\n<h1>Error: Server Error</h1>\n<h2>The server encountered a temporary error and could not complete your request.<p>Please try again in 30 seconds.</h2>\n<h2></h2>\n</body></html>\n"}

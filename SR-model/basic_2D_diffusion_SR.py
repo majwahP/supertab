@@ -1,7 +1,7 @@
 """
 Implementation of a simple Denoising diffusion probebilistic Model based on: 
 https://huggingface.co/docs/diffusers/en/tutorials/basic_training
-The code is adjusted to use the dataloader created for trabeclular bone in 
+The code is adjusted to use the train_dataloader created for trabeclular bone in 
 this library in supertrab_create_dataloader.py
 and to implement super-resolution instead of generating data. 
 """
@@ -20,33 +20,36 @@ from accelerate import Accelerator
 from tqdm.auto import tqdm
 from pathlib import Path
 from prepare_dataset.create_dataloader import create_dataloader
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageFont
+import PIL
 import wandb
+from dataclasses import asdict
+from pprint import pprint
 
 
-#Define the configuration and parameters, adjust to the training dataloader
+#Define the configuration and parameters, adjust to the training train_dataloader
 @dataclass
 class TrainingConfig:
-    image_size = 256  # the generated image resolution
-    train_batch_size = 8
-    eval_batch_size = 8  # how many images to sample during evaluation
-    num_epochs = 50
-    gradient_accumulation_steps = 1
-    learning_rate = 1e-4
-    lr_warmup_steps = 500
-    save_image_epochs = 10
-    ds_factor = 4
-    mixed_precision = "fp16"  # `no` for float32, `fp16` for automatic mixed precision
-    output_dir = "ddpm-supertrab-256-2D"  # the model name
-    seed = 0
-    cfg_dropout_prob = 0.1  # 10% of the time, drop the LR image during training
+    image_size: int = 256
+    train_batch_size: int = 8
+    eval_batch_size: int = 8 
+    num_epochs: int = 100
+    gradient_accumulation_steps: int = 1
+    learning_rate: float = 1e-4
+    lr_warmup_steps: int = 500
+    save_image_epochs: int = 20
+    ds_factor: int = 4
+    mixed_precision: str = "fp16"
+    output_dir: str = "ddpm-supertrab-256-2D-v2"
+    seed: int = 0
+    cfg_dropout_prob: float = 0.1 # 10% of the time, drop the LR image during training
 
 # helper functions------------------------------------------------------
 
 def normalize_tensor(tensor):
     return (tensor - tensor.min()) / (tensor.max() - tensor.min() + 1e-8)
 
-def create_sample_image(lr_imgs, sr_imgs, hr_imgs, padding=10, header_height=30, footer_height=20):
+def create_sample_image(lr_imgs, sr_imgs, hr_imgs, padding=10, header_height=60, footer_height=40):
     assert len(lr_imgs) == len(sr_imgs) == len(hr_imgs), "Image lists must be same length"
     n = len(lr_imgs)
 
@@ -60,6 +63,10 @@ def create_sample_image(lr_imgs, sr_imgs, hr_imgs, padding=10, header_height=30,
     # Assume all images have the same size
     w, h = lr_pil[0].size
 
+    font_size = max(10, h // 10)
+    font_path = PIL.__path__[0] + "/fonts/DejaVuSans.ttf"
+    font = ImageFont.truetype(font_path, font_size)
+
     # Full grid size
     total_width = 4 * w + 5 * padding
     total_height = n * (h + footer_height + padding) + header_height + padding
@@ -71,7 +78,7 @@ def create_sample_image(lr_imgs, sr_imgs, hr_imgs, padding=10, header_height=30,
     headers = ["LR", "SR", "HR", "Diff"]
     for i, text in enumerate(headers):
         x = padding + i * (w + padding) + w // 2
-        draw.text((x, header_height // 2), text, fill=0, anchor="mm")
+        draw.text((x, header_height // 2), text, fill=0, anchor="mm", font=font)
 
     # Draw each sample row
     for idx in range(n):
@@ -87,20 +94,27 @@ def create_sample_image(lr_imgs, sr_imgs, hr_imgs, padding=10, header_height=30,
         mse_text = f"MSE: {mses[idx]:.4f}"
         mse_x = x_offsets[3] + w // 2
         mse_y = y_offset + h + footer_height // 4
-        draw.text((mse_x, mse_y), mse_text, fill=0, anchor="mm")
+        draw.text((mse_x, mse_y), mse_text, fill=0, anchor="mm", font=font)
 
     return grid_img
 
 
 config = TrainingConfig()
+print("Training Configuration:")
+pprint(asdict(config))
 
 os.environ["WANDB_PROJECT"] = "ddpm-supertrab"
 
-### Create the dataloader ###
+### Create the train_dataloader ###
 zarr_path = Path("/usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr")
-#dataloader = create_dataloader(zarr_path, draw_same_chunk=True, downsample_factor=10)
-dataloader = create_dataloader(zarr_path, downsample_factor=config.ds_factor, patch_size=(1,config.image_size,config.image_size))
 
+train_groups = ["1955_L", "1956_L", "1996_R", "2005_L"]
+val_groups = ["2007_L"]
+test_groups = ["2019_L"]
+
+train_dataloader = create_dataloader(zarr_path, downsample_factor=config.ds_factor, patch_size=(1,config.image_size,config.image_size), groups_to_use=train_groups)
+val_dataloader = create_dataloader(zarr_path, downsample_factor=config.ds_factor, patch_size=(1,config.image_size,config.image_size), groups_to_use=val_groups)
+test_dataloader = create_dataloader(zarr_path, downsample_factor=config.ds_factor, patch_size=(1,config.image_size,config.image_size), groups_to_use=test_groups)
 
 #Define the model --------------------------------------------------------------------
 model = UNet2DModel(
@@ -120,7 +134,7 @@ model = UNet2DModel(
 
 #Testing ---------------------------------------------------------------------------------
 # Check that images are same shape as output
-batch = next(iter(dataloader))
+batch = next(iter(train_dataloader))
 sample_image = batch["hr_image"][0].unsqueeze(0)
 print("Input shape:", sample_image.shape)
 sample_lr = batch["lr_image"][0].unsqueeze(0)
@@ -188,7 +202,13 @@ def evaluate(config, epoch, model, noise_scheduler, dataloader, device="cuda", g
     # Stack rows vertically
     final_image = create_sample_image(lr_images_up, sr_images, hr_images)
 
-    final_image.save(os.path.join(save_dir, f"{epoch:04d}_ds{config.ds_factor}_size{config.image_size}.png"))
+    if isinstance(epoch, int):
+        filename = f"{epoch:04d}_ds{config.ds_factor}_size{config.image_size}.png"
+    else:
+        filename = f"{epoch}_ds{config.ds_factor}_size{config.image_size}.png"
+
+    final_image.save(os.path.join(save_dir, filename))
+
     if wandb.run is not None:
         wandb.log({f"sample_epoch_{epoch}": wandb.Image(final_image)}, step=global_step)
 
@@ -196,7 +216,7 @@ def evaluate(config, epoch, model, noise_scheduler, dataloader, device="cuda", g
 
 
 
-def train_loop(config, model, noise_scheduler, optimizer, train_dataloader, lr_scheduler):
+def train_loop(config, model, noise_scheduler, optimizer, train_dataloader, val_dataloader, lr_scheduler):
     # Initialize accelerator and tensorboard logging
     accelerator = Accelerator(
         mixed_precision=config.mixed_precision,
@@ -208,7 +228,7 @@ def train_loop(config, model, noise_scheduler, optimizer, train_dataloader, lr_s
     if accelerator.is_main_process:
         if config.output_dir is not None:
             os.makedirs(config.output_dir, exist_ok=True)
-        run_name = f"supertrab_ddpm_{config.image_size}px_ds{config.ds_factor}"
+        run_name = f"supertrab_ddpm_{config.image_size}px_ds{config.ds_factor}_100ep"
         accelerator.init_trackers(
             project_name="supertrab", 
             config=vars(config),
@@ -280,10 +300,12 @@ def train_loop(config, model, noise_scheduler, optimizer, train_dataloader, lr_s
         # After each epoch you optionally sample some demo images with evaluate() and save the model
         if accelerator.is_main_process:
             #evaluate every save_image:apochs
+            #evaluate(config, epoch, model, noise_scheduler, val_dataloader, device=accelerator.device, global_step=global_step)
             if (epoch + 1) % config.save_image_epochs == 0 or epoch == config.num_epochs - 1:
-                evaluate(config, epoch, model, noise_scheduler, train_dataloader, device=accelerator.device, global_step=global_step)
+                evaluate(config, epoch, model, noise_scheduler, val_dataloader, device=accelerator.device, global_step=global_step)
 
 
 if __name__ == "__main__":
-
-    train_loop(config, model, noise_scheduler, optimizer, dataloader, lr_scheduler)
+    
+    train_loop(config, model, noise_scheduler, optimizer, train_dataloader, val_dataloader, lr_scheduler)
+    evaluate(config, "final_test", model, noise_scheduler, test_dataloader, device="cuda")

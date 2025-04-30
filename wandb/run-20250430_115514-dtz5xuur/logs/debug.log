@@ -1,0 +1,23 @@
+2025-04-30 11:55:14,640 INFO    MainThread:1336449 [wandb_setup.py:_flush():67] Current SDK version is 0.19.7
+2025-04-30 11:55:14,640 INFO    MainThread:1336449 [wandb_setup.py:_flush():67] Configure stats pid to 1336449
+2025-04-30 11:55:14,640 INFO    MainThread:1336449 [wandb_setup.py:_flush():67] Loading settings from /home/mwahlin/.config/wandb/settings
+2025-04-30 11:55:14,640 INFO    MainThread:1336449 [wandb_setup.py:_flush():67] Loading settings from /usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/wandb/settings
+2025-04-30 11:55:14,640 INFO    MainThread:1336449 [wandb_setup.py:_flush():67] Loading settings from environment variables
+2025-04-30 11:55:14,640 INFO    MainThread:1336449 [wandb_init.py:setup_run_log_directory():647] Logging user logs to /usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/wandb/run-20250430_115514-dtz5xuur/logs/debug.log
+2025-04-30 11:55:14,641 INFO    MainThread:1336449 [wandb_init.py:setup_run_log_directory():648] Logging internal logs to /usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/wandb/run-20250430_115514-dtz5xuur/logs/debug-internal.log
+2025-04-30 11:55:14,641 INFO    MainThread:1336449 [wandb_init.py:init():761] calling init triggers
+2025-04-30 11:55:14,641 INFO    MainThread:1336449 [wandb_init.py:init():766] wandb.init called with sweep_config: {}
+config: {'_wandb': {}}
+2025-04-30 11:55:14,641 INFO    MainThread:1336449 [wandb_init.py:init():784] starting backend
+2025-04-30 11:55:14,641 INFO    MainThread:1336449 [wandb_init.py:init():788] sending inform_init request
+2025-04-30 11:55:14,651 INFO    MainThread:1336449 [backend.py:_multiprocessing_setup():97] multiprocessing start_methods=fork,spawn,forkserver, using: spawn
+2025-04-30 11:55:14,652 INFO    MainThread:1336449 [wandb_init.py:init():803] backend started and connected
+2025-04-30 11:55:14,655 INFO    MainThread:1336449 [wandb_init.py:init():896] updated telemetry
+2025-04-30 11:55:14,671 INFO    MainThread:1336449 [wandb_init.py:init():920] communicating run to backend with 90.0 second timeout
+2025-04-30 11:55:15,066 INFO    MainThread:1336449 [wandb_init.py:init():995] starting run threads in backend
+2025-04-30 11:55:15,437 INFO    MainThread:1336449 [wandb_run.py:_console_start():2377] atexit reg
+2025-04-30 11:55:15,437 INFO    MainThread:1336449 [wandb_run.py:_redirect():2227] redirect: wrap_raw
+2025-04-30 11:55:15,437 INFO    MainThread:1336449 [wandb_run.py:_redirect():2292] Wrapping output streams.
+2025-04-30 11:55:15,437 INFO    MainThread:1336449 [wandb_run.py:_redirect():2317] Redirects installed.
+2025-04-30 11:55:15,441 INFO    MainThread:1336449 [wandb_init.py:init():1037] run started, returning control to user process
+2025-04-30 11:55:15,442 INFO    MainThread:1336449 [wandb_run.py:_config_callback():1261] config_cb None None {'image_size': 256, 'train_batch_size': 8, 'eval_batch_size': 8, 'num_epochs': 100, 'gradient_accumulation_steps': 1, 'learning_rate': 0.0001, 'lr_warmup_steps': 500, 'save_image_epochs': 20, 'ds_factor': 4, 'mixed_precision': 'fp16', 'output_dir': 'ddpm-supertrab-256-2D-v2', 'seed': 0, 'cfg_dropout_prob': 0.1}

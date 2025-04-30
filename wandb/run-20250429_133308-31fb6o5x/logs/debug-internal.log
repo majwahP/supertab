@@ -1,0 +1,15 @@
+{"time":"2025-04-29T13:33:08.806307633+02:00","level":"INFO","msg":"stream: starting","core version":"0.19.7","symlink path":"/usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/wandb/run-20250429_133308-31fb6o5x/logs/debug-core.log"}
+{"time":"2025-04-29T13:33:08.922233294+02:00","level":"INFO","msg":"created new stream","id":"31fb6o5x"}
+{"time":"2025-04-29T13:33:08.922260964+02:00","level":"INFO","msg":"stream: started","id":"31fb6o5x"}
+{"time":"2025-04-29T13:33:08.922297384+02:00","level":"INFO","msg":"writer: Do: started","stream_id":"31fb6o5x"}
+{"time":"2025-04-29T13:33:08.922310864+02:00","level":"INFO","msg":"handler: started","stream_id":"31fb6o5x"}
+{"time":"2025-04-29T13:33:08.922343835+02:00","level":"INFO","msg":"sender: started","stream_id":"31fb6o5x"}
+{"time":"2025-04-29T13:33:09.249026232+02:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-04-29T13:41:39.143519741+02:00","level":"INFO","msg":"stream: closing","id":"31fb6o5x"}
+{"time":"2025-04-29T13:41:39.143650302+02:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-04-29T13:41:39.144607452+02:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-04-29T13:41:39.897941279+02:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-04-29T13:41:40.082027052+02:00","level":"INFO","msg":"handler: closed","stream_id":"31fb6o5x"}
+{"time":"2025-04-29T13:41:40.082052133+02:00","level":"INFO","msg":"writer: Close: closed","stream_id":"31fb6o5x"}
+{"time":"2025-04-29T13:41:40.082064283+02:00","level":"INFO","msg":"sender: closed","stream_id":"31fb6o5x"}
+{"time":"2025-04-29T13:41:40.084237394+02:00","level":"INFO","msg":"stream: closed","id":"31fb6o5x"}

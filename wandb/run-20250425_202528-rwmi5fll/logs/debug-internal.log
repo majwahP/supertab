@@ -1,0 +1,15 @@
+{"time":"2025-04-25T20:25:28.733456289+02:00","level":"INFO","msg":"stream: starting","core version":"0.19.7","symlink path":"/usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/wandb/run-20250425_202528-rwmi5fll/logs/debug-core.log"}
+{"time":"2025-04-25T20:25:28.852391525+02:00","level":"INFO","msg":"created new stream","id":"rwmi5fll"}
+{"time":"2025-04-25T20:25:28.852452365+02:00","level":"INFO","msg":"stream: started","id":"rwmi5fll"}
+{"time":"2025-04-25T20:25:28.852474305+02:00","level":"INFO","msg":"writer: Do: started","stream_id":"rwmi5fll"}
+{"time":"2025-04-25T20:25:28.852540296+02:00","level":"INFO","msg":"handler: started","stream_id":"rwmi5fll"}
+{"time":"2025-04-25T20:25:28.852562306+02:00","level":"INFO","msg":"sender: started","stream_id":"rwmi5fll"}
+{"time":"2025-04-25T20:25:29.141665199+02:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-04-26T02:29:09.727456487+02:00","level":"INFO","msg":"stream: closing","id":"rwmi5fll"}
+{"time":"2025-04-26T02:29:09.727514067+02:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-04-26T02:29:09.730078593+02:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-04-26T02:29:10.763395304+02:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-04-26T02:29:10.969081783+02:00","level":"INFO","msg":"handler: closed","stream_id":"rwmi5fll"}
+{"time":"2025-04-26T02:29:10.969109704+02:00","level":"INFO","msg":"writer: Close: closed","stream_id":"rwmi5fll"}
+{"time":"2025-04-26T02:29:10.969130824+02:00","level":"INFO","msg":"sender: closed","stream_id":"rwmi5fll"}
+{"time":"2025-04-26T02:29:10.971295156+02:00","level":"INFO","msg":"stream: closed","id":"rwmi5fll"}

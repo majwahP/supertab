@@ -199,7 +199,7 @@ class SRDataset(zds.ZarrDataset):
             yield example
 
 
-def create_dataloader(zarr_path, patch_size=(1, 128, 128), batch_size=4, num_workers=1, min_area=0.999, sigma=1.3, downsample_factor=4, draw_same_chunk = False, shuffle = True, isSRDataset = True):
+def create_dataloader(zarr_path, patch_size=(1, 128, 128), batch_size=4, num_workers=1, min_area=0.999, sigma=1.3, downsample_factor=4, draw_same_chunk = False, shuffle = True, isSRDataset = True, groups_to_use=None):
     """
     Creates a DataLoader that samples patches from all groups in a Zarr dataset. The dataloader returns both 
     high resolution patches and corresponding low resolution (downsampled) patches.
@@ -221,35 +221,17 @@ def create_dataloader(zarr_path, patch_size=(1, 128, 128), batch_size=4, num_wor
     """
     zarr_path = Path(zarr_path)
     root = zarr.open(str(zarr_path))
-    named_groups = list(root.groups())
+    named_groups = list(root.groups()) 
+    if groups_to_use is not None:
+        named_groups = [(name, group) for name, group in named_groups if name in groups_to_use]
     print(f"Found {len(named_groups)} groups:")
     for name, _ in named_groups:
         print(f"  - {name}")
 
     patch_sampler = zds.PatchSampler(patch_size, min_area=min_area)
-    #patch_sampler = None
 
     all_file_specs = []
     all_mask_specs = []
-    all_groups = [f"{zarr_path}/{name}" for name, _ in named_groups]
-
-    # #debug, try with first group
-    # name, group = named_groups[0]
-    # first_group_path = f"{zarr_path}/{name}"
-
-    # all_file_specs.append(
-    #     zds.ImagesDatasetSpecs(filenames=[first_group_path], data_group="image", source_axes="ZYX")
-    # )
-    # all_mask_specs.append(
-    #     zds.MasksDatasetSpecs(filenames=[first_group_path], data_group="image_trabecular_mask", source_axes="ZYX")
-    # )
-
-    # # Load the mask directly from Zarr to check shape and content
-    # mask_loaded = zarr.open_array(f"{first_group_path}/image_trabecular_mask", mode='r')
-    # print(f"Loaded mask shape from file: {mask_loaded.shape}")
-    # print(f"Loaded mask dtype: {mask_loaded.dtype}")
-    # print(f"Loaded mask sum (True voxels): {np.sum(mask_loaded[:])}")
-
 
     for name, _ in named_groups:
         group_path = f"{zarr_path}/{name}"

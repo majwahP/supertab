@@ -1,0 +1,7 @@
+{"time":"2025-04-30T11:55:14.657173558+02:00","level":"INFO","msg":"stream: starting","core version":"0.19.7","symlink path":"/usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/wandb/run-20250430_115514-dtz5xuur/logs/debug-core.log"}
+{"time":"2025-04-30T11:55:14.774092425+02:00","level":"INFO","msg":"created new stream","id":"dtz5xuur"}
+{"time":"2025-04-30T11:55:14.774119615+02:00","level":"INFO","msg":"stream: started","id":"dtz5xuur"}
+{"time":"2025-04-30T11:55:14.774796342+02:00","level":"INFO","msg":"handler: started","stream_id":"dtz5xuur"}
+{"time":"2025-04-30T11:55:14.774878983+02:00","level":"INFO","msg":"writer: Do: started","stream_id":"dtz5xuur"}
+{"time":"2025-04-30T11:55:14.774853322+02:00","level":"INFO","msg":"sender: started","stream_id":"dtz5xuur"}
+{"time":"2025-04-30T11:55:15.072629953+02:00","level":"INFO","msg":"Starting system monitor"}

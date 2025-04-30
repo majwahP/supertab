@@ -1,0 +1,37 @@
+Starting Epoch 0...
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/SR-model/basic_2D_diffusion_SR.py", line 293, in <module>
+    train_loop(config, model, noise_scheduler, optimizer, dataloader, lr_scheduler)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/SR-model/basic_2D_diffusion_SR.py", line 286, in train_loop
+    evaluate(config, epoch, model, noise_scheduler, train_dataloader, device=accelerator.device, global_step=global_step)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/SR-model/basic_2D_diffusion_SR.py", line 192, in evaluate
+    final_image = create_sample_image(lr_images_up, sr_images, hr_images)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/SR-model/basic_2D_diffusion_SR.py", line 64, in create_sample_image
+    font = ImageFont.truetype("arial.ttf", font_size)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/PIL/ImageFont.py", line 879, in truetype
+    return freetype(font)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/PIL/ImageFont.py", line 876, in freetype
+    return FreeTypeFont(font, size, index, encoding, layout_engine)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/PIL/ImageFont.py", line 284, in __init__
+    self.font = core.getfont(
+OSError: cannot open resource
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/SR-model/basic_2D_diffusion_SR.py", line 293, in <module>
+    train_loop(config, model, noise_scheduler, optimizer, dataloader, lr_scheduler)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/SR-model/basic_2D_diffusion_SR.py", line 286, in train_loop
+    evaluate(config, epoch, model, noise_scheduler, train_dataloader, device=accelerator.device, global_step=global_step)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/SR-model/basic_2D_diffusion_SR.py", line 192, in evaluate
+    final_image = create_sample_image(lr_images_up, sr_images, hr_images)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/SR-model/basic_2D_diffusion_SR.py", line 64, in create_sample_image
+    font = ImageFont.truetype("arial.ttf", font_size)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/PIL/ImageFont.py", line 879, in truetype
+    return freetype(font)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/PIL/ImageFont.py", line 876, in freetype
+    return FreeTypeFont(font, size, index, encoding, layout_engine)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/PIL/ImageFont.py", line 284, in __init__
+    self.font = core.getfont(
+OSError: cannot open resource

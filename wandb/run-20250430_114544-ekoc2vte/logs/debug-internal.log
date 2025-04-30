@@ -1,0 +1,7 @@
+{"time":"2025-04-30T11:45:44.309741868+02:00","level":"INFO","msg":"stream: starting","core version":"0.19.7","symlink path":"/usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/wandb/run-20250430_114544-ekoc2vte/logs/debug-core.log"}
+{"time":"2025-04-30T11:45:44.430800218+02:00","level":"INFO","msg":"created new stream","id":"ekoc2vte"}
+{"time":"2025-04-30T11:45:44.430857539+02:00","level":"INFO","msg":"stream: started","id":"ekoc2vte"}
+{"time":"2025-04-30T11:45:44.430921039+02:00","level":"INFO","msg":"writer: Do: started","stream_id":"ekoc2vte"}
+{"time":"2025-04-30T11:45:44.430947549+02:00","level":"INFO","msg":"handler: started","stream_id":"ekoc2vte"}
+{"time":"2025-04-30T11:45:44.43099969+02:00","level":"INFO","msg":"sender: started","stream_id":"ekoc2vte"}
+{"time":"2025-04-30T11:45:44.701707451+02:00","level":"INFO","msg":"Starting system monitor"}
