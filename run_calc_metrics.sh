@@ -8,4 +8,4 @@
 
 
 ##################################################################################
-python /usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/prepare_dataset/calculate_metrics.py
+python /usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/archive/calculate_metrics.py

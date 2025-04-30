@@ -10,4 +10,4 @@
 #export NUMEXPR_MAX_THREADS=10
 
 ##################################################################################
-python /usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/prepare_dataset/create_zarr_compatible_mask_from_mhd.py
+python /usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/scripts/prepare_mask_for_sr.py
