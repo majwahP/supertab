@@ -17,6 +17,7 @@ Code is based on: https://huggingface.co/docs/diffusers/en/tutorials/basic_train
 from dataclasses import dataclass
 import torch.nn.functional as F
 import torch
+import torchvision.utils as vutils
 from PIL import Image 
 from torchvision.transforms.functional import to_pil_image
 import os
@@ -24,6 +25,8 @@ from accelerate import Accelerator
 from PIL import Image, ImageDraw, ImageFont
 import PIL
 import wandb
+import shutil
+from metrics_utils import compute_image_metrics
 
 
 @dataclass
@@ -140,6 +143,27 @@ def create_sample_image(lr_imgs, sr_imgs, hr_imgs, padding=10, header_height=60,
     return grid_img
 
 
+def save_sr_outputs(lr_imgs, sr_imgs, hr_imgs, save_dir, base_name):
+    """
+    Save LR, SR, and HR images (as .png) to separate files.
+
+    Args:
+        lr_imgs (List[Tensor]): List of low-resolution images.
+        sr_imgs (List[Tensor]): List of super-resolved images.
+        hr_imgs (List[Tensor]): List of high-resolution images.
+        save_dir (Path or str): Directory to save the images.
+        base_name (str): Base name for the saved files (e.g., "epoch_001").
+    """
+    os.makedirs(save_dir, exist_ok=True)
+
+    for idx, (lr, sr, hr) in enumerate(zip(lr_imgs, sr_imgs, hr_imgs)):
+        idx_str = f"{idx:03d}"
+        vutils.save_image(normalize_tensor(lr), os.path.join(save_dir, f"{base_name}_lr_{idx_str}.png"))
+        vutils.save_image(normalize_tensor(sr), os.path.join(save_dir, f"{base_name}_sr_{idx_str}.png"))
+        vutils.save_image(normalize_tensor(hr), os.path.join(save_dir, f"{base_name}_hr_{idx_str}.png"))
+
+
+
 
 
 @torch.no_grad()
@@ -196,14 +220,33 @@ def evaluate(config, epoch, model, noise_scheduler, dataloader, device="cuda", g
     final_image = create_sample_image(lr_images_up, sr_images, hr_images)
 
     if isinstance(epoch, int):
-        filename = f"{epoch:04d}_ds{config.ds_factor}_size{config.image_size}.png"
+        base_name = f"{epoch:04d}_ds{config.ds_factor}_size{config.image_size}.png"
     else:
-        filename = f"{epoch}_ds{config.ds_factor}_size{config.image_size}.png"
+        base_name = f"{epoch}_ds{config.ds_factor}_size{config.image_size}.png"
+    
+    # Create a folder for this evaluation output
+    output_subdir = os.path.join(config.output_dir, "samples_supertrab_2D_simple", base_name)
+    os.makedirs(output_subdir, exist_ok=True)
 
-    final_image.save(os.path.join(save_dir, filename))
+    final_image.save(os.path.join(output_subdir, "overview.png"))
+    # Save individual image files
+    save_sr_outputs(lr_images_up, sr_images, hr_images, output_subdir, base_name)
 
+    metrics = compute_image_metrics(sr_images, hr_images)
+    
     if wandb.run is not None:
-        wandb.log({f"sample_epoch_{epoch}": wandb.Image(final_image)}, step=global_step)
+        wandb.log({
+            f"sample_epoch_{epoch}": wandb.Image(final_image),
+            "eval/mse": metrics["mse"],
+            "eval/psnr": metrics["psnr"],
+        }, step=global_step)
+    
+    artifact_name = f"eval_epoch_{epoch}"
+    zip_path = shutil.make_archive(output_subdir, 'zip', output_subdir)
+
+    artifact = wandb.Artifact(name=artifact_name, type="evaluation_outputs")
+    artifact.add_file(zip_path)
+    wandb.run.log_artifact(artifact)
 
 
 def train_loop_2D_diffusion(config, model, noise_scheduler, optimizer, train_dataloader, val_dataloader, lr_scheduler, steps_per_epoch):
@@ -232,7 +275,7 @@ def train_loop_2D_diffusion(config, model, noise_scheduler, optimizer, train_dat
     if accelerator.is_main_process:
         if config.output_dir is not None:
             os.makedirs(config.output_dir, exist_ok=True)
-        run_name = f"supertrab_ddpm_{config.image_size}px_ds{config.ds_factor}_100ep"
+        run_name = f"supertrab_ddpm_{config.image_size}px_ds{config.ds_factor}_{config.num_epochs}ep"
         accelerator.init_trackers(
             project_name="supertrab", 
             config=vars(config),

@@ -33,8 +33,6 @@ def main():
     print("Training Configuration:")
     pprint(asdict(config))
 
-    os.environ["WANDB_PROJECT"] = "ddpm-supertrab"
-
     # Create dataloaders ------------------------------------------------------------
     zarr_path = Path("/usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr")
 

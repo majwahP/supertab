@@ -1,0 +1,7 @@
+{"time":"2025-04-30T15:58:01.978676125+02:00","level":"INFO","msg":"stream: starting","core version":"0.19.7","symlink path":"/usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/wandb/run-20250430_155801-2icixfa1/logs/debug-core.log"}
+{"time":"2025-04-30T15:58:02.097996845+02:00","level":"INFO","msg":"created new stream","id":"2icixfa1"}
+{"time":"2025-04-30T15:58:02.098063386+02:00","level":"INFO","msg":"stream: started","id":"2icixfa1"}
+{"time":"2025-04-30T15:58:02.098112566+02:00","level":"INFO","msg":"writer: Do: started","stream_id":"2icixfa1"}
+{"time":"2025-04-30T15:58:02.098161507+02:00","level":"INFO","msg":"sender: started","stream_id":"2icixfa1"}
+{"time":"2025-04-30T15:58:02.098538621+02:00","level":"INFO","msg":"handler: started","stream_id":"2icixfa1"}
+{"time":"2025-04-30T15:58:02.38496654+02:00","level":"INFO","msg":"Starting system monitor"}
