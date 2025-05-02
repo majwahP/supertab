@@ -1,6 +1,6 @@
 import torch
 import torch.nn.functional as F
-import math
+
 
 def compute_image_metrics(sr_images: torch.Tensor, hr_images: torch.Tensor):
     """
@@ -11,9 +11,9 @@ def compute_image_metrics(sr_images: torch.Tensor, hr_images: torch.Tensor):
         hr_images (Tensor): Ground truth high-resolution images of shape (B, 1, H, W).
 
     Returns:
-        dict: Dictionary containing:
-            - 'mse': Mean Squared Error (averaged over batch)
-            - 'psnr': Peak Signal-to-Noise Ratio (averaged over batch)
+        List[dict]: A list of dictionaries, one per image, each containing:
+            - 'mse': Mean Squared Error
+            - 'psnr': Peak Signal-to-Noise Ratio
     """
     # Compute per-pixel squared error without reducing, then flatten each image and average 
     # over all pixels to get one MSE value per image in the batch
@@ -22,7 +22,4 @@ def compute_image_metrics(sr_images: torch.Tensor, hr_images: torch.Tensor):
 
     psnr_per_image = 10 * torch.log10(1.0 / (mse_per_image + 1e-8)) 
 
-    return {
-        "mse": mse_per_image.mean().item(),
-        "psnr": psnr_per_image.mean().item()
-    }
+    return [{"mse": mse.item(), "psnr": psnr.item()} for mse, psnr in zip(mse_per_image, psnr_per_image)]

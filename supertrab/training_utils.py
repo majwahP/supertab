@@ -78,7 +78,7 @@ def normalize_tensor(tensor):
     """
     return (tensor - tensor.min()) / (tensor.max() - tensor.min() + 1e-8)
 
-def create_sample_image(lr_imgs, sr_imgs, hr_imgs, padding=10, header_height=60, footer_height=40):
+def create_sample_image(lr_imgs, sr_imgs, hr_imgs, padding=10, header_height=60, footer_height=40, metrics=None):
     """
     Generates a visual grid showing low-resolution (LR), super-resolved (SR), high-resolution (HR), and difference (|SR - HR|) images.
 
@@ -102,7 +102,7 @@ def create_sample_image(lr_imgs, sr_imgs, hr_imgs, padding=10, header_height=60,
     sr_pil = [to_pil_image(normalize_tensor(img.squeeze(0))) for img in sr_imgs]
     hr_pil = [to_pil_image(normalize_tensor(img.squeeze(0))) for img in hr_imgs]
     diff_pil = [to_pil_image(normalize_tensor(torch.abs(sr - hr).squeeze(0))) for sr, hr in zip(sr_imgs, hr_imgs)]
-    mses = [torch.mean((sr - hr) ** 2).item() for sr, hr in zip(sr_imgs, hr_imgs)]
+    
 
     # Assume all images have the same size
     w, h = lr_pil[0].size
@@ -134,11 +134,15 @@ def create_sample_image(lr_imgs, sr_imgs, hr_imgs, padding=10, header_height=60,
         for x, img in zip(x_offsets, images):
             grid_img.paste(img, (x, y_offset))
 
-        # Draw MSE below diff image
-        mse_text = f"MSE: {mses[idx]:.4f}"
-        mse_x = x_offsets[3] + w // 2
-        mse_y = y_offset + h + footer_height // 4
-        draw.text((mse_x, mse_y), mse_text, fill=0, anchor="mm", font=font)
+        # Draw metrics below diff image
+        if metrics:
+            mse = metrics[idx]["mse"]
+            psnr = metrics[idx]["psnr"]
+            metric_text = f"MSE: {mse:.4f}  |  PSNR: {psnr:.2f} dB"
+            metric_x = x_offsets[3] + w // 2
+            metric_y = y_offset + h + footer_height // 4
+            draw.text((metric_x, metric_y), metric_text, fill=0, anchor="mm", font=font)
+
 
     return grid_img
 
@@ -162,8 +166,48 @@ def save_sr_outputs(lr_imgs, sr_imgs, hr_imgs, save_dir, base_name):
         vutils.save_image(normalize_tensor(sr), os.path.join(save_dir, f"{base_name}_sr_{idx_str}.png"))
         vutils.save_image(normalize_tensor(hr), os.path.join(save_dir, f"{base_name}_hr_{idx_str}.png"))
 
+def generate_sr_images(model, scheduler, lr_images, target_size, device):
+    """
+    Generates super-resolved images using the reverse DDPM process.
+    """
+    lr_resized = F.interpolate(lr_images, size=(target_size, target_size), mode="bilinear", align_corners=False)
+    noisy_images = torch.randn((lr_images.size(0), 1, target_size, target_size), device=device)
 
+    for t in reversed(range(scheduler.config.num_train_timesteps)):
+        timesteps = torch.full((lr_images.size(0),), t, device=device, dtype=torch.long)
+        model_input = torch.cat([noisy_images, lr_resized], dim=1)
+        noise_pred = model(model_input, timesteps).sample
+        noisy_images = scheduler.step(noise_pred, t, noisy_images).prev_sample
 
+    return noisy_images
+
+def log_metrics_and_artifacts(final_image, batch_metrics, epoch, global_step, output_dir):
+    """
+    Logs evaluation results to WandB and saves them as an artifact.
+    """
+    avg_mse = sum(m["mse"] for m in batch_metrics) / len(batch_metrics)
+    avg_psnr = sum(m["psnr"] for m in batch_metrics) / len(batch_metrics)
+
+    if wandb.run is not None:
+        wandb.log({
+            f"sample_epoch_{epoch}": wandb.Image(final_image),
+            "eval/mse": avg_mse,
+            "eval/psnr": avg_psnr,
+        }, step=global_step)
+
+        artifact_name = f"eval_epoch_{epoch}"
+        zip_path = shutil.make_archive(output_dir, 'zip', output_dir)
+
+        artifact = wandb.Artifact(name=artifact_name, type="evaluation_outputs")
+        artifact.add_file(zip_path)
+        wandb.run.log_artifact(artifact)
+
+def save_checkpoint(model, optimizer, epoch, path):
+    torch.save({
+        'epoch': epoch,
+        'model_state_dict': model.state_dict(),
+        'optimizer_state_dict': optimizer.state_dict(),
+    }, path)
 
 
 @torch.no_grad()
@@ -180,73 +224,36 @@ def evaluate(config, epoch, model, noise_scheduler, dataloader, device="cuda", g
         device (str): Device to run evaluation on.
         global_step (int or None): Optional global step for logging to Weights & Biases.
     """
-
     model.eval()
     model.to(device)
 
-    save_dir = os.path.join(config.output_dir, "samples_supertrab_2D_simple")
-    os.makedirs(save_dir, exist_ok=True)
-
     batch = next(iter(dataloader))
-    lr_images = batch["lr_image"].to(device)
-    hr_images = batch["hr_image"].to(device)
+    lr_images, hr_images = batch["lr_image"].to(device), batch["hr_image"].to(device)
 
-    # Resize LR to HR size
-    lr_resized = F.interpolate(
-        lr_images, size=(config.image_size, config.image_size), mode="bilinear", align_corners=False
-    )
+    sr_images = generate_sr_images(model, noise_scheduler, lr_images, config.image_size, device)
 
-    # Initialize noise
-    noisy_images = torch.randn((lr_images.size(0), 1, config.image_size, config.image_size), device=device)
-
-    for t in reversed(range(noise_scheduler.config.num_train_timesteps)):
-        timesteps = torch.full((lr_images.size(0),), t, device=device, dtype=torch.long)
-        model_input = torch.cat([noisy_images, lr_resized], dim=1)
-        noise_pred = model(model_input, timesteps).sample
-        noisy_images = noise_scheduler.step(noise_pred, t, noisy_images).prev_sample
-
-    # Clamp and bring to CPU
-    sr_images = noisy_images.clamp(0.0, 1.0).cpu()
-    lr_images_up = lr_resized.cpu().clamp(0.0, 1.0)
+    # Clamp and move to CPU for visualization
+    sr_images = sr_images.clamp(0.0, 1.0).cpu()
+    lr_images_up = F.interpolate(lr_images, size=(config.image_size, config.image_size),
+                                 mode="bilinear", align_corners=False).clamp(0.0, 1.0).cpu()
     hr_images = hr_images.cpu().clamp(0.0, 1.0)
 
-    # Build grid row by row
-    grid_rows = []
-    for lr, sr, hr in zip(lr_images_up, sr_images, hr_images):
-        row = torch.cat([lr, sr, hr], dim=-1)  # concatenate side-by-side
-        grid_rows.append(row)
+    # Compute metrics and create image grid
+    batch_metrics = compute_image_metrics(sr_images, hr_images)
+    final_image = create_sample_image(lr_images_up, sr_images, hr_images, metrics=batch_metrics)
 
-    # Stack rows vertically
-    final_image = create_sample_image(lr_images_up, sr_images, hr_images)
-
-    if isinstance(epoch, int):
-        base_name = f"{epoch:04d}_ds{config.ds_factor}_size{config.image_size}.png"
-    else:
-        base_name = f"{epoch}_ds{config.ds_factor}_size{config.image_size}.png"
-    
-    # Create a folder for this evaluation output
+    # Create output paths
+    base_name = f"{epoch:04d}_ds{config.ds_factor}_size{config.image_size}.png" if isinstance(epoch, int) \
+                else f"{epoch}_ds{config.ds_factor}_size{config.image_size}.png"
     output_subdir = os.path.join(config.output_dir, "samples_supertrab_2D_simple", base_name)
     os.makedirs(output_subdir, exist_ok=True)
 
+    # Save outputs
     final_image.save(os.path.join(output_subdir, "overview.png"))
-    # Save individual image files
     save_sr_outputs(lr_images_up, sr_images, hr_images, output_subdir, base_name)
 
-    metrics = compute_image_metrics(sr_images, hr_images)
-    
-    if wandb.run is not None:
-        wandb.log({
-            f"sample_epoch_{epoch}": wandb.Image(final_image),
-            "eval/mse": metrics["mse"],
-            "eval/psnr": metrics["psnr"],
-        }, step=global_step)
-    
-    artifact_name = f"eval_epoch_{epoch}"
-    zip_path = shutil.make_archive(output_subdir, 'zip', output_subdir)
-
-    artifact = wandb.Artifact(name=artifact_name, type="evaluation_outputs")
-    artifact.add_file(zip_path)
-    wandb.run.log_artifact(artifact)
+    # Log metrics and artifacts
+    log_metrics_and_artifacts(final_image, batch_metrics, epoch, global_step, output_subdir)
 
 
 def train_loop_2D_diffusion(config, model, noise_scheduler, optimizer, train_dataloader, val_dataloader, lr_scheduler, steps_per_epoch):
@@ -346,8 +353,35 @@ def train_loop_2D_diffusion(config, model, noise_scheduler, optimizer, train_dat
 
         # After each epoch you optionally sample some demo images with evaluate() and save the model
         if accelerator.is_main_process:
-            #evaluate every save_image:apochs
-            #evaluate(config, epoch, model, noise_scheduler, val_dataloader, device=accelerator.device, global_step=global_step)
-            if (epoch + 1) % config.save_image_epochs == 0 or epoch == config.num_epochs - 1:
-                evaluate(config, epoch, model, noise_scheduler, val_dataloader, device=accelerator.device, global_step=global_step)
+            #evaluate after every epoch
+            evaluate(config, epoch, model, noise_scheduler, val_dataloader, device=accelerator.device, global_step=global_step)
+            
+            models_dir = os.path.join(config.output_dir, "models")
+            os.makedirs(models_dir, exist_ok=True)
+            
+            # Save checkpoint every 20 epochs
+            if (epoch + 1) % 20 == 0:
+                checkpoint_path = os.path.join(models_dir, f"checkpoint_epoch_{epoch+1}.pth")
+                save_checkpoint(accelerator.unwrap_model(model), optimizer, epoch+1, checkpoint_path)
+
+                artifact = wandb.Artifact(f"checkpoint_epoch_{epoch+1}", type="model")
+                artifact.add_file(checkpoint_path)
+                wandb.log_artifact(artifact)
+
+            # Save final model and inference weights at last epoch
+            if epoch == config.num_epochs - 1:
+                final_ckpt_path = os.path.join(models_dir, "final_training_checkpoint.pth")
+                weights_path = os.path.join(models_dir, "final_model_weights.pth")
+
+                # Save full training checkpoint
+                save_checkpoint(accelerator.unwrap_model(model), optimizer, epoch+1, final_ckpt_path)
+                artifact = wandb.Artifact("final_training_checkpoint", type="model")
+                artifact.add_file(final_ckpt_path)
+                wandb.log_artifact(artifact)
+
+                # Save inference weights only
+                torch.save(accelerator.unwrap_model(model).state_dict(), weights_path)
+                artifact = wandb.Artifact("final_model_weights", type="model")
+                artifact.add_file(weights_path)
+                wandb.log_artifact(artifact)
 
