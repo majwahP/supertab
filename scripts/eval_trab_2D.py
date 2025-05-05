@@ -8,7 +8,7 @@ import os
 from pathlib import Path
 import torch
 import torch.nn.functional as F
-from diffusers import UNet2DModel, DDPMScheduler
+from diffusers import DDPMScheduler
 from supertrab.sr_dataset_utils import create_dataloader
 from supertrab.metrics_utils import compute_trab_metrics
 from supertrab.metrics_utils import get_mask
@@ -16,30 +16,11 @@ from torchvision.transforms.functional import to_pil_image
 from torchvision.utils import make_grid
 from torchvision.transforms.functional import to_pil_image
 from supertrab.training_utils import normalize_tensor
-from supertrab.inferance_utils import generate_sr_images
+from supertrab.inferance_utils import generate_sr_images, load_model
 
 
 
-def load_model(weights_path, image_size, device="cpu"):
-    """Reconstructs the model architecture and loads trained weights."""
-    model = UNet2DModel(
-        sample_size=image_size,
-        in_channels=2,
-        out_channels=1,
-        layers_per_block=2,
-        block_out_channels=(128, 128, 256, 256, 512, 512),
-        down_block_types=(
-            "DownBlock2D", "DownBlock2D", "DownBlock2D", "DownBlock2D", "AttnDownBlock2D", "DownBlock2D"
-        ),
-        up_block_types=(
-            "UpBlock2D", "AttnUpBlock2D", "UpBlock2D", "UpBlock2D", "UpBlock2D", "UpBlock2D"
-        ),
-    )
-    state_dict = torch.load(weights_path, map_location=device, weights_only=True)
-    model.load_state_dict(state_dict)
-    model.to(device)
-    model.eval()
-    return model
+
 
 
 
