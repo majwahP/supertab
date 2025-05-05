@@ -3,6 +3,7 @@ import torch.nn.functional as F
 from skimage.filters import gaussian, threshold_otsu
 import numpy as np
 from ormir_xct.util.hildebrand_thickness import calc_structure_thickness_statistics
+from skimage.morphology import binary_erosion, binary_dilation, remove_small_objects, remove_small_holes, disk
 
 
 def compute_image_metrics(sr_images: torch.Tensor, hr_images: torch.Tensor):
@@ -71,7 +72,7 @@ def compute_trab_metrics(volume: torch.Tensor, voxel_size_mm: float = 0.0303) ->
     
 
 
-def get_mask(image: torch.Tensor, sigma: float = 1.3) -> torch.Tensor:
+def get_mask(image: torch.Tensor, sigma: float = 1.3, erosion_radius=1, dilation_radius=2) -> torch.Tensor:
     """
     Applies Gaussian blur and returns a binary mask using Otsu thresholding.
     
@@ -98,6 +99,9 @@ def get_mask(image: torch.Tensor, sigma: float = 1.3) -> torch.Tensor:
     thresh = threshold_otsu(blurred)
     mask = (blurred >= thresh).astype(np.float32)
 
-    #TODO remove small islands
+    mask = binary_erosion(mask, disk(erosion_radius))
+    mask = binary_dilation(mask, disk(dilation_radius))
+    mask = remove_small_objects(mask, min_size=100)
+    mask = remove_small_holes(mask, area_threshold=200)
 
     return torch.from_numpy(mask)

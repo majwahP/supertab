@@ -3,6 +3,7 @@ from pathlib import Path
 sys.path.append(str(Path(__file__).resolve().parents[1]))
 
 
+
 import os
 from pathlib import Path
 import torch
@@ -10,6 +11,12 @@ import torch.nn.functional as F
 from diffusers import UNet2DModel, DDPMScheduler
 from supertrab.sr_dataset_utils import create_dataloader
 from supertrab.metrics_utils import compute_trab_metrics
+from supertrab.metrics_utils import get_mask
+from torchvision.transforms.functional import to_pil_image
+from torchvision.utils import make_grid
+from torchvision.transforms.functional import to_pil_image
+from supertrab.training_utils import normalize_tensor
+
 
 
 def load_model(weights_path, image_size, device="cpu"):
@@ -90,6 +97,24 @@ def main():
         lr_metrics = compute_trab_metrics(lr_img)
         sr_metrics = compute_trab_metrics(sr_img)
         hr_metrics = compute_trab_metrics(hr_img)
+
+        # Save SR image and mask side-by-side
+        sr_mask = get_mask(sr_img)
+        sr_img_norm = normalize_tensor(sr_img)
+
+        sr_stack = torch.stack([sr_img_norm, sr_mask.unsqueeze(0)])
+        sr_grid = make_grid(sr_stack, nrow=2)  # add channel dim: [2,1,H,W]
+        sr_pil = to_pil_image(sr_grid)
+        sr_pil.save(os.path.join(output_dir, f"sr_image_and_mask_{i+1}.png"))
+
+        # Save HR image and mask side-by-side
+        hr_mask = get_mask(hr_img)
+        hr_img_norm = normalize_tensor(hr_img)
+
+        hr_stack = torch.stack([hr_img_norm, hr_mask.unsqueeze(0)])
+        hr_grid = make_grid(hr_stack, nrow=2)
+        hr_pil = to_pil_image(hr_grid)
+        hr_pil.save(os.path.join(output_dir, f"hr_image_and_mask_{i+1}.png"))
 
         print(f"Image {i+1}:")
         #3D
