@@ -57,7 +57,7 @@ class TrainingConfig:
     gradient_accumulation_steps: int = 1
     learning_rate: float = 1e-4
     lr_warmup_steps: int = 500
-    save_model_epochs: int = 10
+    save_image_epochs: int = 10
     ds_factor: int = 4
     mixed_precision: str = "fp16"
     output_dir: str = "samples/supertrab-diffusion-sr-2d-v3-checkpoints"

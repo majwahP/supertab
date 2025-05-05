@@ -152,18 +152,23 @@ def log_metrics_and_artifacts(final_image, batch_metrics, epoch, global_step, ou
     avg_psnr = sum(m["psnr"] for m in batch_metrics) / len(batch_metrics)
 
     if wandb.run is not None:
-        wandb.log({
-            f"sample_epoch_{epoch}": wandb.Image(final_image),
+        log_dict = {
             "eval/mse": avg_mse,
             "eval/psnr": avg_psnr,
-        }, step=global_step)
+        }
 
-        artifact_name = f"eval_epoch_{epoch}"
-        zip_path = shutil.make_archive(output_dir, 'zip', output_dir)
+        if final_image is not None:
+            log_dict[f"sample_epoch_{epoch}"] = wandb.Image(final_image)
 
-        artifact = wandb.Artifact(name=artifact_name, type="evaluation_outputs")
-        artifact.add_file(zip_path)
-        wandb.run.log_artifact(artifact)
+        wandb.log(log_dict, step=global_step)
+
+        if output_dir is not None and os.path.exists(output_dir):
+            artifact_name = f"eval_epoch_{epoch}"
+            zip_path = shutil.make_archive(output_dir, 'zip', output_dir)
+
+            artifact = wandb.Artifact(name=artifact_name, type="evaluation_outputs")
+            artifact.add_file(zip_path)
+            wandb.run.log_artifact(artifact)
 
 def save_checkpoint(model, optimizer, epoch, path):
     torch.save({
@@ -203,20 +208,23 @@ def evaluate(config, epoch, model, noise_scheduler, dataloader, device="cuda", g
 
     # Compute metrics and create image grid
     batch_metrics = compute_image_metrics(sr_images, hr_images)
-    final_image = create_sample_image(lr_images_up, sr_images, hr_images, metrics=batch_metrics)
 
-    # Create output paths
-    base_name = f"{epoch:04d}_ds{config.ds_factor}_size{config.image_size}.png" if isinstance(epoch, int) \
-                else f"{epoch}_ds{config.ds_factor}_size{config.image_size}.png"
-    output_subdir = os.path.join(config.output_dir, "samples_supertrab_2D_simple", base_name)
-    os.makedirs(output_subdir, exist_ok=True)
+    # Only save images every 10th epoch
+    save_images = isinstance(epoch, int) and epoch % config.save_image_epochs == 0
 
-    # Save outputs
-    final_image.save(os.path.join(output_subdir, "overview.png"))
-    save_sr_outputs(lr_images_up, sr_images, hr_images, output_subdir, base_name)
+    if save_images:
+        base_name = f"{epoch:04d}_ds{config.ds_factor}_size{config.image_size}.png"
+        output_subdir = os.path.join(config.output_dir, "samples_supertrab_2D_simple", base_name)
+        os.makedirs(output_subdir, exist_ok=True)
+
+        final_image = create_sample_image(lr_images_up, sr_images, hr_images, metrics=batch_metrics)
+        final_image.save(os.path.join(output_subdir, "overview.png"))
+        save_sr_outputs(lr_images_up, sr_images, hr_images, output_subdir, base_name)
+    else:
+        output_subdir = None  # avoid invalid path use in logging
 
     # Log metrics and artifacts
-    log_metrics_and_artifacts(final_image, batch_metrics, epoch, global_step, output_subdir)
+    log_metrics_and_artifacts(final_image if save_images else None, batch_metrics, epoch, global_step, output_subdir)
 
 
 def train_loop_2D_diffusion(config, model, noise_scheduler, optimizer, train_dataloader, val_dataloader, lr_scheduler, steps_per_epoch):
