@@ -16,6 +16,7 @@ from torchvision.transforms.functional import to_pil_image
 from torchvision.utils import make_grid
 from torchvision.transforms.functional import to_pil_image
 from supertrab.training_utils import normalize_tensor
+from supertrab.inferance_utils import generate_sr_images
 
 
 
@@ -41,18 +42,6 @@ def load_model(weights_path, image_size, device="cpu"):
     return model
 
 
-@torch.no_grad()
-def generate_sr_images(model, scheduler, lr_images, target_size, device="cpu"):
-    """Generates super-resolved images from low-resolution inputs."""
-    noisy_images = torch.randn((lr_images.size(0), 1, target_size, target_size), device=device)
-
-    for t in reversed(range(scheduler.config.num_train_timesteps)):
-        timesteps = torch.full((lr_images.size(0),), t, device=device, dtype=torch.long)
-        model_input = torch.cat([noisy_images, lr_images], dim=1)
-        noise_pred = model(model_input, timesteps).sample
-        noisy_images = scheduler.step(noise_pred, t, noisy_images).prev_sample
-
-    return noisy_images
 
 
 def main():
