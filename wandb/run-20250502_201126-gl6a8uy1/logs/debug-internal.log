@@ -1,0 +1,16 @@
+{"time":"2025-05-02T20:11:26.268869012+02:00","level":"INFO","msg":"stream: starting","core version":"0.19.7","symlink path":"/usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/wandb/run-20250502_201126-gl6a8uy1/logs/debug-core.log"}
+{"time":"2025-05-02T20:11:26.387241166+02:00","level":"INFO","msg":"created new stream","id":"gl6a8uy1"}
+{"time":"2025-05-02T20:11:26.387275466+02:00","level":"INFO","msg":"stream: started","id":"gl6a8uy1"}
+{"time":"2025-05-02T20:11:26.387344997+02:00","level":"INFO","msg":"writer: Do: started","stream_id":"gl6a8uy1"}
+{"time":"2025-05-02T20:11:26.387400657+02:00","level":"INFO","msg":"sender: started","stream_id":"gl6a8uy1"}
+{"time":"2025-05-02T20:11:26.387771591+02:00","level":"INFO","msg":"handler: started","stream_id":"gl6a8uy1"}
+{"time":"2025-05-02T20:11:26.703881663+02:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-05-03T00:28:45.882188175+02:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"}
+{"time":"2025-05-03T06:30:23.014394316+02:00","level":"INFO","msg":"stream: closing","id":"gl6a8uy1"}
+{"time":"2025-05-03T06:30:23.014484867+02:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-05-03T06:30:23.311430474+02:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-05-03T06:31:00.905539171+02:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-05-03T06:31:01.074987383+02:00","level":"INFO","msg":"handler: closed","stream_id":"gl6a8uy1"}
+{"time":"2025-05-03T06:31:01.075047714+02:00","level":"INFO","msg":"sender: closed","stream_id":"gl6a8uy1"}
+{"time":"2025-05-03T06:31:01.075030174+02:00","level":"INFO","msg":"writer: Close: closed","stream_id":"gl6a8uy1"}
+{"time":"2025-05-03T06:31:01.076935233+02:00","level":"INFO","msg":"stream: closed","id":"gl6a8uy1"}

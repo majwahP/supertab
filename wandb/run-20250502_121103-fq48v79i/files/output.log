@@ -1,0 +1,70 @@
+Starting Epoch 0...
+Starting Epoch 1...
+Starting Epoch 2...
+Starting Epoch 3...
+Starting Epoch 4...
+Starting Epoch 5...
+Starting Epoch 6...
+Starting Epoch 7...
+Starting Epoch 8...
+Starting Epoch 9...
+Starting Epoch 10...
+Starting Epoch 11...
+Starting Epoch 12...
+Starting Epoch 13...
+Starting Epoch 14...
+Starting Epoch 15...
+Starting Epoch 16...
+Starting Epoch 17...
+Starting Epoch 18...
+Starting Epoch 19...
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/wandb/sdk/artifacts/artifact.py", line 1592, in _add_local_file
+    shutil.copyfile(path, staging_path)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 256, in copyfile
+    with open(dst, 'wb') as fdst:
+OSError: [Errno 122] Disk quota exceeded
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/scripts/train_diffusion_model_2D.py", line 133, in <module>
+    main()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/scripts/train_diffusion_model_2D.py", line 126, in main
+    train_loop_2D_diffusion(config, model, noise_scheduler, optimizer, train_dataloader, val_dataloader, lr_scheduler, steps_per_epoch)
+  File "/home/mwahlin/myterminus/2025/trab_master/supertrab/supertrab/training_utils.py", line 331, in train_loop_2D_diffusion
+    artifact.add_file(checkpoint_path)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/wandb/sdk/artifacts/_validators.py", line 115, in wrapper
+    return method(self, *args, **kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/wandb/sdk/artifacts/artifact.py", line 1327, in add_file
+    return self._add_local_file(
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/wandb/sdk/artifacts/artifact.py", line 1590, in _add_local_file
+    with tempfile.NamedTemporaryFile(dir=get_staging_dir(), delete=False) as f:
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/tempfile.py", line 517, in __exit__
+    result = self.file.__exit__(exc, value, tb)
+OSError: [Errno 122] Disk quota exceeded
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/wandb/sdk/artifacts/artifact.py", line 1592, in _add_local_file
+    shutil.copyfile(path, staging_path)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 256, in copyfile
+    with open(dst, 'wb') as fdst:
+OSError: [Errno 122] Disk quota exceeded
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/scripts/train_diffusion_model_2D.py", line 133, in <module>
+    main()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/scripts/train_diffusion_model_2D.py", line 126, in main
+    train_loop_2D_diffusion(config, model, noise_scheduler, optimizer, train_dataloader, val_dataloader, lr_scheduler, steps_per_epoch)
+  File "/home/mwahlin/myterminus/2025/trab_master/supertrab/supertrab/training_utils.py", line 331, in train_loop_2D_diffusion
+    artifact.add_file(checkpoint_path)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/wandb/sdk/artifacts/_validators.py", line 115, in wrapper
+    return method(self, *args, **kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/wandb/sdk/artifacts/artifact.py", line 1327, in add_file
+    return self._add_local_file(
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/wandb/sdk/artifacts/artifact.py", line 1590, in _add_local_file
+    with tempfile.NamedTemporaryFile(dir=get_staging_dir(), delete=False) as f:
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/tempfile.py", line 517, in __exit__
+    result = self.file.__exit__(exc, value, tb)
+OSError: [Errno 122] Disk quota exceeded

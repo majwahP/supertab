@@ -14,7 +14,6 @@ Code is based on: https://huggingface.co/docs/diffusers/en/tutorials/basic_train
 """
 
 
-from dataclasses import dataclass
 import torch.nn.functional as F
 import torch
 import torchvision.utils as vutils
@@ -26,44 +25,8 @@ from PIL import Image, ImageDraw, ImageFont
 import PIL
 import wandb
 import shutil
-from metrics_utils import compute_image_metrics
+from supertrab.metrics_utils import compute_image_metrics
 
-
-@dataclass
-class TrainingConfig:
-
-    """
-    Defines hyperparameters and settings for training a DDPM super-resolution model.
-    
-    Attributes:
-        image_size: Height and width of square input patches.
-        train_batch_size: Batch size for training.
-        eval_batch_size: Batch size used during evaluation.
-        num_epochs: Number of training epochs.
-        gradient_accumulation_steps: Steps to accumulate gradients before updating weights.
-        learning_rate: Initial learning rate.
-        lr_warmup_steps: Number of warmup steps before full learning rate.
-        save_image_epochs: Frequency (in epochs) to generate and save evaluation images.
-        ds_factor: Downsampling factor used to simulate LR from HR.
-        mixed_precision: Type of mixed precision used during training (e.g., "fp16").
-        output_dir: Path to save results and checkpoints.
-        seed: Random seed for reproducibility.
-        cfg_dropout_prob: Probability of dropping conditioning for classifier-free guidance.
-    """
-
-    image_size: int = 256
-    train_batch_size: int = 8
-    eval_batch_size: int = 8 
-    num_epochs: int = 100
-    gradient_accumulation_steps: int = 1
-    learning_rate: float = 1e-4
-    lr_warmup_steps: int = 500
-    save_image_epochs: int = 20
-    ds_factor: int = 4
-    mixed_precision: str = "fp16"
-    output_dir: str = "samples/ddpm-supertrab-256-2D-v2"
-    seed: int = 0
-    cfg_dropout_prob: float = 0.1 # 10% of the time, drop the LR image during training
 
 
 def normalize_tensor(tensor):
@@ -282,7 +245,7 @@ def train_loop_2D_diffusion(config, model, noise_scheduler, optimizer, train_dat
     if accelerator.is_main_process:
         if config.output_dir is not None:
             os.makedirs(config.output_dir, exist_ok=True)
-        run_name = f"supertrab_ddpm_{config.image_size}px_ds{config.ds_factor}_{config.num_epochs}ep"
+        run_name = f"supertrab_ddpm_{config.image_size}px_ds{config.ds_factor}_{config.num_epochs}ep_v3"
         accelerator.init_trackers(
             project_name="supertrab", 
             config=vars(config),
@@ -358,15 +321,6 @@ def train_loop_2D_diffusion(config, model, noise_scheduler, optimizer, train_dat
             
             models_dir = os.path.join(config.output_dir, "models")
             os.makedirs(models_dir, exist_ok=True)
-            
-            # Save checkpoint every 20 epochs
-            if (epoch + 1) % 20 == 0:
-                checkpoint_path = os.path.join(models_dir, f"checkpoint_epoch_{epoch+1}.pth")
-                save_checkpoint(accelerator.unwrap_model(model), optimizer, epoch+1, checkpoint_path)
-
-                artifact = wandb.Artifact(f"checkpoint_epoch_{epoch+1}", type="model")
-                artifact.add_file(checkpoint_path)
-                wandb.log_artifact(artifact)
 
             # Save final model and inference weights at last epoch
             if epoch == config.num_epochs - 1:

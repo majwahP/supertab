@@ -1,0 +1,15 @@
+{"time":"2025-05-02T12:11:03.658872139+02:00","level":"INFO","msg":"stream: starting","core version":"0.19.7","symlink path":"/usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/wandb/run-20250502_121103-fq48v79i/logs/debug-core.log"}
+{"time":"2025-05-02T12:11:03.88003996+02:00","level":"INFO","msg":"created new stream","id":"fq48v79i"}
+{"time":"2025-05-02T12:11:03.880084971+02:00","level":"INFO","msg":"stream: started","id":"fq48v79i"}
+{"time":"2025-05-02T12:11:03.880146871+02:00","level":"INFO","msg":"writer: Do: started","stream_id":"fq48v79i"}
+{"time":"2025-05-02T12:11:03.880187672+02:00","level":"INFO","msg":"sender: started","stream_id":"fq48v79i"}
+{"time":"2025-05-02T12:11:03.880253662+02:00","level":"INFO","msg":"handler: started","stream_id":"fq48v79i"}
+{"time":"2025-05-02T12:11:04.25965895+02:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-05-02T16:21:06.399797436+02:00","level":"INFO","msg":"stream: closing","id":"fq48v79i"}
+{"time":"2025-05-02T16:21:06.399956398+02:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-05-02T16:21:06.400928767+02:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-05-02T16:21:07.023599448+02:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-05-02T16:21:07.215690489+02:00","level":"INFO","msg":"handler: closed","stream_id":"fq48v79i"}
+{"time":"2025-05-02T16:21:07.215732029+02:00","level":"INFO","msg":"writer: Close: closed","stream_id":"fq48v79i"}
+{"time":"2025-05-02T16:21:07.215747109+02:00","level":"INFO","msg":"sender: closed","stream_id":"fq48v79i"}
+{"time":"2025-05-02T16:21:07.21779108+02:00","level":"INFO","msg":"stream: closed","id":"fq48v79i"}
