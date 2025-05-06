@@ -1,3 +1,6 @@
 *.pth
 *.png
 *.zip
+# Ignore WandB logs and cache
+wandb/
+wandb_data/
