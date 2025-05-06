@@ -144,7 +144,7 @@ def generate_sr_images(model, scheduler, lr_images, target_size, device):
 
     return noisy_images
 
-def log_metrics_and_artifacts(final_image, batch_metrics, epoch, global_step, output_dir):
+def log_metrics_and_artifacts(image_to_save, batch_metrics, epoch, global_step, output_dir):
     """
     Logs evaluation results to WandB and saves them as an artifact.
     """
@@ -157,8 +157,8 @@ def log_metrics_and_artifacts(final_image, batch_metrics, epoch, global_step, ou
             "eval/psnr": avg_psnr,
         }
 
-        if final_image is not None:
-            log_dict[f"sample_epoch_{epoch}"] = wandb.Image(final_image)
+        if image_to_save is not None:
+            log_dict[f"sample_epoch_{epoch}"] = wandb.Image(image_to_save)
 
         wandb.log(log_dict, step=global_step)
 
@@ -214,17 +214,17 @@ def evaluate(config, epoch, model, noise_scheduler, dataloader, device="cuda", g
 
     if save_images:
         base_name = f"{epoch:04d}_ds{config.ds_factor}_size{config.image_size}.png"
-        output_subdir = os.path.join(config.output_dir, "samples_supertrab_2D_simple", base_name)
+        output_subdir = os.path.join(config.output_dir, "images", base_name) # Name change
         os.makedirs(output_subdir, exist_ok=True)
 
-        final_image = create_sample_image(lr_images_up, sr_images, hr_images, metrics=batch_metrics)
-        final_image.save(os.path.join(output_subdir, "overview.png"))
+        image_to_save = create_sample_image(lr_images_up, sr_images, hr_images, metrics=batch_metrics)
+        image_to_save.save(os.path.join(output_subdir, "overview.png"))
         save_sr_outputs(lr_images_up, sr_images, hr_images, output_subdir, base_name)
     else:
         output_subdir = None  # avoid invalid path use in logging
 
     # Log metrics and artifacts
-    log_metrics_and_artifacts(final_image if save_images else None, batch_metrics, epoch, global_step, output_subdir)
+    log_metrics_and_artifacts(image_to_save if save_images else None, batch_metrics, epoch, global_step, output_subdir)
 
 
 def train_loop_2D_diffusion(config, model, noise_scheduler, optimizer, train_dataloader, val_dataloader, lr_scheduler, steps_per_epoch):
@@ -253,7 +253,7 @@ def train_loop_2D_diffusion(config, model, noise_scheduler, optimizer, train_dat
     if accelerator.is_main_process:
         if config.output_dir is not None:
             os.makedirs(config.output_dir, exist_ok=True)
-        run_name = f"supertrab_ddpm_{config.image_size}px_ds{config.ds_factor}_{config.num_epochs}ep_v3"
+        run_name = f"supertrab_ddpm_{config.image_size}px_ds{config.ds_factor}_{config.num_epochs}ep_v4" # Name change
         accelerator.init_trackers(
             project_name="supertrab", 
             config=vars(config),
@@ -327,23 +327,24 @@ def train_loop_2D_diffusion(config, model, noise_scheduler, optimizer, train_dat
             #evaluate after every epoch
             evaluate(config, epoch, model, noise_scheduler, val_dataloader, device=accelerator.device, global_step=global_step)
             
-            models_dir = os.path.join(config.output_dir, "models")
+            models_dir = os.path.join(config.output_dir, "models") # Name change
             os.makedirs(models_dir, exist_ok=True)
+
 
             # Save final model and inference weights at last epoch
             if epoch == config.num_epochs - 1:
-                final_ckpt_path = os.path.join(models_dir, "final_training_checkpoint.pth")
-                weights_path = os.path.join(models_dir, "final_model_weights.pth")
+                final_ckpt_path = os.path.join(models_dir, "final_training_checkpoint_128_ds4.pth") # Name change
+                weights_path = os.path.join(models_dir, "final_model_weights_128_ds4.pth") # Name change
 
                 # Save full training checkpoint
                 save_checkpoint(accelerator.unwrap_model(model), optimizer, epoch+1, final_ckpt_path)
-                artifact = wandb.Artifact("final_training_checkpoint", type="model")
-                artifact.add_file(final_ckpt_path)
-                wandb.log_artifact(artifact)
+                # artifact = wandb.Artifact("final_training_checkpoint", type="model")
+                # artifact.add_file(final_ckpt_path)
+                # wandb.log_artifact(artifact)
 
                 # Save inference weights only
                 torch.save(accelerator.unwrap_model(model).state_dict(), weights_path)
-                artifact = wandb.Artifact("final_model_weights", type="model")
-                artifact.add_file(weights_path)
-                wandb.log_artifact(artifact)
+                # artifact = wandb.Artifact("final_model_weights", type="model")
+                # artifact.add_file(weights_path)
+                # wandb.log_artifact(artifact)
 

@@ -1,0 +1,17 @@
+Starting Epoch 0...
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/scripts/train_diffusion_model_2D.py", line 133, in <module>
+    main()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/scripts/train_diffusion_model_2D.py", line 126, in main
+    train_loop_2D_diffusion(config, model, noise_scheduler, optimizer, train_dataloader, val_dataloader, lr_scheduler, steps_per_epoch)
+  File "/home/mwahlin/myterminus/2025/trab_master/supertrab/supertrab/training_utils.py", line 329, in train_loop_2D_diffusion
+    save_checkpoint(accelerator.unwrap_model(model), optimizer, epoch+1, final_ckpt_path)
+UnboundLocalError: local variable 'final_ckpt_path' referenced before assignment
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/scripts/train_diffusion_model_2D.py", line 133, in <module>
+    main()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/scripts/train_diffusion_model_2D.py", line 126, in main
+    train_loop_2D_diffusion(config, model, noise_scheduler, optimizer, train_dataloader, val_dataloader, lr_scheduler, steps_per_epoch)
+  File "/home/mwahlin/myterminus/2025/trab_master/supertrab/supertrab/training_utils.py", line 329, in train_loop_2D_diffusion
+    save_checkpoint(accelerator.unwrap_model(model), optimizer, epoch+1, final_ckpt_path)
+UnboundLocalError: local variable 'final_ckpt_path' referenced before assignment

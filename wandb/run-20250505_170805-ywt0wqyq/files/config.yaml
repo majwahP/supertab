@@ -1,0 +1,58 @@
+_wandb:
+    value:
+        cli_version: 0.19.7
+        m: []
+        python_version: 3.10.16
+        t:
+            "1":
+                - 1
+                - 41
+                - 49
+                - 55
+                - 71
+                - 83
+            "2":
+                - 1
+                - 41
+                - 49
+                - 55
+                - 71
+                - 83
+            "3":
+                - 13
+                - 23
+                - 55
+                - 61
+            "4": 3.10.16
+            "5": 0.19.7
+            "8":
+                - 2
+                - 5
+            "12": 0.19.7
+            "13": linux-x86_64
+cfg_dropout_prob:
+    value: 0.1
+ds_factor:
+    value: 10
+eval_batch_size:
+    value: 8
+gradient_accumulation_steps:
+    value: 1
+image_size:
+    value: 128
+learning_rate:
+    value: 0.0001
+lr_warmup_steps:
+    value: 500
+mixed_precision:
+    value: fp16
+num_epochs:
+    value: 50
+output_dir:
+    value: samples/supertrab-diffusion-sr-2d-v3-checkpoints
+save_image_epochs:
+    value: 10
+seed:
+    value: 0
+train_batch_size:
+    value: 8

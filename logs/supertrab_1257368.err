@@ -166,3 +166,1309 @@ Traceback (most recent call last):
   File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
     os.unlink(entry.name, dir_fd=topfd)
 OSError: [Errno 16] Device or resource busy: '.nfs0000003812597e4400000436'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs0000003812597e4800000437'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs0000003812597e4c00000438'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs0000003812597e4d0000043a'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs0000003e15fc68950000043b'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs0000003e15fc68960000043c'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs0000003e15fc68970000043d'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs0000003e15fc68980000043e'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs0000003e86042fa50000043f'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs0000003fecfb0d7c00000441'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000443082181800000442'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000443082181900000443'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000443082181a00000444'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000443082182a00000445'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000443082182b00000446'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs00000044830f6e9800000447'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000451dbb1fd400000448'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs00000045856ff18900000449'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000462ccc4f930000044a'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs0000004688a3dce80000044b'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs00000047266369d10000044c'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000479777f39d0000044d'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs0000004887df8f190000044e'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000499b5d15a30000044f'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000499b5d15a400000450'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000499b5d15a500000451'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs0000004a0b03327000000452'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs0000004a8fa3f2fa00000453'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs0000004b0cf522fc00000454'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs0000004b8aee549900000455'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs0000004c0c7fbe9700000456'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs0000004c88c53c3b00000457'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs0000004d17ac9c2e00000458'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs0000004e82108a5400000459'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs0000004f0283f29f0000045a'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs0000004f82322c5b0000045b'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs0000005006b6d2740000045c'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs00000050820f0fcc0000045d'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs00000051040984e40000045e'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs00000051822bee860000045f'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000520400d44e00000460'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000528229ec7a00000461'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs0000005302b229ee00000462'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000538001d7f100000463'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs00000054020556b400000464'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs0000005481c6393c00000465'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs00000055822ca3e200000466'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs00000056053d205700000467'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000568216600b00000468'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000570211ae9000000469'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs0000005781ccf4020000046b'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs0000005801e838310000046c'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs0000005981d3bddb0000046d'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs0000005a01d7a81d0000046e'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs0000005a81caf8440000046f'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs0000005c80005e4900000470'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs0000005d000016c000000471'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs0000005d80ff9f3500000472'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs0000005e01e8f9be00000473'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs0000005e8067d49c00000474'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs0000005f00e3ce1700000475'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs0000005f81d5ae7f00000476'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs0000006001d5b13c00000477'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs0000006081cc112200000478'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs0000006101dd89fe00000479'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs00000061813008210000047a'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs0000006201c28cb80000047b'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs0000006281d2c6050000047c'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs00000063010c3f8a0000047d'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000638000fff70000047e'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs00000064000013b20000047f'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs0000006481340fa900000480'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000660107264400000481'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs0000006681cde28d00000482'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs0000006700e3106b00000483'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs00000067805e885300000484'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs0000006801c80d6100000485'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000688101440d00000486'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs0000006901071e2d00000487'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs0000006981cde5fd00000488'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs0000006a01de77a800000489'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs0000006a812939950000048a'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs0000006b00d854ff0000048b'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs00000000296d6b690000048c'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs00000000296d6b6a0000048d'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs00000000ce6e76210000048e'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs0000000164754b9c0000048f'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs00000001b78748f600000490'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs00000002331f569000000491'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs00000002c3cd8cee00000492'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/wandb/sdk/artifacts/artifact.py", line 1592, in _add_local_file
+    shutil.copyfile(path, staging_path)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 256, in copyfile
+    with open(dst, 'wb') as fdst:
+OSError: [Errno 122] Disk quota exceeded
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/scripts/train_diffusion_model_2D.py", line 133, in <module>
+    main()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/scripts/train_diffusion_model_2D.py", line 126, in main
+    train_loop_2D_diffusion(config, model, noise_scheduler, optimizer, train_dataloader, val_dataloader, lr_scheduler, steps_per_epoch)
+  File "/home/mwahlin/myterminus/2025/trab_master/supertrab/supertrab/training_utils.py", line 347, in train_loop_2D_diffusion
+    artifact.add_file(weights_path)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/wandb/sdk/artifacts/_validators.py", line 115, in wrapper
+    return method(self, *args, **kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/wandb/sdk/artifacts/artifact.py", line 1327, in add_file
+    return self._add_local_file(
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/wandb/sdk/artifacts/artifact.py", line 1590, in _add_local_file
+    with tempfile.NamedTemporaryFile(dir=get_staging_dir(), delete=False) as f:
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/tempfile.py", line 517, in __exit__
+    result = self.file.__exit__(exc, value, tb)
+OSError: [Errno 122] Disk quota exceeded
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/wandb/sdk/artifacts/artifact.py", line 1592, in _add_local_file
+    shutil.copyfile(path, staging_path)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/shutil.py", line 256, in copyfile
+    with open(dst, 'wb') as fdst:
+OSError: [Errno 122] Disk quota exceeded
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/scripts/train_diffusion_model_2D.py", line 133, in <module>
+    main()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/scripts/train_diffusion_model_2D.py", line 126, in main
+    train_loop_2D_diffusion(config, model, noise_scheduler, optimizer, train_dataloader, val_dataloader, lr_scheduler, steps_per_epoch)
+  File "/home/mwahlin/myterminus/2025/trab_master/supertrab/supertrab/training_utils.py", line 347, in train_loop_2D_diffusion
+    artifact.add_file(weights_path)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/wandb/sdk/artifacts/_validators.py", line 115, in wrapper
+    return method(self, *args, **kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/wandb/sdk/artifacts/artifact.py", line 1327, in add_file
+    return self._add_local_file(
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/wandb/sdk/artifacts/artifact.py", line 1590, in _add_local_file
+    with tempfile.NamedTemporaryFile(dir=get_staging_dir(), delete=False) as f:
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/tempfile.py", line 517, in __exit__
+    result = self.file.__exit__(exc, value, tb)
+OSError: [Errno 122] Disk quota exceeded
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/bin/accelerate", line 8, in <module>
+    sys.exit(main())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/accelerate/commands/accelerate_cli.py", line 48, in main
+    args.func(args)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/accelerate/commands/launch.py", line 1194, in launch_command
+    simple_launcher(args)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/accelerate/commands/launch.py", line 780, in simple_launcher
+    raise subprocess.CalledProcessError(returncode=process.returncode, cmd=cmd)
+subprocess.CalledProcessError: Command '['/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/bin/python3.10', '/usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/scripts/train_diffusion_model_2D.py']' returned non-zero exit status 1.
