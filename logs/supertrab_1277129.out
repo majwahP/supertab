@@ -1,0 +1,6 @@
+make dir
+Load model
+Shape of volume: (5921, 4608, 4608)
+save image
+extract patches
+Saved images

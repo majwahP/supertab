@@ -72,7 +72,7 @@ def compute_trab_metrics(volume: torch.Tensor, voxel_size_mm: float = 0.0303) ->
     
 
 
-def get_mask(image: torch.Tensor, sigma: float = 1.3, erosion_radius=1, dilation_radius=2) -> torch.Tensor:
+def get_mask(image: torch.Tensor, sigma: float = 1.3, erosion_radius=1.5, dilation_radius=1) -> torch.Tensor:
     """
     Applies Gaussian blur and returns a binary mask using Otsu thresholding.
     
@@ -94,14 +94,24 @@ def get_mask(image: torch.Tensor, sigma: float = 1.3, erosion_radius=1, dilation
 
     # Apply Gaussian blur
     blurred = gaussian(image_np, sigma=sigma)
+    #blurred = image_np
+
+    # Reject flat or noisy patches before thresholding
+    if blurred.std() < 0.08:
+        print(f"Std {blurred.std()}")
+        mask = np.zeros_like(blurred, dtype=np.float32)
+        return torch.from_numpy(mask)
+
 
     # Compute Otsu threshold and create binary mask
     thresh = threshold_otsu(blurred)
+    #thresh = 0.455
+    print(f"Threshold: {thresh}")
     mask = (blurred >= thresh).astype(np.float32)
 
     mask = binary_erosion(mask, disk(erosion_radius))
     mask = binary_dilation(mask, disk(dilation_radius))
-    mask = remove_small_objects(mask, min_size=100)
-    mask = remove_small_holes(mask, area_threshold=200)
+    mask = remove_small_objects(mask, min_size=50)
+    mask = remove_small_holes(mask, area_threshold=10)
 
     return torch.from_numpy(mask)

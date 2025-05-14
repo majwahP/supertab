@@ -26,6 +26,7 @@ import PIL
 import wandb
 import shutil
 from supertrab.metrics_utils import compute_image_metrics
+from diffusers import UNet2DModel, DDPMScheduler
 
 
 
@@ -209,12 +210,15 @@ def evaluate(config, epoch, model, noise_scheduler, dataloader, device="cuda", g
     # Compute metrics and create image grid
     batch_metrics = compute_image_metrics(sr_images, hr_images)
 
-    # Only save images every 10th epoch
-    save_images = isinstance(epoch, int) and epoch % config.save_image_epochs == 0
+    # Only save images every 10th epoch and on last epoch
+    save_images = (
+        isinstance(epoch, int)
+        and (epoch % config.save_image_epochs == 0 or epoch == config.num_epochs - 1)
+    )
 
     if save_images:
         base_name = f"{epoch:04d}_ds{config.ds_factor}_size{config.image_size}.png"
-        output_subdir = os.path.join(config.output_dir, "images", base_name) # Name change
+        output_subdir = os.path.join(config.output_dir, f"{config.image_size}_ds{config.ds_factor}/images", base_name) # Name change
         os.makedirs(output_subdir, exist_ok=True)
 
         image_to_save = create_sample_image(lr_images_up, sr_images, hr_images, metrics=batch_metrics)
@@ -227,7 +231,7 @@ def evaluate(config, epoch, model, noise_scheduler, dataloader, device="cuda", g
     log_metrics_and_artifacts(image_to_save if save_images else None, batch_metrics, epoch, global_step, output_subdir)
 
 
-def train_loop_2D_diffusion(config, model, noise_scheduler, optimizer, train_dataloader, val_dataloader, lr_scheduler, steps_per_epoch):
+def train_loop_2D_diffusion(config, model, noise_scheduler, optimizer, train_dataloader, val_dataloader, lr_scheduler, steps_per_epoch, starting_epoch = 0):
     """
     Trains a UNet-based 2D DDPM model for super-resolution with classifier-free guidance.
 
@@ -240,6 +244,7 @@ def train_loop_2D_diffusion(config, model, noise_scheduler, optimizer, train_dat
         val_dataloader (DataLoader): DataLoader for validation patches.
         lr_scheduler (Scheduler): Learning rate scheduler.
         steps_per_epoch (int): Number of training steps per epoch.
+        starting_epoch (int): from which epoch we are training, allows resuming training
     """
 
     # Initialize accelerator and tensorboard logging
@@ -271,7 +276,7 @@ def train_loop_2D_diffusion(config, model, noise_scheduler, optimizer, train_dat
     global_step = 0
 
     # Now you train the model
-    for epoch in range(config.num_epochs):
+    for epoch in range(starting_epoch, config.num_epochs):
         if accelerator.is_local_main_process:
             print(f"Starting Epoch {epoch}...")
 
@@ -326,15 +331,14 @@ def train_loop_2D_diffusion(config, model, noise_scheduler, optimizer, train_dat
         if accelerator.is_main_process:
             #evaluate after every epoch
             evaluate(config, epoch, model, noise_scheduler, val_dataloader, device=accelerator.device, global_step=global_step)
-            
-            models_dir = os.path.join(config.output_dir, "models") # Name change
-            os.makedirs(models_dir, exist_ok=True)
-
 
             # Save final model and inference weights at last epoch
             if epoch == config.num_epochs - 1:
-                final_ckpt_path = os.path.join(models_dir, "final_training_checkpoint_128_ds4.pth") # Name change
-                weights_path = os.path.join(models_dir, "final_model_weights_128_ds4.pth") # Name change
+                models_dir = os.path.join(config.output_dir, f"{config.image_size}_ds{config.ds_factor}/models") # Name change
+                os.makedirs(models_dir, exist_ok=True)
+
+                final_ckpt_path = os.path.join(models_dir, f"final_training_checkpoint_{config.image_size}_ds{config.ds_factor}.pth") # Name change
+                weights_path = os.path.join(models_dir, f"final_model_weights_{config.image_size}_ds{config.ds_factor}.pth") # Name change
 
                 # Save full training checkpoint
                 save_checkpoint(accelerator.unwrap_model(model), optimizer, epoch+1, final_ckpt_path)
@@ -348,3 +352,23 @@ def train_loop_2D_diffusion(config, model, noise_scheduler, optimizer, train_dat
                 # artifact.add_file(weights_path)
                 # wandb.log_artifact(artifact)
 
+
+def load_model_and_optimizer(config, checkpoint_path):
+    model = UNet2DModel(
+        sample_size=config.image_size,
+        in_channels=2,
+        out_channels=1,
+        layers_per_block=2,
+        block_out_channels=(128, 128, 256, 256, 512, 512),
+        down_block_types=("DownBlock2D", "DownBlock2D", "DownBlock2D", "DownBlock2D", "AttnDownBlock2D", "DownBlock2D"),
+        up_block_types=("UpBlock2D", "AttnUpBlock2D", "UpBlock2D", "UpBlock2D", "UpBlock2D", "UpBlock2D"),
+    )
+
+    optimizer = torch.optim.AdamW(model.parameters(), lr=config.learning_rate)
+
+    checkpoint = torch.load(checkpoint_path, map_location="cpu")
+    model.load_state_dict(checkpoint["model_state_dict"])
+    optimizer.load_state_dict(checkpoint["optimizer_state_dict"])
+    start_epoch = checkpoint["epoch"]
+
+    return model, optimizer, start_epoch

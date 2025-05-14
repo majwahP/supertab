@@ -2,95 +2,96 @@ import sys
 from pathlib import Path
 sys.path.append(str(Path(__file__).resolve().parents[1]))
 
+import os
 import torch
 import torch.nn.functional as F
-import torchvision.transforms as T
-from torchvision.transforms.functional import to_tensor, to_pil_image
-from PIL import Image
-import os
-from pathlib import Path
+from torch.utils.data import DataLoader, TensorDataset
 from tqdm import tqdm
-from diffusers import DDPMScheduler
-from supertrab.inferance_utils import load_model, generate_sr_images, reassemble_patches, split_into_patches, load_zarr_slice
+from torchvision.transforms import GaussianBlur
+from torchvision.transforms.functional import to_pil_image, to_tensor
 
+from diffusers import DDPMScheduler
+from supertrab.inferance_utils import (
+    load_model,
+    generate_sr_images,
+    load_zarr_slice,
+    split_into_patches,
+    reassemble_patches,
+    normalize_tensor
+)
+
+# Parameters
 PATCH_SIZE = 128
+DS_FACTOR = 8
 BATCH_SIZE = 4
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
+SLICE_INDEX = 4000
+GROUP_NAME = "2019_L"
+
+# Paths
+image_path = Path("/usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr")
+weights_path = f"samples/supertrab-diffusion-sr-2d-v4/{PATCH_SIZE}_ds{DS_FACTOR}/models/final_model_weights_{PATCH_SIZE}_ds{DS_FACTOR}.pth"
+output_dir = f"samples/inference/{PATCH_SIZE}_ds{DS_FACTOR}_oneslice"
+os.makedirs(output_dir, exist_ok=True)
 
 def main():
-    image_path = Path("/usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr")
-    weights_path = "samples/supertrab-diffusion-sr-2d-v3-checkpoints/models/final_model_weights.pth"
-    output_dir = "samples/inference"
-
-    os.makedirs(output_dir, exist_ok=True)
-
-    # Load model and scheduler
+    # Load model + scheduler
     model = load_model(weights_path, image_size=PATCH_SIZE, device=DEVICE)
     scheduler = DDPMScheduler(num_train_timesteps=1000)
 
-    # Load image
-    slice_index = 2960
+    # Load single Z slice
     image_tensor = load_zarr_slice(
+        slice_index=SLICE_INDEX,
         zarr_path=image_path,
-        group_name="2019_L",        
-        dataset_name="image",        
-        slice_index=slice_index,             
+        group_name=GROUP_NAME,
+        dataset_name="image",
         normalize=True
-    ).to(DEVICE)
+    )  # shape: [1, H, W]
 
-    # image_tensor shape: [1, H, W] -> add batch dim
-    hr_image = image_tensor.unsqueeze(0)  # shape [1, 1, H, W]
+    to_pil_image(image_tensor).save(os.path.join(output_dir, "hr_full.png"))
 
-    # Apply Gaussian smoothing
-    sigma = 1.3  # or any float value you want
-    gaussian_blur = T.GaussianBlur(kernel_size=5, sigma=sigma)
-    smoothed = gaussian_blur(hr_image)
+    # Split into patches
+    hr_patches, padded_shape, image_shape = split_into_patches(image_tensor, PATCH_SIZE)
 
-    # Downsample by factor 4
-    lr_downsampled = F.interpolate(
-        smoothed,
-        scale_factor=1/4,
-        mode="bilinear",
-        align_corners=False
-    )
+    # Generate LR patches (Gaussian blur + down/upsample)
+    blur_transform = GaussianBlur(kernel_size=5, sigma=1.3)
+    lr_patches = []
 
-    # Upsample back to original HR resolution (same shape as HR)
-    lr_resized = F.interpolate(
-        lr_downsampled,
-        size=hr_image.shape[-2:],
-        mode="bilinear",
-        align_corners=False
-    )
+    for i, patch in enumerate(hr_patches):
+        patch = patch.unsqueeze(0)
+        blurred = blur_transform(patch)
+        down = F.interpolate(blurred, scale_factor=1 / DS_FACTOR, mode="bilinear", align_corners=False)
+        up = F.interpolate(down, size=(PATCH_SIZE, PATCH_SIZE), mode="bilinear", align_corners=False)
+        lr_patches.append(up.squeeze(0))  # [H, W]
 
-    # Remove batch/channel dims for patching
-    lr_image = lr_resized.squeeze(0)  # shape: [1, H, W]
+    lr_patches = torch.stack(lr_patches) 
 
+    # Wrap in dataset
+    dataset = TensorDataset(lr_patches) 
 
-    # Extract patches
-    print("extract patches")
-    patches, padded_shape, original_shape = split_into_patches(lr_image, PATCH_SIZE)
+    loader = DataLoader(dataset, batch_size=BATCH_SIZE, shuffle=False)
 
-    # SR in batches
+    # Inference
     sr_patches = []
-    print(len(patches))
-    for i in tqdm(range(0, len(patches), BATCH_SIZE), desc="Super-resolving patches"):
-        batch = patches[i:i+BATCH_SIZE]
-        batch = batch.to(DEVICE)
-        sr_batch = generate_sr_images(model, scheduler, batch, target_size=PATCH_SIZE, device=DEVICE)
-        sr_batch = sr_batch.clamp(0, 1).cpu()
-        sr_patches.append(sr_batch)
+    model.eval()
+    with torch.no_grad():
+        for batch in tqdm(loader, desc="Super-resolving patches"):
+            lr_batch = batch[0].to(DEVICE)
+            sr_batch = generate_sr_images(model, scheduler, lr_batch, target_size=PATCH_SIZE, device=DEVICE)
+            sr_patches.append(sr_batch.cpu())
 
-    sr_patches = torch.cat(sr_patches, dim=0)  
+    sr_patches = torch.cat(sr_patches, dim=0).squeeze(1)  # [N, H, W]
 
-    # Reassemble full image
-    full_sr_image = reassemble_patches(sr_patches, padded_shape, original_shape, PATCH_SIZE)
+    # Reassemble full images
+    full_sr_image = reassemble_patches(sr_patches, padded_shape, image_shape, PATCH_SIZE)
+    full_lr_image = reassemble_patches(lr_patches, padded_shape, image_shape, PATCH_SIZE)
+    full_hr_image = reassemble_patches(hr_patches, padded_shape, image_shape, PATCH_SIZE)
 
-    # Save result
-    to_pil_image(image_tensor).save(os.path.join(output_dir, "hr_image.png"))
-    to_pil_image(lr_image).save(os.path.join(output_dir, "lr_image.png"))
+    # Save images
+    to_pil_image(full_hr_image).save(os.path.join(output_dir, "hr_image.png"))
+    to_pil_image(full_lr_image).save(os.path.join(output_dir, "lr_image.png"))
     to_pil_image(full_sr_image).save(os.path.join(output_dir, "sr_image.png"))
-    print(f"Saved images")
-
+    print("Saved SR, LR, and HR images.")
 
 if __name__ == "__main__":
     main()

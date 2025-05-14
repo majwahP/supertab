@@ -20,17 +20,18 @@ from supertrab.inferance_utils import generate_sr_images, load_model
 
 
 
-
+PATCH_SIZE = 128
+DS_FACTOR = 8
 
 
 
 
 def main():
     # Settings
-    weights_path = "samples/supertrab-diffusion-sr-2d-v3-checkpoints/models/final_model_weights.pth"
+    weights_path = f"samples/supertrab-diffusion-sr-2d-v4/{PATCH_SIZE}_ds{DS_FACTOR}/models/final_model_weights_{PATCH_SIZE}_ds{DS_FACTOR}.pth"
     zarr_path = Path("/usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr")
     output_dir = "inference_outputs"
-    image_size = 128
+    image_size = PATCH_SIZE
     device = "cuda" if torch.cuda.is_available() else "cpu"
 
     os.makedirs(output_dir, exist_ok=True)
@@ -42,15 +43,18 @@ def main():
     # Load data
     dataloader = create_dataloader(
         zarr_path,
-        downsample_factor=4,
+        downsample_factor=DS_FACTOR,
         patch_size=(1, image_size, image_size),
         groups_to_use=["2019_L"],  # test group
-        batch_size=4
+        batch_size=8
     )
+    print("Dataloader created")
     batch = next(iter(dataloader))
     lr_images = batch["lr_image"].to(device)
 
+
     # Run inference
+    print("run inferance")
     sr_images = generate_sr_images(model, scheduler, lr_images, target_size=image_size, device=device)
     sr_images = sr_images.clamp(0.0, 1.0).cpu()
 
@@ -63,6 +67,10 @@ def main():
         sr_img = sr_images[i]          # already on CPU
         hr_img = hr_images[i].cpu()  
 
+        lr_img = normalize_tensor(lr_img)
+        sr_img = normalize_tensor(sr_img)
+        hr_img = normalize_tensor(hr_img)
+
         # Compute metrics
         lr_metrics = compute_trab_metrics(lr_img)
         sr_metrics = compute_trab_metrics(sr_img)
@@ -70,21 +78,34 @@ def main():
 
         # Save SR image and mask side-by-side
         sr_mask = get_mask(sr_img)
-        sr_img_norm = normalize_tensor(sr_img)
+        #sr_img_norm = normalize_tensor(sr_img)
 
-        sr_stack = torch.stack([sr_img_norm, sr_mask.unsqueeze(0)])
+        # sr_stack = torch.stack([sr_img_norm, sr_mask.unsqueeze(0)])
+        sr_stack = torch.stack([sr_img, sr_mask.unsqueeze(0)])
         sr_grid = make_grid(sr_stack, nrow=2)  # add channel dim: [2,1,H,W]
         sr_pil = to_pil_image(sr_grid)
         sr_pil.save(os.path.join(output_dir, f"sr_image_and_mask_{i+1}.png"))
 
         # Save HR image and mask side-by-side
         hr_mask = get_mask(hr_img)
-        hr_img_norm = normalize_tensor(hr_img)
+        # hr_img_norm = normalize_tensor(hr_img)
 
-        hr_stack = torch.stack([hr_img_norm, hr_mask.unsqueeze(0)])
+        #hr_stack = torch.stack([hr_img_norm, hr_mask.unsqueeze(0)])
+        hr_stack = torch.stack([hr_img, hr_mask.unsqueeze(0)])
         hr_grid = make_grid(hr_stack, nrow=2)
         hr_pil = to_pil_image(hr_grid)
         hr_pil.save(os.path.join(output_dir, f"hr_image_and_mask_{i+1}.png"))
+
+        image_triplet = torch.stack([
+        hr_img,   
+        lr_img,   
+        sr_img    
+        ])
+
+        image_grid = make_grid(image_triplet, nrow=3)
+
+        triplet_pil = to_pil_image(image_grid)
+        triplet_pil.save(os.path.join(output_dir, f"lr_sr_hr_triplet_{i+1}.png"))
 
         print(f"Image {i+1}:")
         #3D
