@@ -30,6 +30,7 @@ import random
 from pathlib import Path
 from torch.utils.data import DataLoader
 import zarr
+from supertrab.training_utils import normalize_tensor
 
 
 class ImageSample:
@@ -199,12 +200,17 @@ class SRDataset(zds.ZarrDataset):
             #load the patch from zarr file
             patch_position = patches_position[current_patch]
             patches = self.__getitem__(patch_position)[0]
+            #print(f"Loaded patch dtype: {patches[0].dtype}, shape: {patches[0].shape}, min: {patches[0].min()}, max: {patches[0].max()}")
+
 
             #to torch tensor
             hr_patch = torch.from_numpy(patches[0]).float()
 
-            # Normalize HR patch to [0, 1]
-            hr_patch = hr_patch / 65535.0
+            # Normalize HR patch to (-1, 1]
+            hr_patch = hr_patch / 32768.0
+            
+            #print(f"After norm: {hr_patch.dtype}, shape: {hr_patch.shape}, min: {hr_patch.min()}, max: {hr_patch.max()}")
+
 
             # Create LR patch
             lr_patch = self.generate_lr(hr_patch)

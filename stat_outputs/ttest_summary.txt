@@ -1,0 +1,8 @@
+Total patches processed: 104
+
+Metric: bone_volume_fraction
+LR vs HR: t=-13.0049, p=1.8436e-23, mean_diff=0.0239, std_diff=0.0187
+SR vs HR: t=16.3281, p=2.4341e-30, mean_diff=-0.0408, std_diff=0.0255
+
+MAE - LR: 0.0244, SR: 0.0410
+

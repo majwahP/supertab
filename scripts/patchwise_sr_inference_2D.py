@@ -17,7 +17,8 @@ from supertrab.inferance_utils import (
     load_zarr_slice,
     split_into_patches,
     reassemble_patches,
-    normalize_tensor
+    normalize_tensor,
+    manual_crop
 )
 
 # Parameters
@@ -31,13 +32,14 @@ GROUP_NAME = "2019_L"
 # Paths
 image_path = Path("/usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr")
 weights_path = f"samples/supertrab-diffusion-sr-2d-v4/{PATCH_SIZE}_ds{DS_FACTOR}/models/final_model_weights_{PATCH_SIZE}_ds{DS_FACTOR}.pth"
-output_dir = f"samples/inference/{PATCH_SIZE}_ds{DS_FACTOR}_oneslice"
+output_dir = f"samples/inference/{PATCH_SIZE}_ds{DS_FACTOR}"
 os.makedirs(output_dir, exist_ok=True)
 
 def main():
     # Load model + scheduler
     model = load_model(weights_path, image_size=PATCH_SIZE, device=DEVICE)
     scheduler = DDPMScheduler(num_train_timesteps=1000)
+    blur_transform = GaussianBlur(kernel_size=5, sigma=1.3)
 
     # Load single Z slice
     image_tensor = load_zarr_slice(
@@ -45,16 +47,33 @@ def main():
         zarr_path=image_path,
         group_name=GROUP_NAME,
         dataset_name="image",
-        normalize=True
+        normalize=False
     )  # shape: [1, H, W]
 
+    H, W = image_tensor.shape
+    crop_h = 512
+    crop_w = 512
+
+    top = int(0.8 * H) - crop_h // 2
+    top = max(0, min(top, H - crop_h))
+    left = (W - crop_w) // 2
+    left = max(0, min(left, W - crop_w))
+
+    # Crop
+    image_tensor = manual_crop(image_tensor.unsqueeze(0), top, left, crop_h, crop_w)
+
     to_pil_image(image_tensor).save(os.path.join(output_dir, "hr_full.png"))
+
+    lr_image = blur_transform(image_tensor.unsqueeze(0))
+    lr_image = F.interpolate(lr_image, scale_factor=1 / DS_FACTOR, mode="bilinear", align_corners=False)
+    lr_image = F.interpolate(lr_image, size=(PATCH_SIZE*4, PATCH_SIZE*4), mode="bilinear", align_corners=False)
+
+    to_pil_image(normalize_tensor(lr_image.squeeze(0))).save(os.path.join(output_dir, "lr_image.png"))
 
     # Split into patches
     hr_patches, padded_shape, image_shape = split_into_patches(image_tensor, PATCH_SIZE)
 
     # Generate LR patches (Gaussian blur + down/upsample)
-    blur_transform = GaussianBlur(kernel_size=5, sigma=1.3)
     lr_patches = []
 
     for i, patch in enumerate(hr_patches):
@@ -88,9 +107,8 @@ def main():
     full_hr_image = reassemble_patches(hr_patches, padded_shape, image_shape, PATCH_SIZE)
 
     # Save images
-    to_pil_image(full_hr_image).save(os.path.join(output_dir, "hr_image.png"))
-    to_pil_image(full_lr_image).save(os.path.join(output_dir, "lr_image.png"))
-    to_pil_image(full_sr_image).save(os.path.join(output_dir, "sr_image.png"))
+    to_pil_image(normalize_tensor(full_hr_image)).save(os.path.join(output_dir, "hr_image.png"))
+    to_pil_image(normalize_tensor(full_sr_image)).save(os.path.join(output_dir, "sr_image.png"))
     print("Saved SR, LR, and HR images.")
 
 if __name__ == "__main__":

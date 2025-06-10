@@ -102,10 +102,18 @@ def create_sample_image(lr_imgs, sr_imgs, hr_imgs, padding=10, header_height=60,
         if metrics:
             mse = metrics[idx]["mse"]
             psnr = metrics[idx]["psnr"]
-            metric_text = f"MSE: {mse:.4f}  |  PSNR: {psnr:.2f} dB"
+            ssim = metrics[idx]["ssim"]
+            lpips_val = metrics[idx]["lpips"]
+
             metric_x = x_offsets[3] + w // 2
             metric_y = y_offset + h + footer_height // 4
-            draw.text((metric_x, metric_y), metric_text, fill=0, anchor="mm", font=font)
+
+            metric_text_1 = f"MSE: {mse:.4f}  |  PSNR: {psnr:.2f} dB"
+            draw.text((metric_x, metric_y), metric_text_1, fill=0, anchor="mm", font=font)
+
+            line_spacing = font.size + 2  # adjust spacing as needed
+            metric_text_2 = f"SSIM: {ssim:.4f}  |  LPIPS: {lpips_val:.4f}"
+            draw.text((metric_x, metric_y + line_spacing), metric_text_2, fill=0, anchor="mm", font=font)
 
 
     return grid_img
@@ -213,7 +221,7 @@ def evaluate(config, epoch, model, noise_scheduler, dataloader, device="cuda", g
     # Only save images every 10th epoch and on last epoch
     save_images = (
         isinstance(epoch, int)
-        and (epoch % config.save_image_epochs == 0 or epoch == config.num_epochs - 1)
+        and (epoch == 0 or epoch % config.save_image_epochs == 0 or epoch == config.num_epochs - 1)
     )
 
     if save_images:
@@ -258,7 +266,7 @@ def train_loop_2D_diffusion(config, model, noise_scheduler, optimizer, train_dat
     if accelerator.is_main_process:
         if config.output_dir is not None:
             os.makedirs(config.output_dir, exist_ok=True)
-        run_name = f"supertrab_ddpm_{config.image_size}px_ds{config.ds_factor}_{config.num_epochs}ep_v4" # Name change
+        run_name = f"supertrab_ddpm_{config.image_size}px_ds{config.ds_factor}_{config.num_epochs}ep_v5" # Name change
         accelerator.init_trackers(
             project_name="supertrab", 
             config=vars(config),

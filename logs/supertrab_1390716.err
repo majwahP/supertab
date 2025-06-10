@@ -1,0 +1,35 @@
+Processing patches: 0it [00:00, ?it/s]Processing patches: 0it [00:26, ?it/s]
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/scripts/stat_eval.py", line 138, in <module>
+    main(
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/scripts/stat_eval.py", line 74, in main
+    sr_images = generate_dps_sr_images(model, scheduler, lr_images, target_size=image_size, downsample_factor=downsample_factor, device=device)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/supertrab/inferance_utils.py", line 53, in generate_dps_sr_images
+    eps_theta = model(model_input, timesteps).sample
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/diffusers/models/unets/unet_2d.py", line 336, in forward
+    sample = upsample_block(sample, res_samples, emb)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/diffusers/models/unets/unet_2d_blocks.py", line 2744, in forward
+    hidden_states = upsampler(hidden_states, upsample_size)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/diffusers/models/upsampling.py", line 188, in forward
+    hidden_states = self.conv(hidden_states)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/torch/nn/modules/conv.py", line 554, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/torch/nn/modules/conv.py", line 549, in _conv_forward
+    return F.conv2d(
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 20.00 MiB. GPU 0 has a total capacity of 47.54 GiB of which 13.25 MiB is free. Including non-PyTorch memory, this process has 47.52 GiB memory in use. Of the allocated memory 47.19 GiB is allocated by PyTorch, and 8.28 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)

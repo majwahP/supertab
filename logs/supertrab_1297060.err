@@ -1,0 +1,62 @@
+The following values were not passed to `accelerate launch` and had defaults used instead:
+	`--num_processes` was set to a value of `1`
+	`--num_machines` was set to a value of `1`
+	`--mixed_precision` was set to a value of `'no'`
+	`--dynamo_backend` was set to a value of `'no'`
+To avoid this warning pass in values for each of the problematic parameters or run `accelerate config`.
+wandb: Using wandb-core as the SDK backend.  Please refer to https://wandb.me/wandb-core for more information.
+wandb: WARNING Path /home/mwahlin/myterminus/2025/trab_master/supertrab/wandb_data/run_logs/wandb/ wasn't writable, using system temp directory
+wandb: Currently logged in as: mwahlin (mwahlin-eth-z-rich) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: WARNING Path /home/mwahlin/myterminus/2025/trab_master/supertrab/wandb_data/run_logs/wandb/ wasn't writable, using system temp directory.
+wandb: Tracking run with wandb version 0.19.7
+wandb: Run data is saved locally in /tmp/wandb/run-20250520_175739-vp2v51t6
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run supertrab_ddpm_128px_ds4_100ep_v5
+wandb: ⭐️ View project at https://wandb.ai/mwahlin-eth-z-rich/supertrab
+wandb: 🚀 View run at https://wandb.ai/mwahlin-eth-z-rich/supertrab/runs/vp2v51t6
+/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=VGG16_Weights.IMAGENET1K_V1`. You can also use `weights=VGG16_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+Downloading: "https://download.pytorch.org/models/vgg16-397923af.pth" to /home/mwahlin/.cache/torch/hub/checkpoints/vgg16-397923af.pth
+  0%|          | 0.00/528M [00:00<?, ?B/s]  5%|▍         | 26.0M/528M [00:00<00:01, 273MB/s] 11%|█▏        | 60.6M/528M [00:00<00:01, 325MB/s] 18%|█▊        | 95.2M/528M [00:00<00:01, 342MB/s] 25%|██▍       | 130M/528M [00:00<00:01, 351MB/s]  31%|███▏      | 165M/528M [00:00<00:01, 356MB/s] 38%|███▊      | 200M/528M [00:00<00:00, 359MB/s] 44%|████▍     | 234M/528M [00:00<00:00, 360MB/s] 51%|█████     | 269M/528M [00:00<00:00, 361MB/s] 58%|█████▊    | 304M/528M [00:00<00:00, 362MB/s] 64%|██████▍   | 339M/528M [00:01<00:00, 363MB/s] 71%|███████   | 374M/528M [00:01<00:00, 363MB/s] 77%|███████▋  | 408M/528M [00:01<00:00, 364MB/s] 84%|████████▍ | 443M/528M [00:01<00:00, 363MB/s] 91%|█████████ | 478M/528M [00:01<00:00, 361MB/s] 97%|█████████▋| 513M/528M [00:01<00:00, 362MB/s]100%|██████████| 528M/528M [00:01<00:00, 357MB/s]
+/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/lpips/lpips.py:107: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  self.load_state_dict(torch.load(model_path, map_location='cpu'), strict=False)
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/scripts/train_diffusion_model_2D.py", line 99, in <module>
+    main()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/scripts/train_diffusion_model_2D.py", line 92, in main
+    train_loop_2D_diffusion(config, model, noise_scheduler, optimizer, train_dataloader, val_dataloader, lr_scheduler, steps_per_epoch)
+  File "/home/mwahlin/myterminus/2025/trab_master/supertrab/supertrab/training_utils.py", line 341, in train_loop_2D_diffusion
+    evaluate(config, epoch, model, noise_scheduler, val_dataloader, device=accelerator.device, global_step=global_step)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/mwahlin/myterminus/2025/trab_master/supertrab/supertrab/training_utils.py", line 219, in evaluate
+    batch_metrics = compute_image_metrics(sr_images, hr_images)
+  File "/home/mwahlin/myterminus/2025/trab_master/supertrab/supertrab/metrics_utils.py", line 50, in compute_image_metrics
+    ssim_val = torchvision.metrics.structural_similarity_index_measure(sr_ssim, hr_ssim)
+AttributeError: module 'torchvision' has no attribute 'metrics'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/scripts/train_diffusion_model_2D.py", line 99, in <module>
+    main()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/scripts/train_diffusion_model_2D.py", line 92, in main
+    train_loop_2D_diffusion(config, model, noise_scheduler, optimizer, train_dataloader, val_dataloader, lr_scheduler, steps_per_epoch)
+  File "/home/mwahlin/myterminus/2025/trab_master/supertrab/supertrab/training_utils.py", line 341, in train_loop_2D_diffusion
+    evaluate(config, epoch, model, noise_scheduler, val_dataloader, device=accelerator.device, global_step=global_step)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/mwahlin/myterminus/2025/trab_master/supertrab/supertrab/training_utils.py", line 219, in evaluate
+    batch_metrics = compute_image_metrics(sr_images, hr_images)
+  File "/home/mwahlin/myterminus/2025/trab_master/supertrab/supertrab/metrics_utils.py", line 50, in compute_image_metrics
+    ssim_val = torchvision.metrics.structural_similarity_index_measure(sr_ssim, hr_ssim)
+AttributeError: module 'torchvision' has no attribute 'metrics'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/bin/accelerate", line 8, in <module>
+    sys.exit(main())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/accelerate/commands/accelerate_cli.py", line 48, in main
+    args.func(args)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/accelerate/commands/launch.py", line 1194, in launch_command
+    simple_launcher(args)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/accelerate/commands/launch.py", line 780, in simple_launcher
+    raise subprocess.CalledProcessError(returncode=process.returncode, cmd=cmd)
+subprocess.CalledProcessError: Command '['/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/bin/python3.10', '/usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/scripts/train_diffusion_model_2D.py']' returned non-zero exit status 1.

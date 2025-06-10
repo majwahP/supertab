@@ -12,3 +12,5 @@ export PYTHONPATH=$(pwd):$PYTHONPATH
 ##################################################################################
 accelerate launch /usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/scripts/train_diffusion_model_2D.py
 
+#accelerate launch /usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/scripts/resume_training.py
+

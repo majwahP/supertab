@@ -6,6 +6,7 @@ import numpy as np
 import torch
 from torchvision.transforms.functional import to_tensor
 from supertrab.training_utils import normalize_tensor
+import torchvision.transforms as T
 
 
 @torch.no_grad()
@@ -20,6 +21,62 @@ def generate_sr_images(model, scheduler, lr_images, target_size, device="cpu"):
         noisy_images = scheduler.step(noise_pred, t, noisy_images).prev_sample
 
     return noisy_images
+
+
+def generate_dps_sr_images(model, scheduler, lr_images, target_size, downsample_factor, device="cpu", lambda_reg=1.0):
+    """
+    Generates super-resolved images using DPS (Diffusion Posterior Sampling).
+    
+    Args:
+        model: Trained UNet diffusion model (e.g. from HuggingFace diffusers).
+        scheduler: DDPM scheduler providing noise schedule.
+        lr_images: Tensor of shape (B, 1, H, W), low-resolution input patches.
+        target_size: Size of the HR image to generate.
+        device: Torch device.
+        lambda_reg: Strength of the likelihood gradient correction.
+    
+    Returns:
+        sr_images: Tensor of shape (B, 1, target_size, target_size)
+    """
+    model.eval()
+    B, _, H_lr, W_lr = lr_images.shape
+    x_t = torch.randn((B, 1, target_size, target_size), device=device)
+
+    sigma = 1.3            
+    blur = T.GaussianBlur(kernel_size=5, sigma=sigma)
+
+    for t in reversed(range(scheduler.config.num_train_timesteps)):
+        timesteps = torch.full((B,), t, device=device, dtype=torch.long)
+
+        # Concatenate noisy HR + LR conditioning
+        model_input = torch.cat([x_t, lr_images], dim=1)
+        eps_theta = model(model_input, timesteps).sample
+
+        # Compute Tweedie estimate of x_0
+        alpha_bar_t = scheduler.alphas_cumprod[t]
+        alpha_bar = alpha_bar_t.view(1, 1, 1, 1).to(device=device, dtype=x_t.dtype)
+        x0_hat = (x_t - (1 - alpha_bar).sqrt() * eps_theta) / alpha_bar.sqrt()
+
+        x0_hat.requires_grad_(True)
+        blurred = blur(x0_hat)
+
+        lr_down = F.interpolate(blurred, scale_factor=1/downsample_factor, mode="bilinear", align_corners=False)
+        simulated_lr = F.interpolate(lr_down, size=(H_lr, W_lr), mode="bilinear", align_corners=False)
+
+        # Likelihood gradient
+        loss = F.mse_loss(simulated_lr, lr_images, reduction="sum")
+        grad = torch.autograd.grad(loss, x0_hat)[0].detach()
+        grad_log_likelihood = -lambda_reg * grad
+
+        # DPS update
+        beta_t = scheduler.betas[t]
+        x_t = x_t - 0.5 * beta_t * (x_t + eps_theta + grad_log_likelihood)
+
+        if t > 0:
+            x_t += beta_t.sqrt() * torch.randn_like(x_t)
+
+    return x_t.clamp(0.0, 1.0).cpu()
+
 
 def load_model(weights_path, image_size, device="cpu"):
     """Reconstructs the model architecture and loads trained weights."""
@@ -64,7 +121,8 @@ def load_zarr_slice(slice_index, zarr_path, group_name, dataset_name="image", no
     slice_2d = volume[slice_index, :, :]  
     
     # Convert to float tensor
-    slice_tensor = to_tensor(slice_2d.astype(np.float32))  
+    slice_tensor = torch.from_numpy(slice_2d).float()
+    slice_tensor= slice_tensor / 65535.0
 
     if normalize:
         slice_tensor = normalize_tensor(slice_tensor)

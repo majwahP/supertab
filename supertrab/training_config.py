@@ -25,13 +25,13 @@ class TrainingConfig:
     image_size: int = 256
     train_batch_size: int = 8
     eval_batch_size: int = 8 
-    num_epochs: int = 50
+    num_epochs: int = 100
     gradient_accumulation_steps: int = 1
     learning_rate: float = 1e-4
     lr_warmup_steps: int = 500
     save_image_epochs: int = 10
     ds_factor: int = 10
     mixed_precision: str = "fp16"
-    output_dir: str = f"samples/supertrab-diffusion-sr-2d-v4" # Name change
+    output_dir: str = f"samples/supertrab-diffusion-sr-2d-v5" # Name change
     seed: int = 0
     cfg_dropout_prob: float = 0.1 # 10% of the time, drop the LR image during training
