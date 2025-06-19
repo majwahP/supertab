@@ -15,6 +15,9 @@ from supertrab.sr_dataset_utils import create_dataloader
 from supertrab.metrics_utils import compute_trab_metrics
 from supertrab.inferance_utils import generate_sr_images, load_model, generate_dps_sr_images
 
+PATCH_SIZE = 256
+DS_FACTOR = 4
+
 def ensure_3d_volume(t: torch.Tensor) -> torch.Tensor:
     """
     Ensures the input tensor is in (D, H, W) format for metric computation.
@@ -34,9 +37,9 @@ def ensure_3d_volume(t: torch.Tensor) -> torch.Tensor:
 def main(
     zarr_path,
     weights_path,
-    patch_size=(1, 128, 128),
-    downsample_factor=4,
-    batch_size=2,
+    patch_size=(1, PATCH_SIZE, PATCH_SIZE),
+    downsample_factor=DS_FACTOR,
+    batch_size=16,
     voxel_size_mm=0.0303,
     output_dir="metric_outputs",
     groups_to_use=["2019_L"],
@@ -46,6 +49,8 @@ def main(
     os.makedirs(output_dir, exist_ok=True)
 
     print(f"ds factor = {downsample_factor}, patch sixe = {patch_size[-1]}")
+    print("Method: DDPS with DPS")
+    #print("Method: DDPS")
 
     # Load SR model
     image_size = patch_size[-1]
@@ -90,7 +95,9 @@ def main(
             total_patches += 1
         if total_patches > nr_samples: 
             break
-        
+    
+    print(f"Total patches included: {total_patches}")
+
     # Save raw metrics
     with open(os.path.join(output_dir, "hr_metrics.json"), "w") as f:
         json.dump(hr_metrics_list, f, indent=2)
@@ -138,9 +145,9 @@ def main(
 if __name__ == "__main__":
     main(
         zarr_path=Path("/usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr"),
-        weights_path="samples/supertrab-diffusion-sr-2d-v5/128_ds4/models/final_model_weights_128_ds4.pth",
-        patch_size=(1, 128, 128),
-        downsample_factor=4,
+        weights_path=f"samples/supertrab-diffusion-sr-2d-v5/{PATCH_SIZE}_ds{DS_FACTOR}/models/final_model_weights_{PATCH_SIZE}_ds{DS_FACTOR}.pth",
+        patch_size=(1, PATCH_SIZE, PATCH_SIZE),
+        downsample_factor=DS_FACTOR,
         output_dir="stat_outputs",
         groups_to_use=["2019_L"],
         nr_samples = 100

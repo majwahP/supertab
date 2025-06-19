@@ -1,0 +1,34 @@
+Original volume shape: (177, 4608, 4608), chunks: (95, 512, 512)
+Part_15
+cuda
+Found 1 groups:
+  - 2019_L
+Starting inference over full volume...
+16 patches processed
+32 patches processed
+48 patches processed
+64 patches processed
+80 patches processed
+96 patches processed
+112 patches processed
+128 patches processed
+144 patches processed
+160 patches processed
+176 patches processed
+192 patches processed
+208 patches processed
+224 patches processed
+240 patches processed
+256 patches processed
+264 patches processed
+266 patches processed
+282 patches processed
+298 patches processed
+314 patches processed
+330 patches processed
+346 patches processed
+353 patches processed
+
+Super-resolved volume saved at: 2019_L/sr_volume_256_4/part_2_split/part_15
+
+Total patches super-resolved and written: 353

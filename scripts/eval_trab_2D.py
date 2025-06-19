@@ -19,8 +19,8 @@ from supertrab.inferance_utils import generate_sr_images, load_model, generate_d
 
 
 
-PATCH_SIZE = 128
-DS_FACTOR = 4
+PATCH_SIZE = 256
+DS_FACTOR = 8
 
 
 
@@ -37,6 +37,7 @@ def main():
 
     # Load model + scheduler
     model = load_model(weights_path, image_size=image_size, device=device)
+    #model.eval()
     scheduler = DDPMScheduler(num_train_timesteps=1000)
 
     # Load data
@@ -45,7 +46,7 @@ def main():
         downsample_factor=DS_FACTOR,
         patch_size=(1, image_size, image_size),
         groups_to_use=["2019_L"],  # test group
-        batch_size=16
+        batch_size=8,
     )
     print("Dataloader created")
     batch = next(iter(dataloader))
@@ -117,20 +118,20 @@ def main():
         triplet_pil = to_pil_image(image_grid)
         triplet_pil.save(os.path.join(output_dir, f"lr_sr_hr_stack_{i+1}.png"))
         
-        hr_metrics = compute_trab_metrics(hr_img)
-        lr_metrics = compute_trab_metrics(lr_img)
-        sr_metrics = compute_trab_metrics(sr_img)
+        # hr_metrics = compute_trab_metrics(hr_img)
+        # lr_metrics = compute_trab_metrics(lr_img)
+        # sr_metrics = compute_trab_metrics(sr_img)
 
-        print("Trabecular Bone Metrics:")
-        for metric_name in hr_metrics.keys():
-            hr_val = hr_metrics[metric_name]
-            lr_val = lr_metrics[metric_name]
-            sr_val = sr_metrics[metric_name]
+        # print("Trabecular Bone Metrics:")
+        # for metric_name in hr_metrics.keys():
+        #     hr_val = hr_metrics[metric_name]
+        #     lr_val = lr_metrics[metric_name]
+        #     sr_val = sr_metrics[metric_name]
             
-            diff_lr_hr = lr_val - hr_val
-            diff_sr_hr = sr_val - hr_val
+        #     diff_lr_hr = lr_val - hr_val
+        #     diff_sr_hr = sr_val - hr_val
 
-            print(f"{metric_name}: HR = {hr_val:.4f}, LR = {lr_val:.4f}, SR = {sr_val:.4f} | LR-HR = {diff_lr_hr:.4f}, SR-HR = {diff_sr_hr:.4f}")
+        #     print(f"{metric_name}: HR = {hr_val:.4f}, LR = {lr_val:.4f}, SR = {sr_val:.4f} | LR-HR = {diff_lr_hr:.4f}, SR-HR = {diff_sr_hr:.4f}")
 
         #show mask evolution
         # steps = get_mask(hr_img, return_steps=True)

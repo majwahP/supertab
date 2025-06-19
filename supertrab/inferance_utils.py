@@ -23,6 +23,51 @@ def generate_sr_images(model, scheduler, lr_images, target_size, device="cpu"):
     return noisy_images
 
 
+
+
+
+
+@torch.no_grad()
+def generate_sr_images_CFG(model, scheduler, lr_images, target_size, device="cpu"):
+    """Generates super-resolved images from low-resolution inputs."""
+    batch_size = lr_images.size(0)
+    guidance_scale = 2
+    
+    noisy_images = torch.randn((batch_size, 1, target_size, target_size), device=device)
+    null_condition = torch.zeros_like(lr_images)
+
+    for t in reversed(range(scheduler.config.num_train_timesteps)):
+        timesteps = torch.full((batch_size,), t, device=device, dtype=torch.long)
+
+        # Classifier-free guidance: duplicate noise & lr
+        model_input = torch.cat([
+            torch.cat([noisy_images, null_condition], dim=1),     # uncond
+            torch.cat([noisy_images, lr_images], dim=1)           # cond
+        ], dim=0)
+
+        t_input = torch.cat([timesteps, timesteps], dim=0)  
+        
+        # Predict noise
+        noise_pred = model(model_input, t_input).sample  
+        noise_pred_uncond, noise_pred_cond = noise_pred.chunk(2, dim=0)
+
+        # Combine with guidance
+        guided_noise = noise_pred_uncond + guidance_scale * (noise_pred_cond - noise_pred_uncond)
+
+        # Update noisy image
+        noisy_images = scheduler.step(guided_noise, t, noisy_images).prev_sample
+
+        torch.cuda.empty_cache()
+
+    return noisy_images
+
+
+
+
+
+
+
+
 def generate_dps_sr_images(model, scheduler, lr_images, target_size, downsample_factor, device="cpu", lambda_reg=1.0):
     """
     Generates super-resolved images using DPS (Diffusion Posterior Sampling).
@@ -45,17 +90,22 @@ def generate_dps_sr_images(model, scheduler, lr_images, target_size, downsample_
     sigma = 1.3            
     blur = T.GaussianBlur(kernel_size=5, sigma=sigma)
 
+    # Precompute all alpha_bar values at once
+    alpha_bars = scheduler.alphas_cumprod.view(-1, 1, 1, 1).to(device=x_t.device, dtype=x_t.dtype)
+
+
+
     for t in reversed(range(scheduler.config.num_train_timesteps)):
         timesteps = torch.full((B,), t, device=device, dtype=torch.long)
 
-        # Concatenate noisy HR + LR conditioning
-        model_input = torch.cat([x_t, lr_images], dim=1)
-        eps_theta = model(model_input, timesteps).sample
+        with torch.no_grad():
+            # Concatenate noisy HR + LR conditioning
+            model_input = torch.cat([x_t, lr_images], dim=1)
+            eps_theta = model(model_input, timesteps).sample
 
-        # Compute Tweedie estimate of x_0
-        alpha_bar_t = scheduler.alphas_cumprod[t]
-        alpha_bar = alpha_bar_t.view(1, 1, 1, 1).to(device=device, dtype=x_t.dtype)
-        x0_hat = (x_t - (1 - alpha_bar).sqrt() * eps_theta) / alpha_bar.sqrt()
+            # Compute Tweedie estimate of x_0
+            alpha_bar = alpha_bars[t]
+            x0_hat = (x_t - (1 - alpha_bar).sqrt() * eps_theta) / alpha_bar.sqrt()
 
         x0_hat.requires_grad_(True)
         blurred = blur(x0_hat)
@@ -68,12 +118,88 @@ def generate_dps_sr_images(model, scheduler, lr_images, target_size, downsample_
         grad = torch.autograd.grad(loss, x0_hat)[0].detach()
         grad_log_likelihood = -lambda_reg * grad
 
-        # DPS update
-        beta_t = scheduler.betas[t]
-        x_t = x_t - 0.5 * beta_t * (x_t + eps_theta + grad_log_likelihood)
+        del x0_hat, blurred, lr_down, simulated_lr, loss, grad
+        torch.cuda.empty_cache()
 
-        if t > 0:
-            x_t += beta_t.sqrt() * torch.randn_like(x_t)
+        with torch.no_grad():
+            # DPS update
+            beta_t = scheduler.betas[t]
+            x_t = x_t - 0.5 * beta_t * (x_t + eps_theta + grad_log_likelihood)
+
+            if t > 0:
+                x_t += beta_t.sqrt() * torch.randn_like(x_t)
+
+    return x_t.clamp(0.0, 1.0).cpu()
+
+
+def generate_dps_sr_images(model, scheduler, lr_images, target_size, downsample_factor, device="cpu", lambda_reg=1.0):
+    """
+    Generates super-resolved images using DPS (Diffusion Posterior Sampling).
+    
+    Args:
+        model: Trained UNet diffusion model (e.g. from HuggingFace diffusers).
+        scheduler: DDPM scheduler providing noise schedule.
+        lr_images: Tensor of shape (B, 1, H, W), low-resolution input patches.
+        target_size: Size of the HR image to generate.
+        device: Torch device.
+        lambda_reg: Strength of the likelihood gradient correction.
+    
+    Returns:
+        sr_images: Tensor of shape (B, 1, target_size, target_size)
+    """
+    model.eval()
+    B, _, H_lr, W_lr = lr_images.shape
+    x_t = torch.randn((B, 1, target_size, target_size), device=device)
+
+    sigma = 1.3            
+    blur = T.GaussianBlur(kernel_size=5, sigma=sigma)
+
+    # Precompute all alpha_bar values at once
+    alpha_bars = scheduler.alphas_cumprod.view(-1, 1, 1, 1).to(device=x_t.device, dtype=x_t.dtype)
+
+
+
+    for t in reversed(range(scheduler.config.num_train_timesteps)):
+        timesteps = torch.full((B,), t, device=device, dtype=torch.long)
+
+        with torch.no_grad():
+            # Prepare conditional and unconditional inputs
+            model_input_cond = torch.cat([x_t, lr_images], dim=1)
+            model_input_uncond = torch.cat([x_t, torch.zeros_like(lr_images)], dim=1)
+
+            # Run model on both inputs
+            eps_theta_cond = model(model_input_cond, timesteps).sample
+            eps_theta_uncond = model(model_input_uncond, timesteps).sample
+
+            # Apply CFG
+            guidance_scale = 2.0 
+            eps_theta = eps_theta_uncond + guidance_scale * (eps_theta_cond - eps_theta_uncond)
+
+            # Compute Tweedie estimate of x_0
+            alpha_bar = alpha_bars[t]
+            x0_hat = (x_t - (1 - alpha_bar).sqrt() * eps_theta) / alpha_bar.sqrt()
+
+        x0_hat.requires_grad_(True)
+        blurred = blur(x0_hat)
+
+        lr_down = F.interpolate(blurred, scale_factor=1/downsample_factor, mode="bilinear", align_corners=False)
+        simulated_lr = F.interpolate(lr_down, size=(H_lr, W_lr), mode="bilinear", align_corners=False)
+
+        # Likelihood gradient
+        loss = F.mse_loss(simulated_lr, lr_images, reduction="sum")
+        grad = torch.autograd.grad(loss, x0_hat)[0].detach()
+        grad_log_likelihood = -lambda_reg * grad
+
+        del x0_hat, blurred, lr_down, simulated_lr, loss, grad
+        torch.cuda.empty_cache()
+
+        with torch.no_grad():
+            # DPS update
+            beta_t = scheduler.betas[t]
+            x_t = x_t - 0.5 * beta_t * (x_t + eps_theta + grad_log_likelihood)
+
+            if t > 0:
+                x_t += beta_t.sqrt() * torch.randn_like(x_t)
 
     return x_t.clamp(0.0, 1.0).cpu()
 

@@ -1,0 +1,677 @@
+Original volume shape: (5670, 4608, 4608), chunks: (128, 512, 512)
+cuda
+Found 1 groups:
+  - 2019_L
+Starting inference over full volume...
+354.8063988685608 time for inferance
+1.2454910278320312 time for saving to volume
+16 patches processed
+355.4159586429596 time for inferance
+1.4114348888397217 time for saving to volume
+32 patches processed
+355.3897569179535 time for inferance
+1.3003342151641846 time for saving to volume
+48 patches processed
+355.2862865924835 time for inferance
+1.2994639873504639 time for saving to volume
+64 patches processed
+355.31968426704407 time for inferance
+1.275566577911377 time for saving to volume
+80 patches processed
+355.26178789138794 time for inferance
+1.4113435745239258 time for saving to volume
+96 patches processed
+355.2864456176758 time for inferance
+1.2921903133392334 time for saving to volume
+112 patches processed
+355.25199270248413 time for inferance
+1.7214839458465576 time for saving to volume
+128 patches processed
+355.3148229122162 time for inferance
+1.5462684631347656 time for saving to volume
+144 patches processed
+355.2862012386322 time for inferance
+1.418111801147461 time for saving to volume
+160 patches processed
+355.2909736633301 time for inferance
+1.3501689434051514 time for saving to volume
+176 patches processed
+355.27324962615967 time for inferance
+1.317732810974121 time for saving to volume
+192 patches processed
+355.28995275497437 time for inferance
+1.3516244888305664 time for saving to volume
+208 patches processed
+355.24650144577026 time for inferance
+1.2818303108215332 time for saving to volume
+224 patches processed
+355.3166604042053 time for inferance
+1.401280164718628 time for saving to volume
+240 patches processed
+355.3314082622528 time for inferance
+2.2559361457824707 time for saving to volume
+256 patches processed
+355.2778649330139 time for inferance
+1.6542208194732666 time for saving to volume
+272 patches processed
+355.2583899497986 time for inferance
+1.9924795627593994 time for saving to volume
+288 patches processed
+355.23438572883606 time for inferance
+1.7121078968048096 time for saving to volume
+304 patches processed
+355.1792209148407 time for inferance
+1.7027027606964111 time for saving to volume
+320 patches processed
+355.22238993644714 time for inferance
+1.7145299911499023 time for saving to volume
+336 patches processed
+355.19177317619324 time for inferance
+1.7486214637756348 time for saving to volume
+352 patches processed
+355.2531864643097 time for inferance
+1.6171960830688477 time for saving to volume
+368 patches processed
+355.3201003074646 time for inferance
+1.655696153640747 time for saving to volume
+384 patches processed
+355.32831358909607 time for inferance
+1.6396410465240479 time for saving to volume
+400 patches processed
+355.3028848171234 time for inferance
+1.6062042713165283 time for saving to volume
+416 patches processed
+355.28465127944946 time for inferance
+1.8122522830963135 time for saving to volume
+432 patches processed
+355.2339856624603 time for inferance
+1.7560384273529053 time for saving to volume
+448 patches processed
+355.28847646713257 time for inferance
+1.7758114337921143 time for saving to volume
+464 patches processed
+355.3205358982086 time for inferance
+1.7257378101348877 time for saving to volume
+480 patches processed
+355.2916600704193 time for inferance
+1.939115047454834 time for saving to volume
+496 patches processed
+355.3047263622284 time for inferance
+1.7885360717773438 time for saving to volume
+512 patches processed
+355.3573124408722 time for inferance
+2.06437087059021 time for saving to volume
+528 patches processed
+355.30076146125793 time for inferance
+1.9834320545196533 time for saving to volume
+544 patches processed
+355.3343782424927 time for inferance
+1.9587781429290771 time for saving to volume
+560 patches processed
+355.28447580337524 time for inferance
+1.8828060626983643 time for saving to volume
+576 patches processed
+355.2630732059479 time for inferance
+1.922804355621338 time for saving to volume
+592 patches processed
+355.247878074646 time for inferance
+2.02524471282959 time for saving to volume
+608 patches processed
+355.2291851043701 time for inferance
+2.1181888580322266 time for saving to volume
+624 patches processed
+355.2303590774536 time for inferance
+2.2060325145721436 time for saving to volume
+640 patches processed
+355.2827105522156 time for inferance
+2.158879280090332 time for saving to volume
+656 patches processed
+355.18066692352295 time for inferance
+2.2845587730407715 time for saving to volume
+672 patches processed
+355.3426125049591 time for inferance
+2.246711015701294 time for saving to volume
+688 patches processed
+355.28172183036804 time for inferance
+1.97507643699646 time for saving to volume
+704 patches processed
+355.28794741630554 time for inferance
+2.0899879932403564 time for saving to volume
+720 patches processed
+355.20815801620483 time for inferance
+2.1114275455474854 time for saving to volume
+736 patches processed
+355.04600405693054 time for inferance
+2.119396448135376 time for saving to volume
+752 patches processed
+355.1575982570648 time for inferance
+2.2275686264038086 time for saving to volume
+768 patches processed
+355.21862721443176 time for inferance
+2.789654493331909 time for saving to volume
+784 patches processed
+355.23541140556335 time for inferance
+2.4537248611450195 time for saving to volume
+800 patches processed
+355.2213125228882 time for inferance
+2.601445198059082 time for saving to volume
+816 patches processed
+355.14224314689636 time for inferance
+2.61383056640625 time for saving to volume
+832 patches processed
+355.2112612724304 time for inferance
+2.636967182159424 time for saving to volume
+848 patches processed
+355.1694447994232 time for inferance
+2.601844549179077 time for saving to volume
+864 patches processed
+355.2582800388336 time for inferance
+2.6274635791778564 time for saving to volume
+880 patches processed
+355.1841058731079 time for inferance
+2.4083776473999023 time for saving to volume
+896 patches processed
+355.2237985134125 time for inferance
+2.5597569942474365 time for saving to volume
+912 patches processed
+355.2781009674072 time for inferance
+2.5561811923980713 time for saving to volume
+928 patches processed
+355.26473116874695 time for inferance
+2.678528308868408 time for saving to volume
+944 patches processed
+355.26801586151123 time for inferance
+2.809582471847534 time for saving to volume
+960 patches processed
+355.2330918312073 time for inferance
+2.6608798503875732 time for saving to volume
+976 patches processed
+355.21237897872925 time for inferance
+2.790724039077759 time for saving to volume
+992 patches processed
+355.19803047180176 time for inferance
+2.617015838623047 time for saving to volume
+1008 patches processed
+355.236172914505 time for inferance
+2.814600944519043 time for saving to volume
+1024 patches processed
+355.18220114707947 time for inferance
+2.766047716140747 time for saving to volume
+1040 patches processed
+355.23194456100464 time for inferance
+2.92897629737854 time for saving to volume
+1056 patches processed
+355.2142062187195 time for inferance
+2.8486170768737793 time for saving to volume
+1072 patches processed
+355.17583441734314 time for inferance
+2.8108088970184326 time for saving to volume
+1088 patches processed
+355.240425825119 time for inferance
+2.7828009128570557 time for saving to volume
+1104 patches processed
+355.1995527744293 time for inferance
+2.5652174949645996 time for saving to volume
+1120 patches processed
+355.24502062797546 time for inferance
+2.6556782722473145 time for saving to volume
+1136 patches processed
+355.1839256286621 time for inferance
+2.68641996383667 time for saving to volume
+1152 patches processed
+355.1979978084564 time for inferance
+2.8292202949523926 time for saving to volume
+1168 patches processed
+355.19089365005493 time for inferance
+2.903376817703247 time for saving to volume
+1184 patches processed
+355.23767042160034 time for inferance
+2.703346014022827 time for saving to volume
+1200 patches processed
+355.23877453804016 time for inferance
+2.729022979736328 time for saving to volume
+1216 patches processed
+355.13835644721985 time for inferance
+2.6866259574890137 time for saving to volume
+1232 patches processed
+355.2167999744415 time for inferance
+2.648181200027466 time for saving to volume
+1248 patches processed
+355.1369650363922 time for inferance
+2.610743284225464 time for saving to volume
+1264 patches processed
+355.1921155452728 time for inferance
+2.6791529655456543 time for saving to volume
+1280 patches processed
+355.24266505241394 time for inferance
+1.427605152130127 time for saving to volume
+1296 patches processed
+355.2931056022644 time for inferance
+3.0601422786712646 time for saving to volume
+1312 patches processed
+355.2656090259552 time for inferance
+3.1259708404541016 time for saving to volume
+1328 patches processed
+355.1654534339905 time for inferance
+2.8729166984558105 time for saving to volume
+1344 patches processed
+355.12661051750183 time for inferance
+3.405571937561035 time for saving to volume
+1360 patches processed
+355.21654891967773 time for inferance
+3.3320138454437256 time for saving to volume
+1376 patches processed
+355.2291705608368 time for inferance
+3.0220794677734375 time for saving to volume
+1392 patches processed
+355.1824595928192 time for inferance
+2.9194679260253906 time for saving to volume
+1408 patches processed
+355.22810196876526 time for inferance
+3.1107754707336426 time for saving to volume
+1424 patches processed
+355.2780935764313 time for inferance
+2.9649548530578613 time for saving to volume
+1440 patches processed
+355.21030044555664 time for inferance
+3.080458402633667 time for saving to volume
+1456 patches processed
+355.26908230781555 time for inferance
+2.8314719200134277 time for saving to volume
+1472 patches processed
+355.28162479400635 time for inferance
+2.9695301055908203 time for saving to volume
+1488 patches processed
+355.2206017971039 time for inferance
+3.012030839920044 time for saving to volume
+1504 patches processed
+355.2741348743439 time for inferance
+2.9606716632843018 time for saving to volume
+1520 patches processed
+355.23656249046326 time for inferance
+3.0882647037506104 time for saving to volume
+1536 patches processed
+355.3016014099121 time for inferance
+1.6817846298217773 time for saving to volume
+1552 patches processed
+355.27398705482483 time for inferance
+3.152623414993286 time for saving to volume
+1568 patches processed
+355.2248270511627 time for inferance
+3.31862473487854 time for saving to volume
+1584 patches processed
+355.25791597366333 time for inferance
+3.210800886154175 time for saving to volume
+1600 patches processed
+355.18945932388306 time for inferance
+3.256582021713257 time for saving to volume
+1616 patches processed
+355.2601637840271 time for inferance
+3.138871669769287 time for saving to volume
+1632 patches processed
+355.2333416938782 time for inferance
+3.516688585281372 time for saving to volume
+1648 patches processed
+355.2643291950226 time for inferance
+3.180340051651001 time for saving to volume
+1664 patches processed
+355.1674520969391 time for inferance
+3.0439300537109375 time for saving to volume
+1680 patches processed
+355.204931974411 time for inferance
+3.586857318878174 time for saving to volume
+1696 patches processed
+355.17926144599915 time for inferance
+3.2830381393432617 time for saving to volume
+1712 patches processed
+355.1942889690399 time for inferance
+3.186204671859741 time for saving to volume
+1728 patches processed
+355.14439249038696 time for inferance
+3.3607773780822754 time for saving to volume
+1744 patches processed
+355.2113301753998 time for inferance
+1.4255712032318115 time for saving to volume
+1760 patches processed
+355.21554017066956 time for inferance
+3.2809886932373047 time for saving to volume
+1776 patches processed
+355.1549332141876 time for inferance
+3.52850604057312 time for saving to volume
+1792 patches processed
+355.1813545227051 time for inferance
+2.0174574851989746 time for saving to volume
+1808 patches processed
+355.22991585731506 time for inferance
+3.513477087020874 time for saving to volume
+1824 patches processed
+355.19812750816345 time for inferance
+3.678065061569214 time for saving to volume
+1840 patches processed
+355.1234245300293 time for inferance
+3.5219669342041016 time for saving to volume
+1856 patches processed
+355.2266116142273 time for inferance
+3.79315447807312 time for saving to volume
+1872 patches processed
+355.2377064228058 time for inferance
+3.617166519165039 time for saving to volume
+1888 patches processed
+355.24193811416626 time for inferance
+4.061962842941284 time for saving to volume
+1904 patches processed
+355.191650390625 time for inferance
+3.6957478523254395 time for saving to volume
+1920 patches processed
+355.1787700653076 time for inferance
+3.4858429431915283 time for saving to volume
+1936 patches processed
+355.10413551330566 time for inferance
+4.045126914978027 time for saving to volume
+1952 patches processed
+355.10260939598083 time for inferance
+2.054673910140991 time for saving to volume
+1968 patches processed
+355.17400789260864 time for inferance
+3.6759681701660156 time for saving to volume
+1984 patches processed
+355.12403559684753 time for inferance
+3.7068588733673096 time for saving to volume
+2000 patches processed
+355.1486165523529 time for inferance
+1.58298659324646 time for saving to volume
+2016 patches processed
+355.1743211746216 time for inferance
+3.459219455718994 time for saving to volume
+2032 patches processed
+355.23341059684753 time for inferance
+3.507337808609009 time for saving to volume
+2048 patches processed
+355.2037024497986 time for inferance
+2.4469313621520996 time for saving to volume
+2064 patches processed
+355.22597551345825 time for inferance
+4.316582441329956 time for saving to volume
+2080 patches processed
+355.17376732826233 time for inferance
+1.4407145977020264 time for saving to volume
+2096 patches processed
+355.2474138736725 time for inferance
+3.9714372158050537 time for saving to volume
+2112 patches processed
+355.20865297317505 time for inferance
+1.3246829509735107 time for saving to volume
+2128 patches processed
+355.2392780780792 time for inferance
+1.6302671432495117 time for saving to volume
+2144 patches processed
+355.24705243110657 time for inferance
+1.3310439586639404 time for saving to volume
+2160 patches processed
+355.27084493637085 time for inferance
+3.7553672790527344 time for saving to volume
+2176 patches processed
+355.22007298469543 time for inferance
+3.85410737991333 time for saving to volume
+2192 patches processed
+355.22961926460266 time for inferance
+1.3294973373413086 time for saving to volume
+2208 patches processed
+355.30337953567505 time for inferance
+1.4957799911499023 time for saving to volume
+2224 patches processed
+355.2681083679199 time for inferance
+4.161869525909424 time for saving to volume
+2240 patches processed
+355.2121117115021 time for inferance
+4.135145664215088 time for saving to volume
+2256 patches processed
+355.1860749721527 time for inferance
+1.9745855331420898 time for saving to volume
+2272 patches processed
+355.27325320243835 time for inferance
+1.3366122245788574 time for saving to volume
+2288 patches processed
+355.2654643058777 time for inferance
+3.858397960662842 time for saving to volume
+2304 patches processed
+355.26912474632263 time for inferance
+2.604867696762085 time for saving to volume
+2320 patches processed
+355.27136516571045 time for inferance
+4.294297456741333 time for saving to volume
+2336 patches processed
+355.24400424957275 time for inferance
+1.6453003883361816 time for saving to volume
+2352 patches processed
+355.2603271007538 time for inferance
+4.616546869277954 time for saving to volume
+2368 patches processed
+355.22375679016113 time for inferance
+1.547447919845581 time for saving to volume
+2384 patches processed
+355.24854826927185 time for inferance
+1.6594064235687256 time for saving to volume
+2400 patches processed
+355.2981071472168 time for inferance
+1.65449857711792 time for saving to volume
+2416 patches processed
+355.24935841560364 time for inferance
+4.917518377304077 time for saving to volume
+2432 patches processed
+355.15644431114197 time for inferance
+6.901463031768799 time for saving to volume
+2448 patches processed
+355.1697483062744 time for inferance
+1.7104527950286865 time for saving to volume
+2464 patches processed
+355.239727973938 time for inferance
+12.09619402885437 time for saving to volume
+2480 patches processed
+355.18565368652344 time for inferance
+7.793109655380249 time for saving to volume
+2496 patches processed
+355.0971875190735 time for inferance
+5.105750560760498 time for saving to volume
+2512 patches processed
+355.12907099723816 time for inferance
+7.6994781494140625 time for saving to volume
+2528 patches processed
+355.13839626312256 time for inferance
+1.8256051540374756 time for saving to volume
+2544 patches processed
+355.1660408973694 time for inferance
+4.607544422149658 time for saving to volume
+2560 patches processed
+355.1822998523712 time for inferance
+7.747346639633179 time for saving to volume
+2576 patches processed
+355.1954622268677 time for inferance
+5.0459370613098145 time for saving to volume
+2592 patches processed
+355.25458884239197 time for inferance
+2.451510429382324 time for saving to volume
+2608 patches processed
+355.2263767719269 time for inferance
+7.348069906234741 time for saving to volume
+2624 patches processed
+355.1252043247223 time for inferance
+2.3890371322631836 time for saving to volume
+2640 patches processed
+355.2879168987274 time for inferance
+2.2758541107177734 time for saving to volume
+2656 patches processed
+355.2432198524475 time for inferance
+2.305112600326538 time for saving to volume
+2672 patches processed
+355.23920249938965 time for inferance
+5.937808513641357 time for saving to volume
+2688 patches processed
+355.17532873153687 time for inferance
+6.393297910690308 time for saving to volume
+2704 patches processed
+355.21052145957947 time for inferance
+2.5262887477874756 time for saving to volume
+2720 patches processed
+355.22126293182373 time for inferance
+2.8920490741729736 time for saving to volume
+2736 patches processed
+355.2127900123596 time for inferance
+5.657148361206055 time for saving to volume
+2752 patches processed
+355.19335436820984 time for inferance
+5.445027828216553 time for saving to volume
+2768 patches processed
+355.28547954559326 time for inferance
+1.4920969009399414 time for saving to volume
+2784 patches processed
+355.3798542022705 time for inferance
+2.5231363773345947 time for saving to volume
+2800 patches processed
+355.28526306152344 time for inferance
+7.268686771392822 time for saving to volume
+2816 patches processed
+355.1759843826294 time for inferance
+4.173414945602417 time for saving to volume
+2832 patches processed
+355.2051885128021 time for inferance
+5.985248565673828 time for saving to volume
+2848 patches processed
+355.26290583610535 time for inferance
+4.1809046268463135 time for saving to volume
+2864 patches processed
+355.2658438682556 time for inferance
+5.375879287719727 time for saving to volume
+2880 patches processed
+355.24827122688293 time for inferance
+2.607274055480957 time for saving to volume
+2896 patches processed
+355.245924949646 time for inferance
+2.454967737197876 time for saving to volume
+2912 patches processed
+355.2846405506134 time for inferance
+2.5258333683013916 time for saving to volume
+2928 patches processed
+355.24361276626587 time for inferance
+5.267996311187744 time for saving to volume
+2944 patches processed
+355.20451641082764 time for inferance
+5.410585880279541 time for saving to volume
+2960 patches processed
+355.2186942100525 time for inferance
+2.634187698364258 time for saving to volume
+2976 patches processed
+355.2230155467987 time for inferance
+2.6823036670684814 time for saving to volume
+2992 patches processed
+355.1987769603729 time for inferance
+4.994364500045776 time for saving to volume
+3008 patches processed
+355.2248432636261 time for inferance
+5.602540016174316 time for saving to volume
+3024 patches processed
+355.1760470867157 time for inferance
+1.993699312210083 time for saving to volume
+3040 patches processed
+355.30057883262634 time for inferance
+2.3229877948760986 time for saving to volume
+3056 patches processed
+355.2977125644684 time for inferance
+5.754025220870972 time for saving to volume
+3072 patches processed
+355.19116616249084 time for inferance
+4.217454671859741 time for saving to volume
+3088 patches processed
+355.2093105316162 time for inferance
+5.625185012817383 time for saving to volume
+3104 patches processed
+355.1759581565857 time for inferance
+2.8054966926574707 time for saving to volume
+3120 patches processed
+355.18999123573303 time for inferance
+5.454160690307617 time for saving to volume
+3136 patches processed
+355.2354760169983 time for inferance
+2.889568328857422 time for saving to volume
+3152 patches processed
+355.19805550575256 time for inferance
+3.128312587738037 time for saving to volume
+3168 patches processed
+355.2586717605591 time for inferance
+2.6483027935028076 time for saving to volume
+3184 patches processed
+355.22076892852783 time for inferance
+5.849178075790405 time for saving to volume
+3200 patches processed
+355.2123248577118 time for inferance
+5.373748540878296 time for saving to volume
+3216 patches processed
+355.22040581703186 time for inferance
+3.16959547996521 time for saving to volume
+3232 patches processed
+355.33131980895996 time for inferance
+2.8526365756988525 time for saving to volume
+3248 patches processed
+355.2686297893524 time for inferance
+5.45469331741333 time for saving to volume
+3264 patches processed
+355.2399580478668 time for inferance
+5.5609190464019775 time for saving to volume
+3280 patches processed
+355.3169541358948 time for inferance
+2.14753794670105 time for saving to volume
+3296 patches processed
+355.32011699676514 time for inferance
+3.065349817276001 time for saving to volume
+3312 patches processed
+355.24954319000244 time for inferance
+5.784624099731445 time for saving to volume
+3328 patches processed
+355.2798249721527 time for inferance
+1.398395299911499 time for saving to volume
+3344 patches processed
+355.3666191101074 time for inferance
+1.7209162712097168 time for saving to volume
+3360 patches processed
+355.3363788127899 time for inferance
+1.4419832229614258 time for saving to volume
+3376 patches processed
+355.24458742141724 time for inferance
+1.318767786026001 time for saving to volume
+3392 patches processed
+355.3487651348114 time for inferance
+1.2979626655578613 time for saving to volume
+3408 patches processed
+355.28271865844727 time for inferance
+1.4079086780548096 time for saving to volume
+3424 patches processed
+355.3143644332886 time for inferance
+1.338463306427002 time for saving to volume
+3440 patches processed
+355.2838280200958 time for inferance
+1.4241485595703125 time for saving to volume
+3456 patches processed
+355.32603788375854 time for inferance
+1.2888681888580322 time for saving to volume
+3472 patches processed
+355.3151080608368 time for inferance
+1.411172866821289 time for saving to volume
+3488 patches processed
+355.3286406993866 time for inferance
+1.4233360290527344 time for saving to volume
+3504 patches processed
+355.27995800971985 time for inferance
+1.2666733264923096 time for saving to volume
+3520 patches processed
+355.259418964386 time for inferance
+1.3244340419769287 time for saving to volume
+3536 patches processed
+355.29767060279846 time for inferance
+1.3504538536071777 time for saving to volume
+3552 patches processed
+355.2782428264618 time for inferance
+1.407104730606079 time for saving to volume
+3568 patches processed
+355.2611172199249 time for inferance
+1.323085069656372 time for saving to volume
+3584 patches processed

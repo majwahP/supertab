@@ -1,0 +1,9 @@
+ds factor = 4, patch sixe = 128
+Method: DDPS with DPS
+Found 1 groups:
+  - 2019_L
+Total patches included: 101
+[bone_volume_fraction]
+  LR vs HR: t=13.1320, p=1.7120e-23, mean_diff=-0.0114, std_diff=0.0088
+  SR vs HR: t=-16.2519, p=8.0622e-30, mean_diff=0.0618, std_diff=0.0382
+MAE - LR: 0.0115, SR: 0.0618

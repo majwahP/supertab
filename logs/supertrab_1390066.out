@@ -321,3 +321,10 @@ Starting Epoch 98...
 Setting up [LPIPS] perceptual loss: trunk [vgg], v[0.1], spatial [off]
 Loading model from: /usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/lpips/weights/v0.1/vgg.pth
 Starting Epoch 99...
+Setting up [LPIPS] perceptual loss: trunk [vgg], v[0.1], spatial [off]
+Loading model from: /usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/lpips/weights/v0.1/vgg.pth
+Setting up [LPIPS] perceptual loss: trunk [vgg], v[0.1], spatial [off]
+Loading model from: /usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/lpips/weights/v0.1/vgg.pth
+[1;34mwandb[0m: 
+[1;34mwandb[0m: 🚀 View run [33msupertrab_ddpm_256px_ds10_100ep_v5[0m at: [34mhttps://wandb.ai/mwahlin-eth-z-rich/supertrab/runs/1nge3r9t[0m
+[1;34mwandb[0m: Find logs at: [1;35m../../../../../../tmp/wandb/run-20250609_182420-1nge3r9t/logs[0m

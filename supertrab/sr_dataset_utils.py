@@ -236,7 +236,7 @@ class SRDataset(zds.ZarrDataset):
             yield example
 
 
-def create_dataloader(zarr_path, patch_size=(1, 128, 128), batch_size=4, num_workers=1, min_area=0.999, sigma=1.3, downsample_factor=4, draw_same_chunk = False, shuffle = True, enable_sr_dataset = True, groups_to_use=None):
+def create_dataloader(zarr_path, patch_size=(1, 128, 128), batch_size=4, num_workers=1, min_area=0.999, sigma=1.3, downsample_factor=4, draw_same_chunk = False, shuffle = True, enable_sr_dataset = True, groups_to_use=None, prefetch=2, image_group="image", mask_group="image_trabecular_mask", mask_base_path=None):
     """
     Creates a PyTorch DataLoader that samples patch pairs (HR and LR) from all groups 
     in a Zarr dataset for use in super-resolution tasks.
@@ -267,9 +267,15 @@ def create_dataloader(zarr_path, patch_size=(1, 128, 128), batch_size=4, num_wor
             - 'hr_image': Tensor containing the high-resolution patch [1, H, W].
             - 'lr_image': Tensor containing the corresponding low-resolution patch [1, H, W].
     """
+
+
     zarr_path = Path(zarr_path)
     root = zarr.open(str(zarr_path))
-    named_groups = list(root.groups()) 
+    named_groups = [
+        (name, root[name])
+        for name in list(root.array_keys()) + list(root.group_keys())
+        if groups_to_use is None or name in groups_to_use
+    ]
     if groups_to_use is not None:
         named_groups = [(name, group) for name, group in named_groups if name in groups_to_use]
     print(f"Found {len(named_groups)} groups:")
@@ -282,14 +288,34 @@ def create_dataloader(zarr_path, patch_size=(1, 128, 128), batch_size=4, num_wor
     all_mask_specs = []
 
     for name, _ in named_groups:
-        group_path = f"{zarr_path}/{name}"
-        
         all_file_specs.append(
-            zds.ImagesDatasetSpecs(filenames=[group_path], data_group="image", source_axes="ZYX")
+            zds.ImagesDatasetSpecs(
+                filenames=[str(zarr_path)],
+                data_group=f"{name}/{image_group}", 
+                source_axes="ZYX"
+            )
         )
-        all_mask_specs.append(
-            zds.MasksDatasetSpecs(filenames=[group_path], data_group="image_trabecular_mask", source_axes="ZYX")
-        )
+
+        if mask_base_path is not None:
+            all_mask_specs.append(
+                zds.MasksDatasetSpecs(
+                    filenames=[str(zarr_path)],
+                    data_group=f"{name}/{mask_base_path}/{mask_group}", 
+                    source_axes="ZYX"
+                )
+            )
+        else:
+            all_mask_specs.append(
+                zds.MasksDatasetSpecs(
+                    filenames=[str(zarr_path)],
+                    data_group=f"{name}/{image_group}",
+                    source_axes="ZYX"
+                )
+            )
+
+
+
+
 
 
     if enable_sr_dataset:
@@ -321,5 +347,5 @@ def create_dataloader(zarr_path, patch_size=(1, 128, 128), batch_size=4, num_wor
         batch_size=batch_size,
         num_workers=num_workers,
         worker_init_fn=zds.zarrdataset_worker_init_fn,
-        prefetch_factor=2,
+        prefetch_factor=prefetch,
     )

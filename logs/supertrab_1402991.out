@@ -1,0 +1,9 @@
+Saving slices 0:8 to /usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr/2019_L/image_trabecular_mask_split/part_1
+Saving slices 8:16 to /usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr/2019_L/image_trabecular_mask_split/part_2
+Saving slices 16:24 to /usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr/2019_L/image_trabecular_mask_split/part_3
+Saving slices 24:32 to /usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr/2019_L/image_trabecular_mask_split/part_4
+Saving slices 32:40 to /usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr/2019_L/image_trabecular_mask_split/part_5
+Saving slices 40:48 to /usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr/2019_L/image_trabecular_mask_split/part_6
+Saving slices 48:56 to /usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr/2019_L/image_trabecular_mask_split/part_7
+Saving slices 56:64 to /usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr/2019_L/image_trabecular_mask_split/part_8
+Done splitting and saving.

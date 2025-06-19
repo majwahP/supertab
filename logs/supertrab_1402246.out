@@ -1,0 +1,23 @@
+Original volume shape: (5670, 4608, 4608), chunks: (128, 512, 512)
+cuda
+Found 1 groups:
+  - 2019_L
+Starting inference over full volume...
+751.2470562458038 time for inferance
+0.8211946487426758 time for saving to volume
+8 patches processed
+753.909633398056 time for inferance
+0.9804079532623291 time for saving to volume
+16 patches processed
+753.7097129821777 time for inferance
+0.855318546295166 time for saving to volume
+24 patches processed
+754.3855981826782 time for inferance
+1.1084723472595215 time for saving to volume
+32 patches processed
+754.4405550956726 time for inferance
+0.8552267551422119 time for saving to volume
+40 patches processed
+754.0098524093628 time for inferance
+0.945838451385498 time for saving to volume
+48 patches processed

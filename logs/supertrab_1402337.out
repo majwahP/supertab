@@ -1,0 +1,2230 @@
+Original volume shape: (5670, 4608, 4608), chunks: (128, 512, 512)
+cuda
+Found 1 groups:
+  - 2019_L
+Starting inference over full volume...
+position shape: torch.Size([3, 2]), values: tensor([[2481, 2482],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2482, 2483],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2483, 2484],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2484, 2485],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2485, 2486],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2486, 2487],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2487, 2488],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2488, 2489],
+        [2304, 2560],
+        [1792, 2048]])
+8 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[3328, 3329],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[3328, 3329],
+        [2304, 2560],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[3329, 3330],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[3329, 3330],
+        [2304, 2560],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[3330, 3331],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[3330, 3331],
+        [2304, 2560],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[3331, 3332],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[3331, 3332],
+        [2304, 2560],
+        [2304, 2560]])
+16 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2816, 2817],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2817, 2818],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2818, 2819],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2819, 2820],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2820, 2821],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2821, 2822],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2822, 2823],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2823, 2824],
+        [2560, 2816],
+        [1792, 2048]])
+24 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[1950, 1951],
+        [2560, 2816],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[1950, 1951],
+        [2816, 3072],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[1950, 1951],
+        [2816, 3072],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[1951, 1952],
+        [2560, 2816],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[1951, 1952],
+        [2816, 3072],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[1951, 1952],
+        [2816, 3072],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[1952, 1953],
+        [2560, 2816],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[1952, 1953],
+        [2816, 3072],
+        [2048, 2304]])
+32 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2688, 2689],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2689, 2690],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2690, 2691],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2691, 2692],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2692, 2693],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2693, 2694],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2694, 2695],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2695, 2696],
+        [2304, 2560],
+        [1792, 2048]])
+40 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2688, 2689],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2689, 2690],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2690, 2691],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2691, 2692],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2692, 2693],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2693, 2694],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2694, 2695],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2695, 2696],
+        [2304, 2560],
+        [2048, 2304]])
+48 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2688, 2689],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2689, 2690],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2690, 2691],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2691, 2692],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2692, 2693],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2693, 2694],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2694, 2695],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2695, 2696],
+        [2560, 2816],
+        [1792, 2048]])
+56 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2688, 2689],
+        [2560, 2816],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2688, 2689],
+        [2816, 3072],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2688, 2689],
+        [2816, 3072],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[2689, 2690],
+        [2560, 2816],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2689, 2690],
+        [2816, 3072],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2689, 2690],
+        [2816, 3072],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[2690, 2691],
+        [2560, 2816],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2690, 2691],
+        [2816, 3072],
+        [2048, 2304]])
+64 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[3072, 3073],
+        [2048, 2304],
+        [1536, 1792]])
+position shape: torch.Size([3, 2]), values: tensor([[3072, 3073],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[3073, 3074],
+        [2048, 2304],
+        [1536, 1792]])
+position shape: torch.Size([3, 2]), values: tensor([[3073, 3074],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[3074, 3075],
+        [2048, 2304],
+        [1536, 1792]])
+position shape: torch.Size([3, 2]), values: tensor([[3074, 3075],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[3075, 3076],
+        [2048, 2304],
+        [1536, 1792]])
+position shape: torch.Size([3, 2]), values: tensor([[3075, 3076],
+        [2304, 2560],
+        [1792, 2048]])
+72 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2560, 2561],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2561, 2562],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2562, 2563],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2563, 2564],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2564, 2565],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2565, 2566],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2566, 2567],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2567, 2568],
+        [2304, 2560],
+        [1792, 2048]])
+80 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2570, 2571],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2571, 2572],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2572, 2573],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2573, 2574],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2574, 2575],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2575, 2576],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2576, 2577],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2577, 2578],
+        [2304, 2560],
+        [2048, 2304]])
+88 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2048, 2049],
+        [2560, 2816],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2048, 2049],
+        [2816, 3072],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2048, 2049],
+        [2816, 3072],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[2049, 2050],
+        [2560, 2816],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2049, 2050],
+        [2816, 3072],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2049, 2050],
+        [2816, 3072],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[2050, 2051],
+        [2560, 2816],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2050, 2051],
+        [2816, 3072],
+        [2048, 2304]])
+96 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2560, 2561],
+        [2560, 2816],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2560, 2561],
+        [2816, 3072],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2560, 2561],
+        [2816, 3072],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[2561, 2562],
+        [2560, 2816],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2561, 2562],
+        [2816, 3072],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2561, 2562],
+        [2816, 3072],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[2562, 2563],
+        [2560, 2816],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2562, 2563],
+        [2816, 3072],
+        [2048, 2304]])
+104 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[3584, 3585],
+        [3072, 3328],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[3584, 3585],
+        [3072, 3328],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[3585, 3586],
+        [3072, 3328],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[3585, 3586],
+        [3072, 3328],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[3586, 3587],
+        [3072, 3328],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[3586, 3587],
+        [3072, 3328],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[3587, 3588],
+        [3072, 3328],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[3587, 3588],
+        [3072, 3328],
+        [2304, 2560]])
+112 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2944, 2945],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2945, 2946],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2946, 2947],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2947, 2948],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2948, 2949],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2949, 2950],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2950, 2951],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2951, 2952],
+        [2560, 2816],
+        [1792, 2048]])
+120 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2816, 2817],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2817, 2818],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2818, 2819],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2819, 2820],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2820, 2821],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2821, 2822],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2822, 2823],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2823, 2824],
+        [2304, 2560],
+        [1792, 2048]])
+128 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2489, 2490],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2490, 2491],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2491, 2492],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2492, 2493],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2493, 2494],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2494, 2495],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2495, 2496],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2496, 2497],
+        [2304, 2560],
+        [1792, 2048]])
+136 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[3332, 3333],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[3332, 3333],
+        [2304, 2560],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[3333, 3334],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[3333, 3334],
+        [2304, 2560],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[3334, 3335],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[3334, 3335],
+        [2304, 2560],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[3335, 3336],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[3335, 3336],
+        [2304, 2560],
+        [2304, 2560]])
+144 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2824, 2825],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2825, 2826],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2826, 2827],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2827, 2828],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2828, 2829],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2829, 2830],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2830, 2831],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2831, 2832],
+        [2560, 2816],
+        [1792, 2048]])
+152 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[1952, 1953],
+        [2816, 3072],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[1953, 1954],
+        [2560, 2816],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[1953, 1954],
+        [2816, 3072],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[1953, 1954],
+        [2816, 3072],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[1954, 1955],
+        [2560, 2816],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[1954, 1955],
+        [2816, 3072],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[1954, 1955],
+        [2816, 3072],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[1955, 1956],
+        [2560, 2816],
+        [2048, 2304]])
+160 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2696, 2697],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2697, 2698],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2698, 2699],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2699, 2700],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2700, 2701],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2701, 2702],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2702, 2703],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2703, 2704],
+        [2304, 2560],
+        [1792, 2048]])
+168 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2696, 2697],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2697, 2698],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2698, 2699],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2699, 2700],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2700, 2701],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2701, 2702],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2702, 2703],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2703, 2704],
+        [2304, 2560],
+        [2048, 2304]])
+176 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2696, 2697],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2697, 2698],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2698, 2699],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2699, 2700],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2700, 2701],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2701, 2702],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2702, 2703],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2703, 2704],
+        [2560, 2816],
+        [1792, 2048]])
+184 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2690, 2691],
+        [2816, 3072],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[2691, 2692],
+        [2560, 2816],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2691, 2692],
+        [2816, 3072],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2691, 2692],
+        [2816, 3072],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[2692, 2693],
+        [2560, 2816],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2692, 2693],
+        [2816, 3072],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2692, 2693],
+        [2816, 3072],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[2693, 2694],
+        [2560, 2816],
+        [2048, 2304]])
+192 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[3076, 3077],
+        [2048, 2304],
+        [1536, 1792]])
+position shape: torch.Size([3, 2]), values: tensor([[3076, 3077],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[3077, 3078],
+        [2048, 2304],
+        [1536, 1792]])
+position shape: torch.Size([3, 2]), values: tensor([[3077, 3078],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[3078, 3079],
+        [2048, 2304],
+        [1536, 1792]])
+position shape: torch.Size([3, 2]), values: tensor([[3078, 3079],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[3079, 3080],
+        [2048, 2304],
+        [1536, 1792]])
+position shape: torch.Size([3, 2]), values: tensor([[3079, 3080],
+        [2304, 2560],
+        [1792, 2048]])
+200 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2568, 2569],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2569, 2570],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2570, 2571],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2571, 2572],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2572, 2573],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2573, 2574],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2574, 2575],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2575, 2576],
+        [2304, 2560],
+        [1792, 2048]])
+208 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2578, 2579],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2579, 2580],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2580, 2581],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2581, 2582],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2582, 2583],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2583, 2584],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2584, 2585],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2585, 2586],
+        [2304, 2560],
+        [2048, 2304]])
+216 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2050, 2051],
+        [2816, 3072],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[2051, 2052],
+        [2560, 2816],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2051, 2052],
+        [2816, 3072],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2051, 2052],
+        [2816, 3072],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[2052, 2053],
+        [2560, 2816],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2052, 2053],
+        [2816, 3072],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2052, 2053],
+        [2816, 3072],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[2053, 2054],
+        [2560, 2816],
+        [2048, 2304]])
+224 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2562, 2563],
+        [2816, 3072],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[2563, 2564],
+        [2560, 2816],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2563, 2564],
+        [2816, 3072],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2563, 2564],
+        [2816, 3072],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[2564, 2565],
+        [2560, 2816],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2564, 2565],
+        [2816, 3072],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2564, 2565],
+        [2816, 3072],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[2565, 2566],
+        [2560, 2816],
+        [2048, 2304]])
+232 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[3588, 3589],
+        [3072, 3328],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[3588, 3589],
+        [3072, 3328],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[3589, 3590],
+        [3072, 3328],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[3589, 3590],
+        [3072, 3328],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[3590, 3591],
+        [3072, 3328],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[3590, 3591],
+        [3072, 3328],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[3591, 3592],
+        [3072, 3328],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[3591, 3592],
+        [3072, 3328],
+        [2304, 2560]])
+240 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2952, 2953],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2953, 2954],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2954, 2955],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2955, 2956],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2956, 2957],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2957, 2958],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2958, 2959],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2959, 2960],
+        [2560, 2816],
+        [1792, 2048]])
+248 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2824, 2825],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2825, 2826],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2826, 2827],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2827, 2828],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2828, 2829],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2829, 2830],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2830, 2831],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2831, 2832],
+        [2304, 2560],
+        [1792, 2048]])
+256 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2497, 2498],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2498, 2499],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2499, 2500],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2500, 2501],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2501, 2502],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2502, 2503],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2503, 2504],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2504, 2505],
+        [2304, 2560],
+        [1792, 2048]])
+264 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[3336, 3337],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[3336, 3337],
+        [2304, 2560],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[3337, 3338],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[3337, 3338],
+        [2304, 2560],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[3338, 3339],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[3338, 3339],
+        [2304, 2560],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[3339, 3340],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[3339, 3340],
+        [2304, 2560],
+        [2304, 2560]])
+272 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2832, 2833],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2833, 2834],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2834, 2835],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2835, 2836],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2836, 2837],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2837, 2838],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2838, 2839],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2839, 2840],
+        [2560, 2816],
+        [1792, 2048]])
+280 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[1955, 1956],
+        [2816, 3072],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[1955, 1956],
+        [2816, 3072],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[1956, 1957],
+        [2560, 2816],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[1956, 1957],
+        [2816, 3072],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[1956, 1957],
+        [2816, 3072],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[1957, 1958],
+        [2560, 2816],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[1957, 1958],
+        [2816, 3072],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[1957, 1958],
+        [2816, 3072],
+        [2304, 2560]])
+288 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2704, 2705],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2705, 2706],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2706, 2707],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2707, 2708],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2708, 2709],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2709, 2710],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2710, 2711],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2711, 2712],
+        [2304, 2560],
+        [1792, 2048]])
+296 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2704, 2705],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2705, 2706],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2706, 2707],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2707, 2708],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2708, 2709],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2709, 2710],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2710, 2711],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2711, 2712],
+        [2304, 2560],
+        [2048, 2304]])
+304 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2704, 2705],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2705, 2706],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2706, 2707],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2707, 2708],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2708, 2709],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2709, 2710],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2710, 2711],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2711, 2712],
+        [2560, 2816],
+        [1792, 2048]])
+312 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2693, 2694],
+        [2816, 3072],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2693, 2694],
+        [2816, 3072],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[2694, 2695],
+        [2560, 2816],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2694, 2695],
+        [2816, 3072],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2694, 2695],
+        [2816, 3072],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[2695, 2696],
+        [2560, 2816],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2695, 2696],
+        [2816, 3072],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2695, 2696],
+        [2816, 3072],
+        [2304, 2560]])
+320 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[3080, 3081],
+        [2048, 2304],
+        [1536, 1792]])
+position shape: torch.Size([3, 2]), values: tensor([[3080, 3081],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[3081, 3082],
+        [2048, 2304],
+        [1536, 1792]])
+position shape: torch.Size([3, 2]), values: tensor([[3081, 3082],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[3082, 3083],
+        [2048, 2304],
+        [1536, 1792]])
+position shape: torch.Size([3, 2]), values: tensor([[3082, 3083],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[3083, 3084],
+        [2048, 2304],
+        [1536, 1792]])
+position shape: torch.Size([3, 2]), values: tensor([[3083, 3084],
+        [2304, 2560],
+        [1792, 2048]])
+328 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2576, 2577],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2577, 2578],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2578, 2579],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2579, 2580],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2580, 2581],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2581, 2582],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2582, 2583],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2583, 2584],
+        [2304, 2560],
+        [1792, 2048]])
+336 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2586, 2587],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2587, 2588],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2588, 2589],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2589, 2590],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2590, 2591],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2591, 2592],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2592, 2593],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2593, 2594],
+        [2304, 2560],
+        [2048, 2304]])
+344 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2053, 2054],
+        [2816, 3072],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2053, 2054],
+        [2816, 3072],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[2054, 2055],
+        [2560, 2816],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2054, 2055],
+        [2816, 3072],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2054, 2055],
+        [2816, 3072],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[2055, 2056],
+        [2560, 2816],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2055, 2056],
+        [2816, 3072],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2055, 2056],
+        [2816, 3072],
+        [2304, 2560]])
+352 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2565, 2566],
+        [2816, 3072],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2565, 2566],
+        [2816, 3072],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[2566, 2567],
+        [2560, 2816],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2566, 2567],
+        [2816, 3072],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2566, 2567],
+        [2816, 3072],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[2567, 2568],
+        [2560, 2816],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2567, 2568],
+        [2816, 3072],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2567, 2568],
+        [2816, 3072],
+        [2304, 2560]])
+360 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[3592, 3593],
+        [3072, 3328],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[3592, 3593],
+        [3072, 3328],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[3593, 3594],
+        [3072, 3328],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[3593, 3594],
+        [3072, 3328],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[3594, 3595],
+        [3072, 3328],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[3594, 3595],
+        [3072, 3328],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[3595, 3596],
+        [3072, 3328],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[3595, 3596],
+        [3072, 3328],
+        [2304, 2560]])
+368 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2960, 2961],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2961, 2962],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2962, 2963],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2963, 2964],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2964, 2965],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2965, 2966],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2966, 2967],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2967, 2968],
+        [2560, 2816],
+        [1792, 2048]])
+376 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2832, 2833],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2833, 2834],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2834, 2835],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2835, 2836],
+        [2048, 2304],
+        [1536, 1792]])
+position shape: torch.Size([3, 2]), values: tensor([[2835, 2836],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2836, 2837],
+        [2048, 2304],
+        [1536, 1792]])
+position shape: torch.Size([3, 2]), values: tensor([[2836, 2837],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2837, 2838],
+        [2048, 2304],
+        [1536, 1792]])
+384 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2505, 2506],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2506, 2507],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2507, 2508],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2508, 2509],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2509, 2510],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2510, 2511],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2511, 2512],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2512, 2513],
+        [2304, 2560],
+        [1792, 2048]])
+392 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[3340, 3341],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[3340, 3341],
+        [2304, 2560],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[3341, 3342],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[3341, 3342],
+        [2304, 2560],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[3342, 3343],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[3342, 3343],
+        [2304, 2560],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[3343, 3344],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[3343, 3344],
+        [2304, 2560],
+        [2304, 2560]])
+400 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2840, 2841],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2841, 2842],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2842, 2843],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2843, 2844],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2844, 2845],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2845, 2846],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2846, 2847],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2847, 2848],
+        [2560, 2816],
+        [1792, 2048]])
+408 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[1958, 1959],
+        [2560, 2816],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[1958, 1959],
+        [2816, 3072],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[1958, 1959],
+        [2816, 3072],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[1959, 1960],
+        [2560, 2816],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[1959, 1960],
+        [2816, 3072],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[1959, 1960],
+        [2816, 3072],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[1960, 1961],
+        [2560, 2816],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[1960, 1961],
+        [2816, 3072],
+        [2048, 2304]])
+416 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2712, 2713],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2713, 2714],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2714, 2715],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2715, 2716],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2716, 2717],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2717, 2718],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2718, 2719],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2719, 2720],
+        [2304, 2560],
+        [1792, 2048]])
+424 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2712, 2713],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2713, 2714],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2714, 2715],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2715, 2716],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2716, 2717],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2717, 2718],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2718, 2719],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2719, 2720],
+        [2304, 2560],
+        [2048, 2304]])
+432 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2712, 2713],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2713, 2714],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2714, 2715],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2715, 2716],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2716, 2717],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2717, 2718],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2718, 2719],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2719, 2720],
+        [2560, 2816],
+        [1792, 2048]])
+440 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2696, 2697],
+        [2560, 2816],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2696, 2697],
+        [2816, 3072],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2696, 2697],
+        [2816, 3072],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[2697, 2698],
+        [2560, 2816],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2697, 2698],
+        [2816, 3072],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2697, 2698],
+        [2816, 3072],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[2698, 2699],
+        [2560, 2816],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2698, 2699],
+        [2816, 3072],
+        [2048, 2304]])
+448 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[3084, 3085],
+        [2048, 2304],
+        [1536, 1792]])
+position shape: torch.Size([3, 2]), values: tensor([[3084, 3085],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[3085, 3086],
+        [2048, 2304],
+        [1536, 1792]])
+position shape: torch.Size([3, 2]), values: tensor([[3085, 3086],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[3086, 3087],
+        [2048, 2304],
+        [1536, 1792]])
+position shape: torch.Size([3, 2]), values: tensor([[3086, 3087],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[3087, 3088],
+        [2048, 2304],
+        [1536, 1792]])
+position shape: torch.Size([3, 2]), values: tensor([[3087, 3088],
+        [2304, 2560],
+        [1792, 2048]])
+456 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2584, 2585],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2585, 2586],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2586, 2587],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2587, 2588],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2588, 2589],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2589, 2590],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2590, 2591],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2591, 2592],
+        [2304, 2560],
+        [1792, 2048]])
+464 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2594, 2595],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2595, 2596],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2596, 2597],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2597, 2598],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2598, 2599],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2599, 2600],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2600, 2601],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2601, 2602],
+        [2304, 2560],
+        [2048, 2304]])
+472 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2056, 2057],
+        [2560, 2816],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2056, 2057],
+        [2816, 3072],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2056, 2057],
+        [2816, 3072],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[2057, 2058],
+        [2560, 2816],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2057, 2058],
+        [2816, 3072],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2057, 2058],
+        [2816, 3072],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[2058, 2059],
+        [2560, 2816],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2058, 2059],
+        [2816, 3072],
+        [2048, 2304]])
+480 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2568, 2569],
+        [2560, 2816],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2568, 2569],
+        [2816, 3072],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2568, 2569],
+        [2816, 3072],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[2569, 2570],
+        [2560, 2816],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2569, 2570],
+        [2816, 3072],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2569, 2570],
+        [2816, 3072],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[2570, 2571],
+        [2560, 2816],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2570, 2571],
+        [2816, 3072],
+        [2048, 2304]])
+488 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[3596, 3597],
+        [3072, 3328],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[3596, 3597],
+        [3072, 3328],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[3597, 3598],
+        [3072, 3328],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[3597, 3598],
+        [3072, 3328],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[3598, 3599],
+        [3072, 3328],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[3598, 3599],
+        [3072, 3328],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[3599, 3600],
+        [3072, 3328],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[3599, 3600],
+        [3072, 3328],
+        [2304, 2560]])
+496 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2968, 2969],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2969, 2970],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2970, 2971],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2971, 2972],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2972, 2973],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2973, 2974],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2974, 2975],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2975, 2976],
+        [2560, 2816],
+        [1792, 2048]])
+504 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2837, 2838],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2838, 2839],
+        [2048, 2304],
+        [1536, 1792]])
+position shape: torch.Size([3, 2]), values: tensor([[2838, 2839],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2839, 2840],
+        [2048, 2304],
+        [1536, 1792]])
+position shape: torch.Size([3, 2]), values: tensor([[2839, 2840],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2840, 2841],
+        [2048, 2304],
+        [1536, 1792]])
+position shape: torch.Size([3, 2]), values: tensor([[2840, 2841],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2841, 2842],
+        [2048, 2304],
+        [1536, 1792]])
+512 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2513, 2514],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2514, 2515],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2515, 2516],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2516, 2517],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2517, 2518],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2518, 2519],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2519, 2520],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2520, 2521],
+        [2304, 2560],
+        [1792, 2048]])
+520 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[3344, 3345],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[3344, 3345],
+        [2304, 2560],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[3345, 3346],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[3345, 3346],
+        [2304, 2560],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[3346, 3347],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[3346, 3347],
+        [2304, 2560],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[3347, 3348],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[3347, 3348],
+        [2304, 2560],
+        [2304, 2560]])
+528 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2848, 2849],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2849, 2850],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2850, 2851],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2851, 2852],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2852, 2853],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2853, 2854],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2854, 2855],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2855, 2856],
+        [2560, 2816],
+        [1792, 2048]])
+536 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[1960, 1961],
+        [2816, 3072],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[1961, 1962],
+        [2560, 2816],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[1961, 1962],
+        [2816, 3072],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[1961, 1962],
+        [2816, 3072],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[1962, 1963],
+        [2560, 2816],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[1962, 1963],
+        [2816, 3072],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[1962, 1963],
+        [2816, 3072],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[1963, 1964],
+        [2560, 2816],
+        [2048, 2304]])
+544 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2720, 2721],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2721, 2722],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2722, 2723],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2723, 2724],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2724, 2725],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2725, 2726],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2726, 2727],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2727, 2728],
+        [2304, 2560],
+        [1792, 2048]])
+552 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2720, 2721],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2721, 2722],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2722, 2723],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2723, 2724],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2724, 2725],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2725, 2726],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2726, 2727],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2727, 2728],
+        [2304, 2560],
+        [2048, 2304]])
+560 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2720, 2721],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2721, 2722],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2722, 2723],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2723, 2724],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2724, 2725],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2725, 2726],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2726, 2727],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2727, 2728],
+        [2560, 2816],
+        [1792, 2048]])
+568 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2698, 2699],
+        [2816, 3072],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[2699, 2700],
+        [2560, 2816],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2699, 2700],
+        [2816, 3072],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2699, 2700],
+        [2816, 3072],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[2700, 2701],
+        [2560, 2816],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2700, 2701],
+        [2816, 3072],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2700, 2701],
+        [2816, 3072],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[2701, 2702],
+        [2560, 2816],
+        [2048, 2304]])
+576 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[3088, 3089],
+        [2048, 2304],
+        [1536, 1792]])
+position shape: torch.Size([3, 2]), values: tensor([[3088, 3089],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[3089, 3090],
+        [2048, 2304],
+        [1536, 1792]])
+position shape: torch.Size([3, 2]), values: tensor([[3089, 3090],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[3090, 3091],
+        [2048, 2304],
+        [1536, 1792]])
+position shape: torch.Size([3, 2]), values: tensor([[3090, 3091],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[3091, 3092],
+        [2048, 2304],
+        [1536, 1792]])
+position shape: torch.Size([3, 2]), values: tensor([[3091, 3092],
+        [2304, 2560],
+        [1792, 2048]])
+584 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2592, 2593],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2593, 2594],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2594, 2595],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2595, 2596],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2596, 2597],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2597, 2598],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2598, 2599],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2599, 2600],
+        [2304, 2560],
+        [1792, 2048]])
+592 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2602, 2603],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2603, 2604],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2604, 2605],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2605, 2606],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2606, 2607],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2607, 2608],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2608, 2609],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2609, 2610],
+        [2304, 2560],
+        [2048, 2304]])
+600 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2058, 2059],
+        [2816, 3072],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[2059, 2060],
+        [2560, 2816],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2059, 2060],
+        [2816, 3072],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2059, 2060],
+        [2816, 3072],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[2060, 2061],
+        [2560, 2816],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2060, 2061],
+        [2816, 3072],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2060, 2061],
+        [2816, 3072],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[2061, 2062],
+        [2560, 2816],
+        [2048, 2304]])
+608 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2570, 2571],
+        [2816, 3072],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[2571, 2572],
+        [2560, 2816],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2571, 2572],
+        [2816, 3072],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2571, 2572],
+        [2816, 3072],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[2572, 2573],
+        [2560, 2816],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2572, 2573],
+        [2816, 3072],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2572, 2573],
+        [2816, 3072],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[2573, 2574],
+        [2560, 2816],
+        [2048, 2304]])
+616 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[3600, 3601],
+        [3072, 3328],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[3600, 3601],
+        [3072, 3328],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[3601, 3602],
+        [3072, 3328],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[3601, 3602],
+        [3072, 3328],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[3602, 3603],
+        [3072, 3328],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[3602, 3603],
+        [3072, 3328],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[3603, 3604],
+        [3072, 3328],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[3603, 3604],
+        [3072, 3328],
+        [2304, 2560]])
+624 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2976, 2977],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2977, 2978],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2978, 2979],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2979, 2980],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2980, 2981],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2981, 2982],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2982, 2983],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2983, 2984],
+        [2560, 2816],
+        [1792, 2048]])
+632 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2841, 2842],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2842, 2843],
+        [2048, 2304],
+        [1536, 1792]])
+position shape: torch.Size([3, 2]), values: tensor([[2842, 2843],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2843, 2844],
+        [2048, 2304],
+        [1536, 1792]])
+position shape: torch.Size([3, 2]), values: tensor([[2843, 2844],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2844, 2845],
+        [2048, 2304],
+        [1536, 1792]])
+position shape: torch.Size([3, 2]), values: tensor([[2844, 2845],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2845, 2846],
+        [2048, 2304],
+        [1536, 1792]])
+640 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2521, 2522],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2522, 2523],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2523, 2524],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2524, 2525],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2525, 2526],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2526, 2527],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2527, 2528],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2528, 2529],
+        [2304, 2560],
+        [1792, 2048]])
+648 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[3348, 3349],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[3348, 3349],
+        [2304, 2560],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[3349, 3350],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[3349, 3350],
+        [2304, 2560],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[3350, 3351],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[3350, 3351],
+        [2304, 2560],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[3351, 3352],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[3351, 3352],
+        [2304, 2560],
+        [2304, 2560]])
+656 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2856, 2857],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2857, 2858],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2858, 2859],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2859, 2860],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2860, 2861],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2861, 2862],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2862, 2863],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2863, 2864],
+        [2560, 2816],
+        [1792, 2048]])
+664 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[1963, 1964],
+        [2816, 3072],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[1963, 1964],
+        [2816, 3072],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[1964, 1965],
+        [2560, 2816],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[1964, 1965],
+        [2816, 3072],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[1964, 1965],
+        [2816, 3072],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[1965, 1966],
+        [2560, 2816],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[1965, 1966],
+        [2816, 3072],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[1965, 1966],
+        [2816, 3072],
+        [2304, 2560]])
+672 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2728, 2729],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2729, 2730],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2730, 2731],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2731, 2732],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2732, 2733],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2733, 2734],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2734, 2735],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2735, 2736],
+        [2304, 2560],
+        [1792, 2048]])
+680 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2728, 2729],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2729, 2730],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2730, 2731],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2731, 2732],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2732, 2733],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2733, 2734],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2734, 2735],
+        [2304, 2560],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2735, 2736],
+        [2304, 2560],
+        [2048, 2304]])
+688 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2728, 2729],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2729, 2730],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2730, 2731],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2731, 2732],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2732, 2733],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2733, 2734],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2734, 2735],
+        [2560, 2816],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[2735, 2736],
+        [2560, 2816],
+        [1792, 2048]])
+696 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[2701, 2702],
+        [2816, 3072],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2701, 2702],
+        [2816, 3072],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[2702, 2703],
+        [2560, 2816],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2702, 2703],
+        [2816, 3072],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2702, 2703],
+        [2816, 3072],
+        [2304, 2560]])
+position shape: torch.Size([3, 2]), values: tensor([[2703, 2704],
+        [2560, 2816],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2703, 2704],
+        [2816, 3072],
+        [2048, 2304]])
+position shape: torch.Size([3, 2]), values: tensor([[2703, 2704],
+        [2816, 3072],
+        [2304, 2560]])
+704 patches processed
+position shape: torch.Size([3, 2]), values: tensor([[3092, 3093],
+        [2048, 2304],
+        [1536, 1792]])
+position shape: torch.Size([3, 2]), values: tensor([[3092, 3093],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[3093, 3094],
+        [2048, 2304],
+        [1536, 1792]])
+position shape: torch.Size([3, 2]), values: tensor([[3093, 3094],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[3094, 3095],
+        [2048, 2304],
+        [1536, 1792]])
+position shape: torch.Size([3, 2]), values: tensor([[3094, 3095],
+        [2304, 2560],
+        [1792, 2048]])
+position shape: torch.Size([3, 2]), values: tensor([[3095, 3096],
+        [2048, 2304],
+        [1536, 1792]])
+position shape: torch.Size([3, 2]), values: tensor([[3095, 3096],
+        [2304, 2560],
+        [1792, 2048]])
+712 patches processed

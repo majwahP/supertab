@@ -1,0 +1,16 @@
+Original volume shape: (5670, 4608, 4608), chunks: (128, 512, 512)
+cuda
+Found 1 groups:
+  - 2019_L
+Starting inference over full volume...
+8 patches processed
+16 patches processed
+24 patches processed
+32 patches processed
+40 patches processed
+48 patches processed
+56 patches processed
+64 patches processed
+72 patches processed
+80 patches processed
+88 patches processed

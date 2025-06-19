@@ -9,6 +9,10 @@ https://github.com/gianthk/pyfabric/blob/master/notebooks/supertrab_trabecular_c
 """
 
 from pathlib import Path
+import sys
+
+sys.path.append(str(Path(__file__).resolve().parents[1]))
+
 import supertrab.trabecular_mask_utils as prepare
 
 
@@ -22,7 +26,7 @@ data_dir = "/usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/00_
 # group_name = "2005_L"
 # group_name = "2007_L"
 group_name = "2019_L"
-patch_size = (2, 4, 4) #must be bigger for the variance mask
+patch_size = (2, 2, 2) #must be bigger for the variance mask
 variance_threshold = 1
 
 root, scan_group, trabecular_mask = prepare.create_and_save_trabecular_mask(file_path, data_dir, group_name, patch_size)

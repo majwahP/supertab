@@ -9,7 +9,9 @@ import SimpleITK as sitk
 from pathlib import Path
 from skimage.transform import resize
 import torch
-from sr_dataset_utils import create_dataloader
+import sys
+sys.path.append(str(Path(__file__).resolve().parents[1]))
+from supertrab.sr_dataset_utils import create_dataloader
 from tqdm import tqdm
 
 
@@ -41,7 +43,7 @@ def create_and_save_trabecular_mask(file_path, data_dir, group_name, patch_size)
 
     for dataset_name in scan_group:
         if any(dataset_name.endswith(suffix) for suffix in [
-            "_bone_mask", "_trabecular_mask", "_trabecular_mask_mean_variance", "_variance", "_mean"
+            "_bone_mask", "_trabecular_mask", "_trabecular_mask_mean_variance", "_variance", "_mean", "_split", "_volume", "_test", "_test2"
         ]):
             continue
 
