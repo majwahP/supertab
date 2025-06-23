@@ -18,6 +18,7 @@ if len(sys.argv) < 2:
     raise ValueError("Usage: python 2Dto3D.py <PART>")
 
 PART = int(sys.argv[1])
+ds_factor = int(sys.argv[2])
 
 
 def main(
@@ -33,15 +34,27 @@ def main(
     root = zarr.open(zarr_path, mode="a")
 
     # Original volume information
-    original = root[f"2019_L/image_split/part_2_split/part_{PART}"]
-    volume_shape = original.shape  
-    chunk_shape = original.chunks  # must match patch_size
+    if PART == 0:
+        original = root[f"2019_L/image_split/part_1"]
+        volume_shape = original.shape  
+        chunk_shape = original.chunks  # must match patch_size
+        print(f"Original volume shape: {volume_shape}, chunks: {chunk_shape}")
+        print(f"Part_1")
+        print(device)
+        output_path = f"2019_L/{sr_dataset_name}/part_1"
+        image_group_name = f"image_split/part_1"
+        mask_group_name = f"part_1"
+    else:
+        original = root[f"2019_L/image_split/part_2_split/part_{PART}"]
+        volume_shape = original.shape  
+        chunk_shape = original.chunks  # must match patch_size
+        print(f"Original volume shape: {volume_shape}, chunks: {chunk_shape}")
+        print(f"Part_{PART}")
+        print(device)
+        output_path = f"2019_L/{sr_dataset_name}/part_2_split/part_{PART}"
+        image_group_name = f"image_split/part_2_split/part_{PART}"
+        mask_group_name = f"part_2_split/part_{PART}"
 
-    print(f"Original volume shape: {volume_shape}, chunks: {chunk_shape}")
-    print(f"Part_{PART}")
-    print(device)
-
-    output_path = f"2019_L/{sr_dataset_name}/part_2_split/part_{PART}"
 
     # Prepare SR output Zarr array
     if output_path in root:
@@ -73,11 +86,10 @@ def main(
         enable_sr_dataset=True,
         num_workers=16,
         prefetch=4,
-        #min_area=0.5,
         groups_to_use=["2019_L"],    
-        image_group=f"image_split/part_2_split/part_{PART}",        
+        image_group=image_group_name,        
         mask_base_path="image_trabecular_mask_split",
-        mask_group=f"part_2_split/part_{PART}"
+        mask_group=mask_group_name
     )
 
     print("Starting inference over full volume...")
@@ -128,7 +140,7 @@ def main(
 if __name__ == "__main__":
 
     PATCH_SIZE = 256
-    DS_FACTOR = 4
+    DS_FACTOR = ds_factor
 
     main(
         zarr_path="/usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr",
