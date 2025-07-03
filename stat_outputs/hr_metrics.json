@@ -1,305 +1,42 @@
 [
   {
-    "bone_volume_fraction": 0.95526123046875
-  },
-  {
-    "bone_volume_fraction": 0.98406982421875
-  },
-  {
-    "bone_volume_fraction": 0.95123291015625
-  },
-  {
-    "bone_volume_fraction": 0.98480224609375
-  },
-  {
-    "bone_volume_fraction": 0.9561767578125
-  },
-  {
-    "bone_volume_fraction": 0.98443603515625
-  },
-  {
-    "bone_volume_fraction": 0.95330810546875
-  },
-  {
-    "bone_volume_fraction": 0.98760986328125
-  },
-  {
-    "bone_volume_fraction": 0.9443359375
-  },
-  {
-    "bone_volume_fraction": 0.9898681640625
-  },
-  {
-    "bone_volume_fraction": 0.95562744140625
-  },
-  {
-    "bone_volume_fraction": 0.98663330078125
-  },
-  {
-    "bone_volume_fraction": 0.959716796875
-  },
-  {
-    "bone_volume_fraction": 0.99066162109375
-  },
-  {
-    "bone_volume_fraction": 0.96038818359375
-  },
-  {
-    "bone_volume_fraction": 0.9891357421875
-  },
-  {
-    "bone_volume_fraction": 0.9451904296875
-  },
-  {
-    "bone_volume_fraction": 0.98931884765625
-  },
-  {
-    "bone_volume_fraction": 0.95953369140625
-  },
-  {
-    "bone_volume_fraction": 0.98974609375
-  },
-  {
-    "bone_volume_fraction": 0.96453857421875
-  },
-  {
-    "bone_volume_fraction": 0.98468017578125
-  },
-  {
-    "bone_volume_fraction": 0.94891357421875
-  },
-  {
-    "bone_volume_fraction": 0.982421875
-  },
-  {
-    "bone_volume_fraction": 0.945556640625
-  },
-  {
-    "bone_volume_fraction": 0.98468017578125
-  },
-  {
-    "bone_volume_fraction": 0.95037841796875
-  },
-  {
-    "bone_volume_fraction": 0.990478515625
-  },
-  {
-    "bone_volume_fraction": 0.94140625
-  },
-  {
-    "bone_volume_fraction": 0.98529052734375
-  },
-  {
-    "bone_volume_fraction": 0.932373046875
-  },
-  {
-    "bone_volume_fraction": 0.9755859375
-  },
-  {
-    "bone_volume_fraction": 0.9385986328125
-  },
-  {
-    "bone_volume_fraction": 0.9771728515625
-  },
-  {
-    "bone_volume_fraction": 0.9515380859375
-  },
-  {
-    "bone_volume_fraction": 0.9764404296875
-  },
-  {
-    "bone_volume_fraction": 0.94842529296875
-  },
-  {
-    "bone_volume_fraction": 0.9727783203125
-  },
-  {
-    "bone_volume_fraction": 0.94476318359375
-  },
-  {
-    "bone_volume_fraction": 0.97857666015625
-  },
-  {
-    "bone_volume_fraction": 0.9266357421875
-  },
-  {
-    "bone_volume_fraction": 0.96868896484375
-  },
-  {
-    "bone_volume_fraction": 0.92730712890625
-  },
-  {
-    "bone_volume_fraction": 0.96868896484375
-  },
-  {
-    "bone_volume_fraction": 0.9296875
-  },
-  {
-    "bone_volume_fraction": 0.98388671875
-  },
-  {
-    "bone_volume_fraction": 0.93145751953125
-  },
-  {
-    "bone_volume_fraction": 0.965087890625
-  },
-  {
-    "bone_volume_fraction": 0.93170166015625
-  },
-  {
-    "bone_volume_fraction": 0.962158203125
-  },
-  {
-    "bone_volume_fraction": 0.93414306640625
-  },
-  {
-    "bone_volume_fraction": 0.962890625
-  },
-  {
-    "bone_volume_fraction": 0.91448974609375
-  },
-  {
-    "bone_volume_fraction": 0.9683837890625
-  },
-  {
-    "bone_volume_fraction": 0.90582275390625
-  },
-  {
-    "bone_volume_fraction": 0.96148681640625
-  },
-  {
-    "bone_volume_fraction": 0.91937255859375
-  },
-  {
-    "bone_volume_fraction": 0.960205078125
-  },
-  {
-    "bone_volume_fraction": 0.8963623046875
-  },
-  {
-    "bone_volume_fraction": 0.94744873046875
-  },
-  {
-    "bone_volume_fraction": 0.8966064453125
-  },
-  {
-    "bone_volume_fraction": 0.942626953125
-  },
-  {
-    "bone_volume_fraction": 0.89190673828125
-  },
-  {
-    "bone_volume_fraction": 0.9462890625
-  },
-  {
-    "bone_volume_fraction": 0.8883056640625
-  },
-  {
-    "bone_volume_fraction": 0.941650390625
-  },
-  {
-    "bone_volume_fraction": 0.89410400390625
-  },
-  {
-    "bone_volume_fraction": 0.94891357421875
-  },
-  {
-    "bone_volume_fraction": 0.890625
-  },
-  {
-    "bone_volume_fraction": 0.94610595703125
-  },
-  {
-    "bone_volume_fraction": 0.8841552734375
-  },
-  {
-    "bone_volume_fraction": 0.9462890625
-  },
-  {
-    "bone_volume_fraction": 0.885498046875
-  },
-  {
-    "bone_volume_fraction": 0.9451904296875
-  },
-  {
-    "bone_volume_fraction": 0.886474609375
-  },
-  {
-    "bone_volume_fraction": 0.94317626953125
-  },
-  {
-    "bone_volume_fraction": 0.8712158203125
-  },
-  {
-    "bone_volume_fraction": 0.94305419921875
-  },
-  {
-    "bone_volume_fraction": 0.88140869140625
-  },
-  {
-    "bone_volume_fraction": 0.9420166015625
-  },
-  {
-    "bone_volume_fraction": 0.87994384765625
-  },
-  {
-    "bone_volume_fraction": 0.94049072265625
-  },
-  {
-    "bone_volume_fraction": 0.87567138671875
-  },
-  {
-    "bone_volume_fraction": 0.940185546875
-  },
-  {
-    "bone_volume_fraction": 0.86859130859375
-  },
-  {
-    "bone_volume_fraction": 0.94219970703125
-  },
-  {
-    "bone_volume_fraction": 0.87158203125
-  },
-  {
-    "bone_volume_fraction": 0.93756103515625
-  },
-  {
-    "bone_volume_fraction": 0.8671875
-  },
-  {
-    "bone_volume_fraction": 0.93634033203125
-  },
-  {
-    "bone_volume_fraction": 0.86865234375
-  },
-  {
-    "bone_volume_fraction": 0.9388427734375
-  },
-  {
-    "bone_volume_fraction": 0.85662841796875
-  },
-  {
-    "bone_volume_fraction": 0.9327392578125
-  },
-  {
-    "bone_volume_fraction": 0.85601806640625
-  },
-  {
-    "bone_volume_fraction": 0.9322509765625
-  },
-  {
-    "bone_volume_fraction": 0.86083984375
-  },
-  {
-    "bone_volume_fraction": 0.9312744140625
-  },
-  {
-    "bone_volume_fraction": 0.85418701171875
-  },
-  {
-    "bone_volume_fraction": 0.94000244140625
-  },
-  {
-    "bone_volume_fraction": 0.85699462890625
+    "bone_volume_fraction": 0.15209907293319702,
+    "trabecular_thickness_mean": 0.0677379114565005,
+    "trabecular_thickness_std": 0.048457719978059866,
+    "trabecular_spacing_mean": 0.2729900299187923,
+    "trabecular_spacing_std": 0.09118594909116509,
+    "trabecular_number": 2.2454054112794877
+  },
+  {
+    "bone_volume_fraction": 0.07475912570953369,
+    "trabecular_thickness_mean": 0.04695068110975365,
+    "trabecular_thickness_std": 0.021138751944389397,
+    "trabecular_spacing_mean": 0.3957616192024126,
+    "trabecular_spacing_std": 0.09781156110569353,
+    "trabecular_number": 1.5922905470694662
+  },
+  {
+    "bone_volume_fraction": 0.14231109619140625,
+    "trabecular_thickness_mean": 0.10273561680096036,
+    "trabecular_thickness_std": 0.09839725486311578,
+    "trabecular_spacing_mean": 0.31044888597667203,
+    "trabecular_spacing_std": 0.10310787077766133,
+    "trabecular_number": 1.3852167400437114
+  },
+  {
+    "bone_volume_fraction": 0.05813497304916382,
+    "trabecular_thickness_mean": 0.06458001399477463,
+    "trabecular_thickness_std": 0.042813964679029856,
+    "trabecular_spacing_mean": 0.6360656494958016,
+    "trabecular_spacing_std": 0.2946075868825939,
+    "trabecular_number": 0.9002006883099731
+  },
+  {
+    "bone_volume_fraction": 0.041963279247283936,
+    "trabecular_thickness_mean": 0.05864696226402708,
+    "trabecular_thickness_std": 0.03232373011568393,
+    "trabecular_spacing_mean": 0.7721195396869668,
+    "trabecular_spacing_std": 0.3650623666711624,
+    "trabecular_number": 0.7155234922205579
   }
 ]

@@ -20,52 +20,87 @@ from supertrab.inferance_utils import generate_sr_images, load_model, generate_d
 
 
 PATCH_SIZE = 256
-DS_FACTOR = 8
+DS_FACTOR = 6
 
 
 
 
 def main():
     # Settings
-    weights_path = f"samples/supertrab-diffusion-sr-2d-v5/{PATCH_SIZE}_ds{DS_FACTOR}/models/final_model_weights_{PATCH_SIZE}_ds{DS_FACTOR}.pth"
     zarr_path = Path("/usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr")
     output_dir = "inference_outputs"
-    image_size = PATCH_SIZE
     device = "cuda" if torch.cuda.is_available() else "cpu"
+    patch_size=(1, PATCH_SIZE, PATCH_SIZE)
+    downsample_factor=DS_FACTOR
+    batch_size=16
+    groups_to_use=["2019_L"]
 
     os.makedirs(output_dir, exist_ok=True)
 
-    # Load model + scheduler
-    model = load_model(weights_path, image_size=image_size, device=device)
-    #model.eval()
-    scheduler = DDPMScheduler(num_train_timesteps=1000)
-
     # Load data
-    dataloader = create_dataloader(
-        zarr_path,
-        downsample_factor=DS_FACTOR,
-        patch_size=(1, image_size, image_size),
-        groups_to_use=["2019_L"],  # test group
-        batch_size=8,
+    
+    dataloader_HR_LR = create_dataloader(
+        zarr_path=zarr_path,
+        patch_size=patch_size,
+        downsample_factor=downsample_factor,
+        groups_to_use=groups_to_use,
+        batch_size=batch_size,
+        draw_same_chunk=True,
+        shuffle=False,
+        enable_sr_dataset=True, 
+        data_dim="2d", 
+        num_workers=0, 
+        prefetch=None,
+        image_group="image_split/reassembled_HR", 
+        mask_base_path="image_trabecular_mask", 
+        mask_group=""
     )
+
+    dataloader_SR = create_dataloader(
+        zarr_path=zarr_path,
+        patch_size=patch_size,
+        downsample_factor=downsample_factor,
+        groups_to_use=groups_to_use,
+        batch_size=batch_size,
+        draw_same_chunk=True,
+        shuffle=False,
+        enable_sr_dataset=True, 
+        data_dim="2d", 
+        num_workers=0, 
+        prefetch=None,
+        image_group=f"sr_volume_256_{DS_FACTOR}/reassembled",        
+        mask_base_path="image_trabecular_mask",
+        mask_group=""
+    )
+    
     print("Dataloader created")
-    batch = next(iter(dataloader))
-
-    lr_images = batch["lr_image"].to(device)
-    hr_images = batch["hr_image"].to(device)
+    batch_HR_LR = next(iter(dataloader_HR_LR))
+    batch_SR = next(iter(dataloader_SR))
 
 
-    # Run inference
-    print("run inferance")
-    sr_images = generate_sr_images(model, scheduler, lr_images, target_size=image_size, device=device)
-    #sr_images = generate_dps_sr_images(model, scheduler, lr_images, target_size=image_size, device=device)
+    lr_images = batch_HR_LR["lr_image"].to(device)
+    hr_images = batch_HR_LR["hr_image"].to(device)
+    sr_images = batch_SR["hr_image"].to(device)
 
-    # use images for metrics
-    print("Trabecular metrics per image:\n")
+    pos_HR_LR = batch_HR_LR["position"]
+    pos_SR = batch_SR["position"]
+
+    if not torch.equal(pos_HR_LR, pos_SR):
+        print("WARNING: Mismatched positions detected!")
+        print(f"HR/LR positions: {pos_HR_LR}")
+        print(f"SR positions: {pos_SR}")
+
+
     for i in range(sr_images.size(0)):
         lr_img = lr_images[i].cpu().detach()    
-        sr_img = sr_images[i].cpu().detach()     
+        sr_img = sr_images[i].cpu().detach() * 32768.0     
         hr_img = hr_images[i].cpu().detach()
+
+        print(f"Position HR/LR: {pos_HR_LR[i]}, SR: {pos_SR[i]}")
+
+        if sr_img.sum() == 0:
+            print(f"Skipping image {i+1}: SR patch is empty.")
+            continue
 
         # print(f"Image {i}:")
         # print(f"  LR  - dtype: {lr_img.dtype}, shape: {lr_img.shape}, range: ({lr_img.min():.3f}, {lr_img.max():.3f})")
@@ -96,6 +131,7 @@ def main():
         sr_mask = get_mask_ormir(sr_img)
         hr_mask = get_mask_ormir(hr_img)
 
+
         # image_stack = torch.stack([
         # normalize_tensor(hr_img),   
         # normalize_tensor(lr_img),   
@@ -116,7 +152,7 @@ def main():
         image_grid = make_grid(image_stack, nrow=6)
 
         triplet_pil = to_pil_image(image_grid)
-        triplet_pil.save(os.path.join(output_dir, f"lr_sr_hr_stack_{i+1}.png"))
+        triplet_pil.save(os.path.join(output_dir, f"lr_sr_hr_stack_{i+1}_ds{DS_FACTOR}.png"))
         
         # hr_metrics = compute_trab_metrics(hr_img)
         # lr_metrics = compute_trab_metrics(lr_img)

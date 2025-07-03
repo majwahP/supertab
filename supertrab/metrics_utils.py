@@ -9,7 +9,7 @@ import numpy as np
 import SimpleITK as sitk
 from ormir_xct.segmentation.ipl_seg import ipl_seg, threshold_dict
 from ormir_xct.util.hildebrand_thickness import calc_structure_thickness_statistics
-from skimage.morphology import binary_erosion, binary_dilation, remove_small_objects, remove_small_holes, disk
+from skimage.morphology import binary_erosion, binary_dilation, remove_small_objects, remove_small_holes, disk, ball
 
 
 import torch
@@ -17,7 +17,7 @@ import torch.nn.functional as F
 import torchvision
 import lpips
 
-def compute_image_metrics(sr_images: torch.Tensor, hr_images: torch.Tensor):
+def compute_image_metrics(sr_images: torch.Tensor, hr_images: torch.Tensor, dim):
     """
     Computes evaluation metrics between super-resolved (SR) and high-resolution (HR) images.
 
@@ -47,6 +47,12 @@ def compute_image_metrics(sr_images: torch.Tensor, hr_images: torch.Tensor):
     for i in range(sr_images.size(0)):
         sr_img = sr_images[i].unsqueeze(0) 
         hr_img = hr_images[i].unsqueeze(0)
+
+        if dim == "3d":
+            #print("3d")
+            center_slice = sr_img.shape[2] // 2
+            sr_img = sr_img[:, :, center_slice, :, :]
+            hr_img = hr_img[:, :, center_slice, :, :] 
 
         # print(sr_img.shape)
         # print(hr_img.shape)
@@ -104,22 +110,23 @@ def compute_trab_metrics(volume: torch.Tensor, voxel_size_mm: float = 0.0303) ->
 
     # Compute trabecular thickness statistics 
     # - only valid for 3D
-    #th_mean, th_std = calc_structure_thickness_statistics(mask_np, spacing_mm, structure = 0)
+    th_mean, th_std, _, _, _ = calc_structure_thickness_statistics(mask_np, spacing_mm, 0)
 
     #trabecular spacing
-    # marrow_mask_np = ~mask_np
-    # sp_mean, sp_std = calc_structure_thickness_statistics(marrow_mask_np, spacing_mm, structure=0)
+    marrow_mask_np = ~mask_np
+    sp_mean, sp_std, _, _, _ = calc_structure_thickness_statistics(marrow_mask_np, spacing_mm, 0)
 
     # #trabecular number
-    # trabecular_number = bone_volume_fraction / th_mean if th_mean > 0 else 0.0
+    trabecular_number = bone_volume_fraction / th_mean if th_mean > 0 else 0.0
+
 
     return {
         "bone_volume_fraction": bone_volume_fraction,
-        #"trabecular_thickness_mean": th_mean,
-        #"trabecular_thickness_std": th_std,
-        # "trabecular_spacing_mean": sp_mean,
-        # "trabecular_spacing_std": sp_std,
-        # "trabecular_number": trabecular_number,
+        "trabecular_thickness_mean": th_mean,
+        "trabecular_thickness_std": th_std,
+        "trabecular_spacing_mean": sp_mean,
+        "trabecular_spacing_std": sp_std,
+        "trabecular_number": trabecular_number,
     }
     
 
@@ -185,7 +192,7 @@ def get_mask(image: torch.Tensor, sigma: float = 0.8, erosion_radius=1.5, dilati
 
 
 
-def get_mask_ormir(image: torch.Tensor, sigma: float = 1.3, voxel_size_mm: float = 0.0303, erosion_radius=1, dilation_radius=1) -> torch.Tensor:
+def get_mask_ormir(image: torch.Tensor, sigma: float = 0.5, voxel_size_mm: float = 0.0303, erosion_radius=1, dilation_radius=1) -> torch.Tensor:
     """
     Performs trabecular bone segmentation using the IPL-based method from ORMiR_XCT.
     Kuczynski, M.T., et al. "ORMIR_XCT: A Python package for high resolution peripheral quantitative computed tomography image processing." arXiv preprint arXiv:2309.04602 (2023).
@@ -198,13 +205,26 @@ def get_mask_ormir(image: torch.Tensor, sigma: float = 1.3, voxel_size_mm: float
         torch.Tensor: A binary mask (same height and width as input).
     """
 
-    if image.dim() == 3:
-        image = image.squeeze()
+    if image.dim() == 4 and image.shape[0] == 1:
+        image = image.squeeze(0) 
+    elif image.dim() == 3 and image.shape[0] == 1:
+        image = image.squeeze(0)  
+        
     np_img = image.cpu().numpy().astype('float32')
     sitk_img = sitk.GetImageFromArray(np_img)
 
-    lower = threshold_dict["BMD_Lower"]/ 32768.0 # same normalization as done for images
-    upper = threshold_dict["BMD_Upper"]/ 32768.0
+    #Scaling to BMD values
+
+    slope = 1685.24
+    intercept = -405.901
+    mu_scaling = 8192
+    scaling = 32768
+
+    image_data = sitk_img * scaling
+    image_data_BMD = image_data*(slope/mu_scaling) + intercept
+
+    lower = threshold_dict["BMD_Lower"]
+    upper = threshold_dict["BMD_Upper"]
 
     # print(f"Min: {image.min().item()}, Max: {image.max().item()}, Mean: {image.mean().item()}")
     # print(f"BMD_Lower: {lower}, BMD_Upper: {upper}")
@@ -212,7 +232,7 @@ def get_mask_ormir(image: torch.Tensor, sigma: float = 1.3, voxel_size_mm: float
 
 
     seg_sitk = ipl_seg(
-    input_image=sitk_img,
+    input_image=image_data_BMD,
     lower_threshold=lower,
     upper_threshold=upper,       
     voxel_size= voxel_size_mm,
@@ -220,13 +240,36 @@ def get_mask_ormir(image: torch.Tensor, sigma: float = 1.3, voxel_size_mm: float
     )
 
     seg_np = sitk.GetArrayFromImage(seg_sitk)
-    mask = seg_np.astype(np.uint8)
+    mask = seg_np.astype(bool)
 
-    mask = binary_erosion(mask, disk(erosion_radius))
-    mask = binary_dilation(mask, disk(dilation_radius))
-    mask = remove_small_objects(mask, min_size=50)
-    mask = remove_small_holes(mask, area_threshold=50)
-
-    mask = 1 - mask
+    if mask.ndim == 2:
+        mask = binary_erosion(mask, disk(erosion_radius))
+        mask = binary_dilation(mask, disk(dilation_radius))
+        mask = remove_small_objects(mask, min_size=20)
+        mask = remove_small_holes(mask, area_threshold=20)
+    elif mask.ndim == 3:
+        mask = binary_erosion(mask, ball(erosion_radius))
+        mask = binary_dilation(mask,ball(dilation_radius))
+        mask = remove_small_objects(mask, min_size=20, connectivity=1)
+        mask = remove_small_holes(mask, area_threshold=20, connectivity=1)
+    else:
+        raise ValueError(f"Unsupported input dimension: {mask.ndim}")
     
     return torch.from_numpy(mask).to(torch.uint8)
+
+
+def ensure_3d_volume(t: torch.Tensor) -> torch.Tensor:
+    """
+    Ensures the input tensor is in (D, H, W) format for metric computation.
+    Handles 2D patches with channel dim or real 3D volumes.
+    """
+    if t.dim() == 3 and t.shape[0] == 1:
+        # (1, H, W) → (H, W) → (1, H, W)
+        return t.squeeze(0).unsqueeze(0)
+    elif t.dim() == 3:
+        return t  # already (D, H, W)
+    elif t.dim() == 4 and t.shape[0] == 1:
+        return t.squeeze(0)  # (1, D, H, W) → (D, H, W)
+    else:
+        raise ValueError(f"Unsupported tensor shape: {t.shape}")
+

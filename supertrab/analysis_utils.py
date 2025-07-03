@@ -11,6 +11,9 @@ import matplotlib.pyplot as plt
 from collections import defaultdict
 import gc
 
+def has_empty_slice(volume: torch.Tensor) -> bool:
+    return torch.any(torch.all(volume == 0, dim=(1, 2)))
+
 
 def check_patch_uniqueness(dataloader):
     """

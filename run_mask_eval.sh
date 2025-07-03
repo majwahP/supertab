@@ -6,7 +6,7 @@
 #SBATCH --mem=64G
 #SBATCH --gres=gpu:1
 #SBATCH --time=5:00:00
-
+export PYTHONUNBUFFERED=1
 
 ##################################################################################
 python /usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/scripts/mask_evaluation.py

@@ -27,6 +27,11 @@ import wandb
 import shutil
 from supertrab.metrics_utils import compute_image_metrics
 from diffusers import UNet2DModel, DDPMScheduler
+import gc
+import torch
+import gc    
+import os
+import psutil
 
 
 
@@ -74,6 +79,7 @@ def create_sample_image(lr_imgs, sr_imgs, hr_imgs, padding=10, header_height=60,
     font_size = max(10, h // 10)
     font_path = PIL.__path__[0] + "/fonts/DejaVuSans.ttf"
     font = ImageFont.truetype(font_path, font_size)
+    # font = ImageFont.load_default()
 
     # Full grid size
     total_width = 4 * w + 5 * padding
@@ -134,9 +140,24 @@ def save_sr_outputs(lr_imgs, sr_imgs, hr_imgs, save_dir, base_name):
 
     for idx, (lr, sr, hr) in enumerate(zip(lr_imgs, sr_imgs, hr_imgs)):
         idx_str = f"{idx:03d}"
-        vutils.save_image(normalize_tensor(lr), os.path.join(save_dir, f"{base_name}_lr_{idx_str}.png"))
-        vutils.save_image(normalize_tensor(sr), os.path.join(save_dir, f"{base_name}_sr_{idx_str}.png"))
-        vutils.save_image(normalize_tensor(hr), os.path.join(save_dir, f"{base_name}_hr_{idx_str}.png"))
+
+        if lr.ndim == 4 and lr.shape[1] > 1:  
+            # Use center slice along depth (D)
+            mid = lr.shape[1] // 2
+            lr_slice = lr[:, mid, :, :]  
+            sr_slice = sr[:, mid, :, :]
+            hr_slice = hr[:, mid, :, :]
+        elif lr.ndim == 3 or (lr.ndim == 4 and lr.shape[1] == 1): 
+            # Already 2D, use as-is
+            lr_slice = lr.squeeze(0) if lr.ndim == 4 else lr  
+            sr_slice = sr.squeeze(0) if sr.ndim == 4 else sr
+            hr_slice = hr.squeeze(0) if hr.ndim == 4 else hr
+        else:
+            raise ValueError(f"Unexpected image shape: {lr.shape}")
+
+        vutils.save_image(normalize_tensor(lr_slice), os.path.join(save_dir, f"{base_name}_lr_{idx_str}.png"))
+        vutils.save_image(normalize_tensor(sr_slice), os.path.join(save_dir, f"{base_name}_sr_{idx_str}.png"))
+        vutils.save_image(normalize_tensor(hr_slice), os.path.join(save_dir, f"{base_name}_hr_{idx_str}.png"))
 
 def generate_sr_images(model, scheduler, lr_images, target_size, device):
     """
@@ -152,6 +173,23 @@ def generate_sr_images(model, scheduler, lr_images, target_size, device):
         noisy_images = scheduler.step(noise_pred, t, noisy_images).prev_sample
 
     return noisy_images
+
+def generate_sr_voxels(model, scheduler, lr_images, target_size, device):
+    """
+    Generates super-resolved voxels using the reverse DDPM process.
+    """
+    lr_resized = F.interpolate(lr_images, size=(target_size, target_size, target_size), mode="trilinear", align_corners=False)
+    noisy_voxels = torch.randn((lr_images.size(0), 1, target_size, target_size, target_size), device=device)
+ 
+
+    for t in reversed(range(scheduler.config.num_train_timesteps)):
+        timesteps = torch.full((lr_images.size(0),), t, device=device, dtype=torch.long)
+        model_input = torch.cat([noisy_voxels, lr_resized], dim=1)
+        dummy_condition = torch.zeros((model_input.shape[0], 1), device=device)
+        noise_pred = model(model_input, timesteps, encoder_hidden_states=dummy_condition).sample
+        noisy_voxels = scheduler.step(noise_pred, t, noisy_voxels).prev_sample
+
+    return noisy_voxels
 
 def log_metrics_and_artifacts(image_to_save, batch_metrics, epoch, global_step, output_dir):
     """
@@ -216,7 +254,7 @@ def evaluate(config, epoch, model, noise_scheduler, dataloader, device="cuda", g
     hr_images = hr_images.cpu().clamp(0.0, 1.0)
 
     # Compute metrics and create image grid
-    batch_metrics = compute_image_metrics(sr_images, hr_images)
+    batch_metrics = compute_image_metrics(sr_images, hr_images, "2d")
 
     # Only save images every 10th epoch and on last epoch
     save_images = (
@@ -237,6 +275,81 @@ def evaluate(config, epoch, model, noise_scheduler, dataloader, device="cuda", g
 
     # Log metrics and artifacts
     log_metrics_and_artifacts(image_to_save if save_images else None, batch_metrics, epoch, global_step, output_subdir)
+
+
+def get_mid_slice(x): 
+    return x[:, :, x.shape[2] // 2]
+
+@torch.no_grad()
+def evaluate_3D(config, epoch, model, noise_scheduler, dataloader, device="cuda", global_step=None):
+    """
+    Evaluates a 3D DDPM super-resolution model on validation patches.
+
+    Saves middle-slice visualizations comparing LR, SR, and HR images. Logs metrics to Weights & Biases.
+
+    Args:
+        config (TrainingConfig): Configuration dataclass with experiment settings.
+        epoch (int or str): Current epoch number (used for naming output).
+        model (UNet3DModel): Trained 3D denoising model.
+        noise_scheduler (DDPMScheduler): Scheduler for reverse diffusion steps.
+        dataloader (DataLoader): DataLoader for evaluation patches.
+        device (str): Device to run evaluation on.
+        global_step (int or None): Optional global step for logging to Weights & Biases.
+    """
+
+    def print_mem(prefix=""):
+        print(f"{prefix} | RAM: {psutil.Process(os.getpid()).memory_info().rss / 1e9:.2f} GB | "
+              f"CUDA: {torch.cuda.memory_allocated() / 1e9:.2f} GB")
+
+    model.eval()
+    model.to(device)
+
+    batch = next(iter(dataloader))
+
+    lr_images, hr_images = batch["lr_image"].to(device), batch["hr_image"].to(device)
+  
+    sr_images = generate_sr_voxels(model, noise_scheduler, lr_images, config.image_size, device)
+
+    # Clamp and move to CPU for visualization
+    sr_images = sr_images.clamp(0.0, 1.0).cpu()
+    lr_images_up = F.interpolate(lr_images,size=hr_images.shape[-3:],
+                                 mode="trilinear", align_corners=False).clamp(0.0, 1.0).cpu()
+    hr_images = hr_images.cpu().clamp(0.0, 1.0)
+
+    # Compute metrics and create image grid
+    batch_metrics = compute_image_metrics(sr_images, hr_images, "3d")
+
+    # Only save images every 10th epoch and on last epoch
+    save_images = (
+        isinstance(epoch, int)
+        and (epoch == 0 or epoch % config.save_image_epochs == 0 or epoch == config.num_epochs - 1)
+    )
+
+    if save_images:
+        try:
+            lr_slice = get_mid_slice(lr_images_up)
+            sr_slice = get_mid_slice(sr_images)
+            hr_slice = get_mid_slice(hr_images)
+
+            base_name = f"{epoch:04d}_ds{config.ds_factor}_size{config.image_size}_3D.png"
+            output_subdir = os.path.join(config.output_dir, f"{config.image_size}_ds{config.ds_factor}_3D/images", base_name)
+            os.makedirs(output_subdir, exist_ok=True)
+
+            image_to_save = create_sample_image(lr_slice, sr_slice, hr_slice, metrics=batch_metrics)
+            image_to_save.save(os.path.join(output_subdir, "overview.png"))
+
+            save_sr_outputs(lr_images_up, sr_images, hr_images, output_subdir, base_name)
+
+        except Exception as e:
+            print(f"[WARNING] Image saving failed at epoch {epoch}: {e}")
+
+    else:
+        output_subdir = None  # avoid invalid path use in logging
+
+    # Log metrics and artifacts
+    log_metrics_and_artifacts(image_to_save if save_images else None, batch_metrics, epoch, global_step, output_subdir)
+    gc.collect()
+    torch.cuda.empty_cache()
 
 
 def train_loop_2D_diffusion(config, model, noise_scheduler, optimizer, train_dataloader, val_dataloader, lr_scheduler, steps_per_epoch, starting_epoch = 0):
@@ -339,6 +452,149 @@ def train_loop_2D_diffusion(config, model, noise_scheduler, optimizer, train_dat
         if accelerator.is_main_process:
             #evaluate after every epoch
             evaluate(config, epoch, model, noise_scheduler, val_dataloader, device=accelerator.device, global_step=global_step)
+
+            # Save final model and inference weights at last epoch
+            if epoch == config.num_epochs - 1:
+                models_dir = os.path.join(config.output_dir, f"{config.image_size}_ds{config.ds_factor}/models") # Name change
+                os.makedirs(models_dir, exist_ok=True)
+
+                final_ckpt_path = os.path.join(models_dir, f"final_training_checkpoint_{config.image_size}_ds{config.ds_factor}.pth") # Name change
+                weights_path = os.path.join(models_dir, f"final_model_weights_{config.image_size}_ds{config.ds_factor}.pth") # Name change
+
+                # Save full training checkpoint
+                save_checkpoint(accelerator.unwrap_model(model), optimizer, epoch+1, final_ckpt_path)
+                # artifact = wandb.Artifact("final_training_checkpoint", type="model")
+                # artifact.add_file(final_ckpt_path)
+                # wandb.log_artifact(artifact)
+
+                # Save inference weights only
+                torch.save(accelerator.unwrap_model(model).state_dict(), weights_path)
+                # artifact = wandb.Artifact("final_model_weights", type="model")
+                # artifact.add_file(weights_path)
+                # wandb.log_artifact(artifact)
+
+
+
+def train_loop_3D_diffusion(config, model, noise_scheduler, optimizer, train_dataloader, val_dataloader, lr_scheduler, steps_per_epoch, starting_epoch = 0):
+    """
+    Trains a UNet-based 3D DDPM model for super-resolution with classifier-free guidance.
+
+    Classifier-free guidance is implemented by randomly dropping the low-resolution (LR) conditioning
+    during training. After each epoch, the model is optionally evaluated on a validation set and saved.
+
+    Args:
+        config (TrainingConfig): Training configuration with hyperparameters and paths.
+        model (UNet3DModel): The 3D UNet diffusion model to be trained.
+        noise_scheduler (DDPMScheduler): Scheduler for the forward diffusion process.
+        optimizer (torch.optim.Optimizer): Optimizer used to update model weights.
+        train_dataloader (DataLoader): DataLoader yielding 3D training patches.
+        val_dataloader (DataLoader): DataLoader yielding 3D validation patches.
+        lr_scheduler (Scheduler): Learning rate scheduler.
+        steps_per_epoch (int): Number of training steps per epoch.
+        starting_epoch (int, optional): Epoch to start/resume training from.
+    """
+
+    #print("Start train loop")
+    # Initialize accelerator and tensorboard logging
+    accelerator = Accelerator(
+        mixed_precision=config.mixed_precision,
+        gradient_accumulation_steps=config.gradient_accumulation_steps,
+        log_with="wandb",
+        project_dir=os.path.join(config.output_dir, "logs"),
+    )
+    # assure only one process creates directories or logs
+    if accelerator.is_main_process:
+        if config.output_dir is not None:
+            os.makedirs(config.output_dir, exist_ok=True)
+        run_name = f"supertrab_ddpm_{config.image_size}px_ds{config.ds_factor}_{config.num_epochs}ep_3D" # Name change
+        accelerator.init_trackers(
+            project_name="supertrab", 
+            config=vars(config),
+            init_kwargs={"wandb": {"name": run_name}}
+        )
+
+
+    # Prepare everything
+    # There is no specific order to remember, you just need to unpack the
+    # objects in the same order you gave them to the prepare method.
+    model, optimizer, train_dataloader, lr_scheduler = accelerator.prepare(
+        model, optimizer, train_dataloader, lr_scheduler
+    )
+
+    global_step = 0
+
+    # Now you train the model
+    for epoch in range(starting_epoch, config.num_epochs):
+        if accelerator.is_local_main_process:
+            print(f"Starting Epoch {epoch}...")
+
+
+        for step, batch in enumerate(train_dataloader):
+            if step >= steps_per_epoch:
+                break
+            clean_images = batch["hr_image"]
+            conditioning = batch["lr_image"]
+            # Sample noise to add to the images
+            noise = torch.randn_like(clean_images)
+            
+
+            # Sample a random timestep for each image
+            timesteps = torch.randint(0, noise_scheduler.config.num_train_timesteps, (clean_images.size(0),), device=clean_images.device)
+
+            # Add noise to the clean images according to the noise magnitude at each timestep
+            # (this is the forward diffusion process)
+            noisy_images = noise_scheduler.add_noise(clean_images, noise, timesteps)
+
+
+            # Backpropagation
+            with accelerator.accumulate(model):
+                # Predict the noise residual
+                conditioning_resized = F.interpolate(conditioning, size=clean_images.shape[-3:], mode='trilinear', align_corners=False)
+
+                # Classifier-Free Guidance: randomly drop conditioning
+                if torch.rand(1).item() < config.cfg_dropout_prob:
+                    conditioning_resized = torch.zeros_like(conditioning_resized)
+
+
+                # Concatenate LR with noisy HR as input to the model
+                model_input = torch.cat([noisy_images, conditioning_resized], dim=1)
+
+                # Predict noise
+                #print(f"[Step {step}] Allocated before model: {torch.cuda.memory_allocated() / 1e9:.2f} GB | Reserved: {torch.cuda.memory_reserved() / 1e9:.2f} GB")
+                
+
+                dummy_condition = torch.zeros((model_input.shape[0], 1), device=model_input.device)
+                noise_pred = model(model_input, timesteps, encoder_hidden_states=dummy_condition).sample
+                #print(f"[Step {step}] After model: Allocated: {torch.cuda.memory_allocated() / 1e9:.2f} GB | Reserved: {torch.cuda.memory_reserved() / 1e9:.2f} GB")
+                loss = F.mse_loss(noise_pred, noise)
+                accelerator.backward(loss)
+
+                # Avoid exploding gradients
+                if accelerator.sync_gradients:
+                    accelerator.clip_grad_norm_(model.parameters(), 1.0)
+                optimizer.step()
+                lr_scheduler.step()
+                optimizer.zero_grad()
+
+                if step % 1 == 0:
+                    gc.collect()
+                    torch.cuda.empty_cache()
+                    torch.cuda.ipc_collect()
+
+            logs = {"loss": loss.detach().item(), "lr": lr_scheduler.get_last_lr()[0], "step": global_step}
+            accelerator.log(logs, step=global_step)
+            global_step += 1
+
+            torch.cuda.empty_cache()    
+            gc.collect()
+
+        # After each epoch you optionally sample some demo images with evaluate() and save the model
+        if accelerator.is_main_process:
+            #evaluate after every epoch
+            evaluate_3D(config, epoch, model, noise_scheduler, val_dataloader, device=accelerator.device, global_step=global_step)
+
+            torch.cuda.empty_cache()
+            gc.collect()
 
             # Save final model and inference weights at last epoch
             if epoch == config.num_epochs - 1:

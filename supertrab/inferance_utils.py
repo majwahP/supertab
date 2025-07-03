@@ -1,5 +1,5 @@
 import torch
-from diffusers import UNet2DModel
+from diffusers import UNet2DModel, UNet3DConditionModel
 import torch.nn.functional as F
 import zarr
 import numpy as np
@@ -18,6 +18,22 @@ def generate_sr_images(model, scheduler, lr_images, target_size, device="cpu"):
         timesteps = torch.full((lr_images.size(0),), t, device=device, dtype=torch.long)
         model_input = torch.cat([noisy_images, lr_images], dim=1)
         noise_pred = model(model_input, timesteps).sample
+        noisy_images = scheduler.step(noise_pred, t, noisy_images).prev_sample
+
+    return noisy_images
+
+
+@torch.no_grad()
+def generate_sr_images_3D(model, scheduler, lr_images, target_size, device="cpu"):
+    """Generates super-resolved images from low-resolution inputs."""
+    noisy_images = torch.randn((lr_images.size(0), 1, target_size, target_size, target_size), device=device)
+
+
+    for t in reversed(range(scheduler.config.num_train_timesteps)):
+        timesteps = torch.full((lr_images.size(0),), t, device=device, dtype=torch.long)
+        model_input = torch.cat([noisy_images, lr_images], dim=1)
+        dummy_condition = torch.zeros((model_input.shape[0], 1), device=device)
+        noise_pred = model(model_input, timesteps, encoder_hidden_states=dummy_condition).sample
         noisy_images = scheduler.step(noise_pred, t, noisy_images).prev_sample
 
     return noisy_images
@@ -220,6 +236,30 @@ def load_model(weights_path, image_size, device="cpu"):
         ),
     )
     state_dict = torch.load(weights_path, map_location=device, weights_only=True)
+    model.load_state_dict(state_dict)
+    model.to(device)
+    model.eval()
+    return model
+
+def load_3d_model(weights_path, image_size, device="cpu"):
+    """Loads a trained UNet3DConditionModel with matching architecture and weights."""
+    model = UNet3DConditionModel(
+        sample_size=(image_size, image_size, image_size),  # 3D input shape
+        in_channels=2,
+        out_channels=1,
+        layers_per_block=2,
+        block_out_channels=(128, 128, 256, 256, 512, 512),
+        down_block_types=(
+            "DownBlock3D", "DownBlock3D", "DownBlock3D", "DownBlock3D", "DownBlock3D", "DownBlock3D"
+        ),
+        up_block_types=(
+            "UpBlock3D", "UpBlock3D", "UpBlock3D", "UpBlock3D", "UpBlock3D", "UpBlock3D"
+        ),
+        cross_attention_dim=None,
+    )
+
+    # Load the weights
+    state_dict = torch.load(weights_path, map_location=device)
     model.load_state_dict(state_dict)
     model.to(device)
     model.eval()

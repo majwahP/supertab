@@ -15,6 +15,10 @@ Main components:
 - Includes shape checks for sanity before training.
 """
 
+import sys
+from pathlib import Path
+sys.path.append(str(Path(__file__).resolve().parents[1]))
+
 
 from diffusers import UNet2DModel, DDPMScheduler
 import torch.nn.functional as F
@@ -42,9 +46,9 @@ def main():
     val_groups = ["2007_L"]
     test_groups = ["2019_L"]
 
-    train_dataloader = create_dataloader(zarr_path, downsample_factor=config.ds_factor, patch_size=(1,config.image_size,config.image_size), groups_to_use=train_groups)
-    val_dataloader = create_dataloader(zarr_path, downsample_factor=config.ds_factor, patch_size=(1,config.image_size,config.image_size), groups_to_use=val_groups)
-    test_dataloader = create_dataloader(zarr_path, downsample_factor=config.ds_factor, patch_size=(1,config.image_size,config.image_size), groups_to_use=test_groups)
+    train_dataloader = create_dataloader(zarr_path, downsample_factor=config.ds_factor, patch_size=(1,config.image_size,config.image_size), groups_to_use=train_groups, data_dim="2d")
+    val_dataloader = create_dataloader(zarr_path, downsample_factor=config.ds_factor, patch_size=(1,config.image_size,config.image_size), groups_to_use=val_groups,data_dim="2d")
+    test_dataloader = create_dataloader(zarr_path, downsample_factor=config.ds_factor, patch_size=(1,config.image_size,config.image_size), groups_to_use=test_groups, data_dim="2d")
 
     #Define the model --------------------------------------------------------------------
     model = UNet2DModel(
@@ -63,7 +67,11 @@ def main():
 
     #Testing ---------------------------------------------------------------------------------
     # Check that images are same shape as output
+    # print("Get one batch")
+    # print(f"Dataset class: {type(train_dataloader.dataset)}")
+
     batch = next(iter(train_dataloader))
+    print("Has one batch")
     sample_image = batch["hr_image"][0].unsqueeze(0)
     print("Input shape:", sample_image.shape)
     sample_lr = batch["lr_image"][0].unsqueeze(0)
@@ -88,6 +96,8 @@ def main():
     )
 
     # training and evaluation ----------------------------------------------------------- 
+
+    print("Starting training loop")
 
     train_loop_2D_diffusion(config, model, noise_scheduler, optimizer, train_dataloader, val_dataloader, lr_scheduler, steps_per_epoch)
     evaluate(config, "final_test", model, noise_scheduler, test_dataloader, device="cuda")

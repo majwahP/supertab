@@ -1,0 +1,14 @@
+Mask evaluation for downsapling factor 4 and patch size 256
+Found 1 groups:
+  - 2019_L
+Found 1 groups:
+  - 2019_L
+Total patches included: 9505
+
+--- Summary ---
+2D
+Dice LR-HR: 0.7372 ± 0.1870
+Dice SR-HR: 0.5624 ± 0.2475
+Jaccard LR-HR: 0.6091 ± 0.1746
+Jaccard SR-HR: 0.4281 ± 0.2170
+Saved figure to stat_outputs/mask_grid_ds4.png

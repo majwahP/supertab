@@ -17,7 +17,7 @@ from supertrab.inferance_utils import generate_sr_images, load_model, generate_d
 
 PATCH_SIZE = 256
 DS_FACTOR = 4
-
+ 
 def ensure_3d_volume(t: torch.Tensor) -> torch.Tensor:
     """
     Ensures the input tensor is in (D, H, W) format for metric computation.

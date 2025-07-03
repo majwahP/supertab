@@ -30,7 +30,8 @@ import random
 from pathlib import Path
 from torch.utils.data import DataLoader
 import zarr
-from supertrab.training_utils import normalize_tensor
+import scipy.ndimage
+import numpy as np
 
 
 class ImageSample:
@@ -104,35 +105,67 @@ class SRDataset(zds.ZarrDataset):
     downsample_factor (int): Factor by which to downsample HR patches to obtain LR.
     **kwargs: Additional arguments passed to the base ZarrDataset class.
     """
-    def __init__(self, sigma=1.3, downsample_factor=4, **kwargs):
+    def __init__(self, sigma=1.3, downsample_factor=4, data_dim="2d", **kwargs):
         super().__init__(**kwargs)
         self.sigma = sigma
         self.downsample_factor = downsample_factor
-        self.gaussian_blur = T.GaussianBlur(kernel_size=5, sigma=sigma)
+        self.data_dim = data_dim
+        if self.data_dim == "2d":
+            self.gaussian_blur = T.GaussianBlur(kernel_size=5, sigma=sigma)
     
     def generate_lr(self, hr_patch):
-        #gaussian blurr, downsampling and resize
+        """
+        Generate LR version of HR patch by Gaussian smoothing and downsampling.
+        Supports both 2D and 3D patches.
+        """
         
-        # Add channel dimension: [1, H, W] for blurr function to work on 2D
-        hr_patch = hr_patch.unsqueeze(0).unsqueeze(0)
-        smoothed = self.gaussian_blur(hr_patch)
+        if self.data_dim == "2d":
+            hr_patch = hr_patch.unsqueeze(0).unsqueeze(0) 
+            smoothed = self.gaussian_blur(hr_patch)
+            downsampled = F.interpolate(
+                smoothed,
+                scale_factor=1/self.downsample_factor,
+                mode="bilinear",
+                align_corners=False,
+            )
+            restored = F.interpolate(
+                downsampled,
+                size=hr_patch.shape[-2:],
+                mode="bilinear",
+                align_corners=False,
+            )
+            return restored.squeeze(0).squeeze(0) 
 
-        lr_downsampled = F.interpolate(
-            smoothed,
-            scale_factor=1/self.downsample_factor,
-            mode="bilinear",
-            align_corners=False
-        )
-        lr_resized = F.interpolate(
-            lr_downsampled,
-            size=hr_patch.shape[-2:],  # Restore original HR shape
-            mode="bilinear",
-            align_corners=False
-        )
-        return lr_resized.squeeze(0).squeeze(0)
+        elif self.data_dim == "3d":
+            hr_np = hr_patch.numpy()
+            smoothed = torch.from_numpy(
+                scipy.ndimage.gaussian_filter(hr_np, sigma=self.sigma)
+            )
+            downsampled = F.interpolate(
+                smoothed.unsqueeze(0).unsqueeze(0),  
+                scale_factor=1/self.downsample_factor,
+                mode="trilinear",
+                align_corners=False,
+            )
+            restored = F.interpolate(
+                downsampled,
+                size=hr_patch.shape,
+                mode="trilinear",
+                align_corners=False,
+            )
+            return restored.squeeze(0).squeeze(0) 
+        
+        else:
+            raise ValueError(f"Unsupported data_dim: {self.data_dim}")
 
     def __iter__(self):
-        self._initialize()
+        try:
+            self._initialize()
+        except Exception as e:
+            print(f"EXCEPTION in __iter__: {e}", flush=True)
+            import traceback
+            traceback.print_exc()
+            raise  
         # Create a list of samples togheter with witch image and chunk id they correspond to, shuffle chnks to get random chunk
         samples = [
             ImageSample(im_id, chk_id, shuffle=self._shuffle)
@@ -151,6 +184,7 @@ class SRDataset(zds.ZarrDataset):
         current_chk = 0
         #No image data loaded yet, loaded to memory when needed
         self._curr_collection = None
+
 
         while samples:
             #draw a random chunk from samples if not want from same untill have gotten all
@@ -199,12 +233,27 @@ class SRDataset(zds.ZarrDataset):
 
             #load the patch from zarr file
             patch_position = patches_position[current_patch]
+    
             patches = self.__getitem__(patch_position)[0]
-            #print(f"Loaded patch dtype: {patches[0].dtype}, shape: {patches[0].shape}, min: {patches[0].min()}, max: {patches[0].max()}")
-
 
             #to torch tensor
-            hr_patch = torch.from_numpy(patches[0]).float()
+
+            if self.data_dim == "2d":
+                hr_patch = torch.from_numpy(patches[0]).float()
+            elif self.data_dim == "3d":
+                hr_patch = torch.from_numpy(np.stack(patches)).float()
+
+            # print(f"[DEBUG] Patch shape returned from __getitem__: {patches[0].shape}")
+            # print(f"[DEBUG] patch_position: {patch_position}")
+
+
+            # Safety check for dimensionality
+            if self.data_dim == "2d":
+                assert hr_patch.ndim == 2, f"Expected 2D patch but got shape {hr_patch.shape}"
+            elif self.data_dim == "3d":
+                assert hr_patch.ndim == 3, f"Expected 3D patch but got shape {hr_patch.shape}"
+            else:
+                raise ValueError(f"Unknown data_dim: {self.data_dim}")
 
             # Normalize HR patch to (-1, 1]
             hr_patch = hr_patch / 32768.0
@@ -236,7 +285,22 @@ class SRDataset(zds.ZarrDataset):
             yield example
 
 
-def create_dataloader(zarr_path, patch_size=(1, 128, 128), batch_size=4, num_workers=1, min_area=0.999, sigma=1.3, downsample_factor=4, draw_same_chunk = False, shuffle = True, enable_sr_dataset = True, groups_to_use=None, prefetch=2, image_group="image", mask_group="image_trabecular_mask", mask_base_path=None):
+def create_dataloader(zarr_path, 
+                      patch_size=(1, 128, 128), 
+                      batch_size=4, 
+                      num_workers=1, 
+                      min_area=0.999, 
+                      sigma=1.3, 
+                      downsample_factor=4, 
+                      draw_same_chunk = False, 
+                      shuffle = True, 
+                      enable_sr_dataset = True, 
+                      groups_to_use=None, 
+                      prefetch=2, 
+                      image_group="image", 
+                      mask_group="image_trabecular_mask", 
+                      mask_base_path=None, 
+                      data_dim="2d"):
     """
     Creates a PyTorch DataLoader that samples patch pairs (HR and LR) from all groups 
     in a Zarr dataset for use in super-resolution tasks.
@@ -282,6 +346,8 @@ def create_dataloader(zarr_path, patch_size=(1, 128, 128), batch_size=4, num_wor
     for name, _ in named_groups:
         print(f"  - {name}")
 
+    #print(f"Patch size to sampler: {patch_size}")
+
     patch_sampler = zds.PatchSampler(patch_size, min_area=min_area)
 
     all_file_specs = []
@@ -296,26 +362,23 @@ def create_dataloader(zarr_path, patch_size=(1, 128, 128), batch_size=4, num_wor
             )
         )
 
+        # print(f"[DATA] Using image group: {name}/{image_group}")
+
+
         if mask_base_path is not None:
-            all_mask_specs.append(
-                zds.MasksDatasetSpecs(
-                    filenames=[str(zarr_path)],
-                    data_group=f"{name}/{mask_base_path}/{mask_group}", 
-                    source_axes="ZYX"
-                )
-            )
+            mask_path = f"{name}/{mask_base_path}/{mask_group}"
         else:
-            all_mask_specs.append(
-                zds.MasksDatasetSpecs(
-                    filenames=[str(zarr_path)],
-                    data_group=f"{name}/{image_group}",
-                    source_axes="ZYX"
-                )
+            mask_path = f"{name}/{mask_group}" 
+
+        # print(f"[MASK] Using mask group: {mask_path}")
+
+        all_mask_specs.append(
+            zds.MasksDatasetSpecs(
+                filenames=[str(zarr_path)],
+                data_group=mask_path,
+                source_axes="ZYX"
             )
-
-
-
-
+        )
 
 
     if enable_sr_dataset:
@@ -329,6 +392,7 @@ def create_dataloader(zarr_path, patch_size=(1, 128, 128), batch_size=4, num_wor
             return_worker_id=False,
             sigma=sigma,
             downsample_factor=downsample_factor,
+            data_dim=data_dim,
         )
     else:
         print("original zarr dataset")
