@@ -9,12 +9,12 @@ import os
 import matplotlib.pyplot as plt
 
 from supertrab.sr_dataset_utils import create_dataloader
+from supertrab.analysis_utils import has_empty_slice
 
 PATCH_SIZE = 256
 DS_FACTOR = 4
 
-def has_empty_slice(volume: torch.Tensor) -> bool:
-    return torch.any(torch.all(volume == 0, dim=(1, 2)))
+
 
 def normalize_patch(patch):
     patch = patch.cpu().numpy().astype(np.float32)
