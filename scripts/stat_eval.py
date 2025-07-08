@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import os
 
-DS_FACTOR = 6
+DS_FACTOR = 8
 
 # Path to your CSV
 project_root = Path(__file__).resolve().parents[1]
@@ -21,18 +21,42 @@ os.makedirs(output_dir, exist_ok=True)
 exclude_cols = {"position", "patch_idx", "source"}
 metric_cols = [col for col in df.columns if col not in exclude_cols]
 
-# Create and save boxplot for each metric
+# Loop through each metric
 for metric in metric_cols:
+    # --- Plot 1: HR, LR, SR ---
     plt.figure(figsize=(6, 5), dpi=300)
-    sns.boxplot(data=df, x="source", y=metric, palette="pastel", width=0.6)
+    ax = sns.boxplot(data=df, x="source", y=metric, palette="pastel", width=0.6)
     sns.stripplot(data=df, x="source", y=metric, color="black", alpha=0.5, jitter=0.2, size=2)
+
+    legend = ax.get_legend()
+    if legend:
+        legend.remove()
+
     plt.title(metric.replace("_", " ").title())
     plt.xlabel("")
     plt.ylabel(metric)
     plt.tight_layout()
-
-    save_path = os.path.join(output_dir, f"{metric}_ds{DS_FACTOR}.png")
+    save_path = os.path.join(output_dir, f"{metric}_HR_LR_SR_ds{DS_FACTOR}.png")
     plt.savefig(save_path)
     plt.close()
 
-print(f"Saved boxplots to '{output_dir}'")
+    # --- Plot 2: HR vs SR only ---
+    df_hr_sr = df[df["source"].isin(["HR", "SR"])]
+
+    plt.figure(figsize=(6, 5), dpi=300)
+    ax = sns.boxplot(data=df_hr_sr, x="source", y=metric, palette="pastel", width=0.6)
+    sns.stripplot(data=df_hr_sr, x="source", y=metric, color="black", alpha=0.5, jitter=0.2, size=2)
+
+    legend = ax.get_legend()
+    if legend:
+        legend.remove()
+
+    plt.title(metric.replace("_", " ").title() + " (HR vs SR)")
+    plt.xlabel("")
+    plt.ylabel(metric)
+    plt.tight_layout()
+    save_path_hr_sr = os.path.join(output_dir, f"{metric}_HR_SR_ds{DS_FACTOR}.png")
+    plt.savefig(save_path_hr_sr)
+    plt.close()
+
+print(f"All boxplots saved to '{output_dir}'")

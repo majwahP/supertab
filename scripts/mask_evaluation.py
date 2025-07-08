@@ -15,12 +15,11 @@ import numpy as np
 
 from supertrab.sr_dataset_utils import create_dataloader
 from sklearn.metrics import jaccard_score
-from supertrab.metrics_utils import get_mask_ormir
+from supertrab.metrics_utils import get_mask_ormir, get_mask_otsu
 from supertrab.analysis_utils import has_empty_slice, visualize_3d_masks, visualize_masks
-from supertrab.inferance_utils import generate_sr_images, load_model, generate_dps_sr_images
 
 PATCH_SIZE = 256
-DS_FACTOR = 8
+DS_FACTOR = 6
 
 def compute_dice(mask1, mask2):
     intersection = torch.sum((mask1 & mask2).float())
@@ -108,7 +107,8 @@ def main(
                     continue
                 
                 mask_hr = get_mask_ormir(hr)
-                mask_lr = get_mask_ormir(lr)
+                # mask_lr = get_mask_ormir(lr)
+                mask_lr = get_mask_otsu(lr)
                 mask_sr = get_mask_ormir(sr)
 
                 # dice_lr_hr = compute_dice(mask_lr, mask_hr).item()
@@ -147,7 +147,7 @@ def main(
                     save_path=os.path.join(output_dir, f"mask_grid_2d_ds{DS_FACTOR}.png"))
     elif dim == "3d":
         visualize_3d_masks(saved_masks_hr, saved_masks_lr, saved_masks_sr,
-                           save_path=os.path.join(output_dir, f"mask_grid_3d_ds{DS_FACTOR}_BMD.png"))
+                           save_path=os.path.join(output_dir, f"mask_grid_3d_ds{DS_FACTOR}_otsu.png"))
 
     
 

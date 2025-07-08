@@ -81,7 +81,7 @@ def compute_image_metrics(sr_images: torch.Tensor, hr_images: torch.Tensor, dim)
     return results
 
 
-def compute_trab_metrics(volume: torch.Tensor, voxel_size_mm: float = 0.0303) -> dict:
+def compute_trab_metrics(volume: torch.Tensor, voxel_size_mm: float = 0.0303, masktype = "ormir") -> dict:
     """
     Computes bone structural metrics from a 3D volume:
     - Bone Volume Fraction (BV/TV)
@@ -106,7 +106,10 @@ def compute_trab_metrics(volume: torch.Tensor, voxel_size_mm: float = 0.0303) ->
     # Generate binary mask using some thresholding/masking logic
     # print("Get mask")
     # DBG - #bone_mask = (volume)  # shape: (D, H, W), dtype float32, values 0.0 or 1.0
-    bone_mask = get_mask_ormir(volume)  # shape: (D, H, W), dtype float32, values 0.0 or 1.0
+    if masktype == "ormir":
+        bone_mask = get_mask_ormir(volume)  # shape: (D, H, W), dtype float32, values 0.0 or 1.0
+    elif masktype == "otsu":
+        bone_mask = get_mask_otsu(volume)
     # visualize_orthogonal_slices(bone_mask, save_path="patch_outputs/bone_mask_slices.png")
 
     mask_np = bone_mask.cpu().numpy().astype(bool)
@@ -282,6 +285,50 @@ def get_mask_ormir(image: torch.Tensor, sigma: float = 0.5, voxel_size_mm: float
         raise ValueError(f"Unsupported input dimension: {mask.ndim}")
     
     return torch.from_numpy(mask).to(torch.uint8)
+
+
+def get_mask_otsu(image: torch.Tensor, voxel_size_mm: float = 0.0303) -> torch.Tensor:
+    """
+    Performs trabecular bone segmentation using Otsu's thresholding.
+    Args:
+        image (torch.Tensor): A 3D or 2D image tensor of shape (D, H, W), (1, D, H, W), (H, W), or (1, H, W).
+        voxel_size_mm (float): Size of one voxel in millimeters.
+
+    Returns:
+        torch.Tensor: A binary mask (same shape as input, but dtype uint8).
+    """
+
+    if image.dim() == 4 and image.shape[0] == 1:
+        image = image.squeeze(0)  
+    elif image.dim() == 3 and image.shape[0] == 1:
+        image = image.squeeze(0)  
+
+    np_img = image.cpu().numpy().astype('float32')
+
+    threshold = threshold_otsu(np_img)
+    mask = np_img > threshold
+
+    desired_radius_mm = 0.04
+    radius_voxels = round(desired_radius_mm / voxel_size_mm)
+
+    desired_min_volume_mm3 = 0.005
+    min_size_voxels = max(1, round(desired_min_volume_mm3 / (voxel_size_mm ** 3)))
+
+    if mask.ndim == 2:
+        mask = binary_dilation(mask, disk(radius_voxels))
+        mask = binary_erosion(mask, disk(radius_voxels))
+        mask = remove_small_objects(mask, min_size=min_size_voxels)
+        mask = remove_small_holes(mask, area_threshold=min_size_voxels)
+    elif mask.ndim == 3:
+        mask = binary_dilation(mask, ball(radius_voxels))
+        mask = binary_erosion(mask, ball(radius_voxels))
+        mask = remove_small_objects(mask, min_size=min_size_voxels, connectivity=1)
+        mask = remove_small_holes(mask, area_threshold=min_size_voxels, connectivity=1)
+    else:
+        raise ValueError(f"Unsupported input dimension: {mask.ndim}")
+
+    return torch.from_numpy(mask).to(torch.uint8)
+
 
 
 def ensure_3d_volume(t: torch.Tensor) -> torch.Tensor:

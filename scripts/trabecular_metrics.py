@@ -99,11 +99,11 @@ def main(
 
             # print("get metrics")
             # print("HR")
-            hr_metrics = compute_trab_metrics(hr_vol, voxel_size_mm)
+            hr_metrics = compute_trab_metrics(hr_vol, voxel_size_mm, masktype="ormir")
             # print("LR")
-            lr_metrics = compute_trab_metrics(lr_vol, voxel_size_mm * DS_FACTOR)
+            lr_metrics = compute_trab_metrics(lr_vol, voxel_size_mm * DS_FACTOR, masktype="otsu")
             # print("SR")
-            sr_metrics = compute_trab_metrics(sr_vol, voxel_size_mm)
+            sr_metrics = compute_trab_metrics(sr_vol, voxel_size_mm, masktype="ormir")
 
             position = tuple(pos.tolist())
             hr_metrics["position"] = position
@@ -147,14 +147,14 @@ def main(
     all_metrics_df = pd.concat([hr_df, lr_df, sr_df], ignore_index=True)
 
     # Save to CSV
-    csv_path = os.path.join(output_dir, f"all_patch_metrics_ds{DS_FACTOR}.csv")
+    csv_path = os.path.join(output_dir, f"all_patch_metrics_ds{DS_FACTOR}_otsu.csv")
     all_metrics_df.to_csv(csv_path, index=False, na_rep="NaN")
     print(f"Saved per-patch metrics to: {csv_path}")
 
 
     
     keys = hr_metrics_list[0].keys()
-    with open(os.path.join(output_dir, f"metric_summary_ds{DS_FACTOR}.txt"), "w") as f:
+    with open(os.path.join(output_dir, f"metric_summary_ds{DS_FACTOR}_otsu.txt"), "w") as f:
         f.write(f"Total patches processed: {total_patches}\n\n")
 
         for key in keys:

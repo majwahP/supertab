@@ -6,7 +6,7 @@ sys.path.append(str(Path(__file__).resolve().parents[1]))  # adjust if needed
 
 from supertrab.sr_dataset_utils import create_dataloader
 
-PATCH_SIZE = (1, 256, 256)
+PATCH_SIZE = (256, 256, 256)
 DOWN_FACTOR = 8
 BATCH_SIZE = 1
 
@@ -15,7 +15,7 @@ def count_patches_for_part(zarr_path, part):
     root = zarr.open(zarr_path, mode="r")
 
     if part == None:
-        group_path = f"2019_L/image/reassembled_HR"
+        group_path = f"2019_L/image_split/reassembled_HR"
         mask_path = ""
     else: 
         try:
@@ -42,10 +42,10 @@ def count_patches_for_part(zarr_path, part):
         enable_sr_dataset=True,
         num_workers=0,
         prefetch=None,
-        data_dim="2d",
+        data_dim="3d",
         groups_to_use=["2019_L"],
         image_group=group_path.replace("2019_L/", ""),
-        mask_base_path="image_trabecular_mask_split",
+        mask_base_path="image_trabecular_mask_split/reassembled",
         mask_group=mask_path
     )
 
@@ -57,9 +57,9 @@ def count_patches_for_part(zarr_path, part):
 
 def main():
     zarr_path = "/usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr"
-    for part in range(0, 17):  # 0–16 inclusive
-        count_patches_for_part(zarr_path, part)
-    # count_patches_for_part(zarr_path, None)
+    # for part in range(0, 17):  # 0–16 inclusive
+    #     count_patches_for_part(zarr_path, part)
+    count_patches_for_part(zarr_path, None)
 
 if __name__ == "__main__":
     main()
