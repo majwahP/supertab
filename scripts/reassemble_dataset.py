@@ -5,7 +5,7 @@ from pathlib import Path
 
 # Paths
 zarr_path=Path("/usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr")
-base_path = zarr_path / "2019_L" / "image_trabecular_mask_split" 
+base_path = zarr_path / "2019_L" / "sr_volume_256_8" 
 part1_path = base_path / "part_1"
 split_part2_root = base_path / "part_2_split"
 output_path = base_path / "reassembled"

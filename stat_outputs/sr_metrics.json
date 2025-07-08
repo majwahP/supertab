@@ -1,0 +1,106 @@
+[
+  {
+    "bone_volume_fraction": 0.048510968685150146,
+    "trabecular_thickness_mean": 0.06008302017503207,
+    "trabecular_thickness_std": 0.04193379313582487,
+    "trabecular_spacing_mean": 0.7281176909446466,
+    "trabecular_spacing_std": 0.27359134494502096,
+    "trabecular_number": 0.807398971353794
+  },
+  {
+    "bone_volume_fraction": 0.05141419172286987,
+    "trabecular_thickness_mean": 0.07781256212877445,
+    "trabecular_thickness_std": 0.07696741158650522,
+    "trabecular_spacing_mean": 0.9574143395158718,
+    "trabecular_spacing_std": 0.4589138551499054,
+    "trabecular_number": 0.6607441050171682
+  },
+  {
+    "bone_volume_fraction": 0.18472599983215332,
+    "trabecular_thickness_mean": 0.37564653135536263,
+    "trabecular_thickness_std": 0.3178716842578352,
+    "trabecular_spacing_mean": 0.6477279990316426,
+    "trabecular_spacing_std": 0.281387316575546,
+    "trabecular_number": 0.49175483975759654
+  },
+  {
+    "bone_volume_fraction": 0.1928531527519226,
+    "trabecular_thickness_mean": 0.43081186862390314,
+    "trabecular_thickness_std": 0.3045511654563916,
+    "trabecular_spacing_mean": 0.7369728325318385,
+    "trabecular_spacing_std": 0.39071220338282325,
+    "trabecular_number": 0.4476505101122981
+  },
+  {
+    "bone_volume_fraction": 0.06482511758804321,
+    "trabecular_thickness_mean": 0.08584872971694339,
+    "trabecular_thickness_std": 0.0496818578083138,
+    "trabecular_spacing_mean": 0.8848986275984575,
+    "trabecular_spacing_std": 0.3002873885263839,
+    "trabecular_number": 0.7551086405329666
+  },
+  {
+    "bone_volume_fraction": 0.11902683973312378,
+    "trabecular_thickness_mean": 0.11137759301656736,
+    "trabecular_thickness_std": 0.06901355981412084,
+    "trabecular_spacing_mean": 0.6781629338219297,
+    "trabecular_spacing_std": 0.398279666296868,
+    "trabecular_number": 1.0686785062361566
+  },
+  {
+    "bone_volume_fraction": 0.12758785486221313,
+    "trabecular_thickness_mean": 0.11967514690228896,
+    "trabecular_thickness_std": 0.06178415893088873,
+    "trabecular_spacing_mean": 0.635511299561598,
+    "trabecular_spacing_std": 0.3058409443755033,
+    "trabecular_number": 1.0661182222436263
+  },
+  {
+    "bone_volume_fraction": 0.16993427276611328,
+    "trabecular_thickness_mean": 0.14422566842978235,
+    "trabecular_thickness_std": 0.08732865718575847,
+    "trabecular_spacing_mean": 0.5049030800353397,
+    "trabecular_spacing_std": 0.2456739088891483,
+    "trabecular_number": 1.1782526274013936
+  },
+  {
+    "bone_volume_fraction": 0.05584371089935303,
+    "trabecular_thickness_mean": 0.06871445756745616,
+    "trabecular_thickness_std": 0.03850308718423118,
+    "trabecular_spacing_mean": 0.9643178073084891,
+    "trabecular_spacing_std": 0.4322607640127247,
+    "trabecular_number": 0.8126923048840475
+  },
+  {
+    "bone_volume_fraction": 0.0386204719543457,
+    "trabecular_thickness_mean": 0.06162416485845964,
+    "trabecular_thickness_std": 0.042235893053992876,
+    "trabecular_spacing_mean": 1.098114414559059,
+    "trabecular_spacing_std": 0.46167421236551026,
+    "trabecular_number": 0.6267098636233115
+  },
+  {
+    "bone_volume_fraction": 0.33253294229507446,
+    "trabecular_thickness_mean": 0.2161556135822985,
+    "trabecular_thickness_std": 0.09165904352733703,
+    "trabecular_spacing_mean": 0.3946568691735026,
+    "trabecular_spacing_std": 0.17495339683567723,
+    "trabecular_number": 1.5383960508083994
+  },
+  {
+    "bone_volume_fraction": 0.04969155788421631,
+    "trabecular_thickness_mean": 0.06778660926599576,
+    "trabecular_thickness_std": 0.03858905222250833,
+    "trabecular_spacing_mean": 1.988649986819639,
+    "trabecular_spacing_std": 1.9259814892723972,
+    "trabecular_number": 0.7330586147070113
+  },
+  {
+    "bone_volume_fraction": 0.15147554874420166,
+    "trabecular_thickness_mean": 0.12180012713304807,
+    "trabecular_thickness_std": 0.06268747565314928,
+    "trabecular_spacing_mean": 0.582345293089394,
+    "trabecular_spacing_std": 0.2801728588585992,
+    "trabecular_number": 1.2436403172119659
+  }
+]

@@ -6,10 +6,12 @@
 #SBATCH --mem=128G
 #SBATCH --gres=gpu:1
 #SBATCH --time=36:00:00
-#SBATCH --array=0-16
+#SBATCH --array=0
+#SBATCH --nodelist=hardin01
 
 # Define an array of specific PART values
-PART_LIST=(0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16)
+#PART_LIST=(0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16)
+PART_LIST=(16)
 PART=${PART_LIST[$SLURM_ARRAY_TASK_ID]}
 
 ds_factor=8

@@ -7,8 +7,12 @@ import lpips
 from skimage.filters import gaussian, threshold_otsu
 import numpy as np
 import SimpleITK as sitk
+import sys
+from pathlib import Path
 from ormir_xct.segmentation.ipl_seg import ipl_seg, threshold_dict
 from ormir_xct.util.hildebrand_thickness import calc_structure_thickness_statistics
+sys.path.append(str(Path(__file__).resolve().parents[1]))
+from supertrab.analysis_utils import visualize_orthogonal_slices
 from skimage.morphology import binary_erosion, binary_dilation, remove_small_objects, remove_small_holes, disk, ball
 
 
@@ -100,24 +104,37 @@ def compute_trab_metrics(volume: torch.Tensor, voxel_size_mm: float = 0.0303) ->
         volume = volume.squeeze(0)
 
     # Generate binary mask using some thresholding/masking logic
+    # print("Get mask")
+    # DBG - #bone_mask = (volume)  # shape: (D, H, W), dtype float32, values 0.0 or 1.0
     bone_mask = get_mask_ormir(volume)  # shape: (D, H, W), dtype float32, values 0.0 or 1.0
+    # visualize_orthogonal_slices(bone_mask, save_path="patch_outputs/bone_mask_slices.png")
 
     mask_np = bone_mask.cpu().numpy().astype(bool)
     spacing_mm = [voxel_size_mm] * 3
 
     # Compute bone volume fraction (BV/TV)
     bone_volume_fraction = np.sum(mask_np) / mask_np.size
+    # print(f"BVF: {bone_volume_fraction}")
 
     # Compute trabecular thickness statistics 
-    # - only valid for 3D
-    th_mean, th_std, _, _, _ = calc_structure_thickness_statistics(mask_np, spacing_mm, 0)
-
+    # - only valid for 3Dm checks if mask is empty
+    if np.any(mask_np) and bone_volume_fraction<0.96:
+        th_mean, th_std, _, _, _ = calc_structure_thickness_statistics(mask_np, spacing_mm, 0, skeletonize=False)
+    else:
+        th_mean, th_std = np.nan, np.nan
+    # print(f"TH_mean: {th_mean}")
+ 
     #trabecular spacing
     marrow_mask_np = ~mask_np
-    sp_mean, sp_std, _, _, _ = calc_structure_thickness_statistics(marrow_mask_np, spacing_mm, 0)
+    if np.any(marrow_mask_np) and bone_volume_fraction>0.04:
+        sp_mean, sp_std, _, _, _ = calc_structure_thickness_statistics(marrow_mask_np, spacing_mm, 0)
+    else:
+        sp_mean, sp_std = np.nan, np.nan
+    # print(f"SP_mean: {sp_mean}")
 
     # #trabecular number
     trabecular_number = bone_volume_fraction / th_mean if th_mean > 0 else 0.0
+    # print(f"Trab number: {trabecular_number}")
 
 
     return {
@@ -242,16 +259,25 @@ def get_mask_ormir(image: torch.Tensor, sigma: float = 0.5, voxel_size_mm: float
     seg_np = sitk.GetArrayFromImage(seg_sitk)
     mask = seg_np.astype(bool)
 
+    desired_radius_mm = 0.04
+    radius_voxels = round(desired_radius_mm / voxel_size_mm)
+
+    desired_min_volume_mm3 = 0.005
+    min_size_voxels = max(1, round(desired_min_volume_mm3 / (voxel_size_mm ** 3)))
+
     if mask.ndim == 2:
-        mask = binary_erosion(mask, disk(erosion_radius))
-        mask = binary_dilation(mask, disk(dilation_radius))
-        mask = remove_small_objects(mask, min_size=20)
-        mask = remove_small_holes(mask, area_threshold=20)
+        mask = binary_dilation(mask, disk(radius_voxels))
+        mask = binary_erosion(mask, disk(radius_voxels))
+        # mask = binary_dilation(mask, disk(radius_voxels))
+        mask = remove_small_objects(mask, min_size=min_size_voxels)
+        mask = remove_small_holes(mask, area_threshold=min_size_voxels)
+
     elif mask.ndim == 3:
-        mask = binary_erosion(mask, ball(erosion_radius))
-        mask = binary_dilation(mask,ball(dilation_radius))
-        mask = remove_small_objects(mask, min_size=20, connectivity=1)
-        mask = remove_small_holes(mask, area_threshold=20, connectivity=1)
+        mask = binary_dilation(mask, ball(radius_voxels))
+        mask = binary_erosion(mask, ball(radius_voxels))
+        # mask = binary_dilation(mask, ball(radius_voxels))
+        mask = remove_small_objects(mask, min_size=min_size_voxels, connectivity=1)
+        mask = remove_small_holes(mask, area_threshold=min_size_voxels, connectivity=1)
     else:
         raise ValueError(f"Unsupported input dimension: {mask.ndim}")
     

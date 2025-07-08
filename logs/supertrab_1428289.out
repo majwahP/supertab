@@ -1,0 +1,490 @@
+ds factor = 6, patch size = 256
+Found 1 groups:
+  - 2019_L
+Found 1 groups:
+  - 2019_L
+get metrics
+HR
+Get mask
+Saved to patch_outputs/bone_mask_slices.png
+BVF: 0.008385717868804932
+TH_mean: 0.09010351908638374
+SP_mean: nan
+Trab number: 0.0930675955149477
+LR
+Get mask
+Saved to patch_outputs/bone_mask_slices.png
+BVF: 0.0007565617561340332
+TH_mean: 1.5063787309605932
+SP_mean: nan
+Trab number: 0.0005022387402214489
+SR
+Get mask
+Saved to patch_outputs/bone_mask_slices.png
+BVF: 0.007547199726104736
+TH_mean: 0.09846800107567284
+SP_mean: nan
+Trab number: 0.07664621647295043
+add metrics
+patches evaluated 1
+patches evaluated 1
+patches evaluated 1
+patches evaluated 1
+patches evaluated 1
+patches evaluated 1
+patches evaluated 1
+patches evaluated 1
+patches evaluated 1
+patches evaluated 1
+get metrics
+HR
+Get mask
+Saved to patch_outputs/bone_mask_slices.png
+BVF: 0.01666128635406494
+TH_mean: 0.1037868805355535
+SP_mean: 2.9237069708457577
+Trab number: 0.16053364614188792
+LR
+Get mask
+Saved to patch_outputs/bone_mask_slices.png
+BVF: 0.00173872709274292
+TH_mean: 1.0155068269476704
+SP_mean: nan
+Trab number: 0.001712176665487368
+SR
+Get mask
+Saved to patch_outputs/bone_mask_slices.png
+BVF: 0.01904737949371338
+TH_mean: 0.10836731092429908
+SP_mean: 2.510792915981863
+Trab number: 0.17576683716936642
+add metrics
+patches evaluated 2
+patches evaluated 2
+patches evaluated 2
+patches evaluated 2
+patches evaluated 2
+patches evaluated 2
+patches evaluated 2
+patches evaluated 2
+patches evaluated 2
+patches evaluated 2
+get metrics
+HR
+Get mask
+Saved to patch_outputs/bone_mask_slices.png
+BVF: 0.05195415019989014
+TH_mean: 0.16910075918651954
+SP_mean: 1.4796506723196179
+Trab number: 0.3072378293854037
+LR
+Get mask
+Saved to patch_outputs/bone_mask_slices.png
+BVF: 0.01747286319732666
+TH_mean: 1.622599845353568
+SP_mean: 20.422866601653073
+Trab number: 0.010768436375340149
+SR
+Get mask
+Saved to patch_outputs/bone_mask_slices.png
+BVF: 0.05814337730407715
+TH_mean: 0.16835629526267396
+SP_mean: 1.4157036796679325
+Trab number: 0.34535909223566785
+add metrics
+patches evaluated 3
+patches evaluated 3
+patches evaluated 3
+patches evaluated 3
+patches evaluated 3
+patches evaluated 3
+patches evaluated 3
+patches evaluated 3
+patches evaluated 3
+patches evaluated 3
+get metrics
+HR
+Get mask
+Saved to patch_outputs/bone_mask_slices.png
+BVF: 0.020138800144195557
+TH_mean: 0.10034285087818755
+SP_mean: 1.7101125546699651
+Trab number: 0.20069990007203706
+LR
+Get mask
+Saved to patch_outputs/bone_mask_slices.png
+BVF: 0.00134962797164917
+TH_mean: 1.1638006344815928
+SP_mean: nan
+Trab number: 0.0011596728268242892
+SR
+Get mask
+Saved to patch_outputs/bone_mask_slices.png
+BVF: 0.025921285152435303
+TH_mean: 0.10062138271083067
+SP_mean: 1.4604481288586493
+Trab number: 0.2576120945080711
+add metrics
+patches evaluated 4
+patches evaluated 4
+patches evaluated 4
+patches evaluated 4
+patches evaluated 4
+patches evaluated 4
+patches evaluated 4
+patches evaluated 4
+patches evaluated 4
+patches evaluated 4
+get metrics
+HR
+Get mask
+Saved to patch_outputs/bone_mask_slices.png
+BVF: 0.02532052993774414
+TH_mean: 0.09256499252345494
+SP_mean: 1.6372591864699224
+Trab number: 0.2735432613072183
+LR
+Get mask
+Saved to patch_outputs/bone_mask_slices.png
+BVF: 0.0011476874351501465
+TH_mean: 0.9435017428498622
+SP_mean: nan
+Trab number: 0.0012164126286439473
+SR
+Get mask
+Saved to patch_outputs/bone_mask_slices.png
+BVF: 0.03152698278427124
+TH_mean: 0.09427269699073294
+SP_mean: 1.502622951331537
+Trab number: 0.33442326135392475
+add metrics
+patches evaluated 5
+patches evaluated 5
+patches evaluated 5
+patches evaluated 5
+patches evaluated 5
+patches evaluated 5
+patches evaluated 5
+patches evaluated 5
+patches evaluated 5
+patches evaluated 5
+get metrics
+HR
+Get mask
+Saved to patch_outputs/bone_mask_slices.png
+BVF: 0.06326329708099365
+TH_mean: 0.7719808537269298
+SP_mean: 1.6351330272043612
+Trab number: 0.08194930842594648
+LR
+Get mask
+Saved to patch_outputs/bone_mask_slices.png
+BVF: 0.03871726989746094
+TH_mean: 7.525262465885674
+SP_mean: 46.917874415502865
+Trab number: 0.005144972693374911
+SR
+Get mask
+Saved to patch_outputs/bone_mask_slices.png
+BVF: 0.06892049312591553
+TH_mean: 0.767135261599333
+SP_mean: 1.6440853115116454
+Trab number: 0.08984138335947332
+add metrics
+patches evaluated 6
+patches evaluated 6
+patches evaluated 6
+patches evaluated 6
+patches evaluated 6
+patches evaluated 6
+patches evaluated 6
+patches evaluated 6
+patches evaluated 6
+patches evaluated 6
+get metrics
+HR
+Get mask
+Saved to patch_outputs/bone_mask_slices.png
+BVF: 0.048748016357421875
+TH_mean: 0.11112630990272263
+SP_mean: 1.3582347008258018
+Trab number: 0.438672141638598
+LR
+Get mask
+Saved to patch_outputs/bone_mask_slices.png
+BVF: 0.004773080348968506
+TH_mean: 1.0328636459481426
+SP_mean: nan
+Trab number: 0.0046212105225050685
+SR
+Get mask
+Saved to patch_outputs/bone_mask_slices.png
+BVF: 0.05734288692474365
+TH_mean: 0.10820572969814328
+SP_mean: 1.2710682035795817
+Trab number: 0.5299431655302409
+add metrics
+patches evaluated 7
+patches evaluated 7
+patches evaluated 7
+patches evaluated 7
+patches evaluated 7
+patches evaluated 7
+patches evaluated 7
+patches evaluated 7
+patches evaluated 7
+patches evaluated 7
+get metrics
+HR
+Get mask
+Saved to patch_outputs/bone_mask_slices.png
+BVF: 0.06767559051513672
+TH_mean: 0.12735130798790778
+SP_mean: 1.0496294366544747
+Trab number: 0.5314086803220163
+LR
+Get mask
+Saved to patch_outputs/bone_mask_slices.png
+BVF: 0.012010574340820312
+TH_mean: 1.205825277204861
+SP_mean: 23.159011855563236
+Trab number: 0.009960459917261962
+SR
+Get mask
+Saved to patch_outputs/bone_mask_slices.png
+BVF: 0.07516050338745117
+TH_mean: 0.1284460074824753
+SP_mean: 1.0085135117751323
+Trab number: 0.5851525077391432
+add metrics
+patches evaluated 8
+patches evaluated 8
+patches evaluated 8
+patches evaluated 8
+patches evaluated 8
+patches evaluated 8
+patches evaluated 8
+patches evaluated 8
+patches evaluated 8
+patches evaluated 8
+get metrics
+HR
+Get mask
+Saved to patch_outputs/bone_mask_slices.png
+BVF: 0.08242499828338623
+TH_mean: 0.1490210028795144
+SP_mean: 1.179268841373423
+Trab number: 0.5531099421604887
+LR
+Get mask
+Saved to patch_outputs/bone_mask_slices.png
+BVF: 0.025154829025268555
+TH_mean: 1.2683131656472246
+SP_mean: 14.336610068108932
+Trab number: 0.01983329488851593
+SR
+Get mask
+Saved to patch_outputs/bone_mask_slices.png
+BVF: 0.09355741739273071
+TH_mean: 0.15449912761713727
+SP_mean: 1.090820568037853
+Trab number: 0.6055530463872547
+add metrics
+patches evaluated 9
+patches evaluated 9
+patches evaluated 9
+patches evaluated 9
+patches evaluated 9
+patches evaluated 9
+patches evaluated 9
+patches evaluated 9
+patches evaluated 9
+patches evaluated 9
+get metrics
+HR
+Get mask
+Saved to patch_outputs/bone_mask_slices.png
+BVF: 0.022625505924224854
+TH_mean: 0.09811203993358089
+SP_mean: 2.025322112130694
+Trab number: 0.2306088624754076
+LR
+Get mask
+Saved to patch_outputs/bone_mask_slices.png
+BVF: 0.0011167526245117188
+TH_mean: 1.0858447980546615
+SP_mean: nan
+Trab number: 0.001028464313235584
+SR
+Get mask
+Saved to patch_outputs/bone_mask_slices.png
+BVF: 0.029755115509033203
+TH_mean: 0.0991978691761108
+SP_mean: 1.657270461863732
+Trab number: 0.2999572042843733
+add metrics
+patches evaluated 10
+patches evaluated 10
+patches evaluated 10
+patches evaluated 10
+patches evaluated 10
+patches evaluated 10
+patches evaluated 10
+patches evaluated 10
+patches evaluated 10
+patches evaluated 10
+get metrics
+HR
+Get mask
+Saved to patch_outputs/bone_mask_slices.png
+BVF: 0.08988934755325317
+TH_mean: 0.13658660999575647
+SP_mean: 0.9970375082911751
+Trab number: 0.6581124427646743
+LR
+Get mask
+Saved to patch_outputs/bone_mask_slices.png
+BVF: 0.02011483907699585
+TH_mean: 1.1516809076471615
+SP_mean: 16.424059419670215
+Trab number: 0.017465635614373143
+SR
+Get mask
+Saved to patch_outputs/bone_mask_slices.png
+BVF: 0.10600674152374268
+TH_mean: 0.14304361159700302
+SP_mean: 0.9027238280018631
+Trab number: 0.7410798730557477
+add metrics
+patches evaluated 11
+patches evaluated 11
+patches evaluated 11
+patches evaluated 11
+patches evaluated 11
+patches evaluated 11
+patches evaluated 11
+patches evaluated 11
+patches evaluated 11
+patches evaluated 11
+get metrics
+HR
+Get mask
+Saved to patch_outputs/bone_mask_slices.png
+BVF: 0.20420795679092407
+TH_mean: 0.19104516920893944
+SP_mean: 0.69761702491347
+Trab number: 1.0688988244847424
+LR
+Get mask
+Saved to patch_outputs/bone_mask_slices.png
+BVF: 0.11264950037002563
+TH_mean: 1.6460309937294189
+SP_mean: 7.924912735213278
+Trab number: 0.06843704693238808
+SR
+Get mask
+Saved to patch_outputs/bone_mask_slices.png
+BVF: 0.2274683713912964
+TH_mean: 0.20285869932909148
+SP_mean: 0.6579142971192862
+Trab number: 1.1213143539990926
+add metrics
+patches evaluated 12
+patches evaluated 12
+patches evaluated 12
+patches evaluated 12
+patches evaluated 12
+patches evaluated 12
+patches evaluated 12
+Total patches included: 12
+
+All values for metric: bone_volume_fraction
+HR: [0.00838572 0.01666129 0.05195415 0.0201388  0.02532053 0.0632633
+ 0.04874802 0.06767559 0.082425   0.02262551 0.08988935 0.20420796]
+LR: [0.00075656 0.00173873 0.01747286 0.00134963 0.00114769 0.03871727
+ 0.00477308 0.01201057 0.02515483 0.00111675 0.02011484 0.1126495 ]
+SR: [0.0075472  0.01904738 0.05814338 0.02592129 0.03152698 0.06892049
+ 0.05734289 0.0751605  0.09355742 0.02975512 0.10600674 0.22746837]
+Diff LR-HR: [-0.00762916 -0.01492256 -0.03448129 -0.01878917 -0.02417284 -0.02454603
+ -0.04397494 -0.05566502 -0.05727017 -0.02150875 -0.06977451 -0.09155846]
+Diff SR-HR: [-0.00083852  0.00238609  0.00618923  0.00578249  0.00620645  0.0056572
+  0.00859487  0.00748491  0.01113242  0.00712961  0.01611739  0.02326041]
+[bone_volume_fraction]
+  LR - HR: mean_diff = -0.0387, std_diff = 0.0254, MAE = 0.0387
+  SR - HR: mean_diff = 0.0083, std_diff = 0.0063, MAE = 0.0084
+
+All values for metric: trabecular_thickness_mean
+HR: [0.09010352 0.10378688 0.16910076 0.10034285 0.09256499 0.77198085
+ 0.11112631 0.12735131 0.149021   0.09811204 0.13658661 0.19104517]
+LR: [1.50637873 1.01550683 1.62259985 1.16380063 0.94350174 7.52526247
+ 1.03286365 1.20582528 1.26831317 1.0858448  1.15168091 1.64603099]
+SR: [0.098468   0.10836731 0.1683563  0.10062138 0.0942727  0.76713526
+ 0.10820573 0.12844601 0.15449913 0.09919787 0.14304361 0.2028587 ]
+Diff LR-HR: [1.41627521 0.91171995 1.45349909 1.06345778 0.85093675 6.75328161
+ 0.92173734 1.07847397 1.11929216 0.98773276 1.0150943  1.45498582]
+Diff SR-HR: [ 0.00836448  0.00458043 -0.00074446  0.00027853  0.0017077  -0.00484559
+ -0.00292058  0.0010947   0.00547812  0.00108583  0.006457    0.01181353]
+[trabecular_thickness_mean]
+  LR - HR: mean_diff = 1.5855, std_diff = 1.6413, MAE = 1.5855
+  SR - HR: mean_diff = 0.0027, std_diff = 0.0048, MAE = 0.0041
+
+All values for metric: trabecular_thickness_std
+HR: [0.05950306 0.0502847  0.10351248 0.05498833 0.04362622 0.81501171
+ 0.05165274 0.0675985  0.06471687 0.04631882 0.05838837 0.08016387]
+LR: [0.62077688 0.48577435 0.74559279 0.42611526 0.41656623 5.09137899
+ 0.46435293 0.62620651 0.50215628 0.62631911 0.43631635 0.66732803]
+SR: [0.05929811 0.05394904 0.10209604 0.05454856 0.04562208 0.84049967
+ 0.05156337 0.06412187 0.06706716 0.04823609 0.06101222 0.08850399]
+Diff LR-HR: [0.56127382 0.43548965 0.64208031 0.37112693 0.37294001 4.27636727
+ 0.41270018 0.55860801 0.43743941 0.58000029 0.37792799 0.58716416]
+Diff SR-HR: [-2.04951006e-04  3.66434224e-03 -1.41644519e-03 -4.39765463e-04
+  1.99586074e-03  2.54879537e-02 -8.93752026e-05 -3.47663370e-03
+  2.35028577e-03  1.91727429e-03  2.62385687e-03  8.34012157e-03]
+[trabecular_thickness_std]
+  LR - HR: mean_diff = 0.8011, std_diff = 1.0987, MAE = 0.8011
+  SR - HR: mean_diff = 0.0034, std_diff = 0.0076, MAE = 0.0043
+
+All values for metric: trabecular_spacing_mean
+HR: [       nan 2.92370697 1.47965067 1.71011255 1.63725919 1.63513303
+ 1.3582347  1.04962944 1.17926884 2.02532211 0.99703751 0.69761702]
+LR: [        nan         nan 20.4228666          nan         nan 46.91787442
+         nan 23.15901186 14.33661007         nan 16.42405942  7.92491274]
+SR: [       nan 2.51079292 1.41570368 1.46044813 1.50262295 1.64408531
+ 1.2710682  1.00851351 1.09082057 1.65727046 0.90272383 0.6579143 ]
+Diff LR-HR: [        nan         nan 18.94321593         nan         nan 45.28274139
+         nan 22.10938242 13.15734123         nan 15.42702191  7.22729571]
+Diff SR-HR: [        nan -0.41291405 -0.06394699 -0.24966443 -0.13463624  0.00895228
+ -0.0871665  -0.04111592 -0.08844827 -0.36805165 -0.09431368 -0.03970273]
+[trabecular_spacing_mean]
+  LR - HR: mean_diff = 20.3578, std_diff = 13.2279, MAE = 20.3578
+  SR - HR: mean_diff = -0.1428, std_diff = 0.1392, MAE = 0.1444
+
+All values for metric: trabecular_spacing_std
+HR: [       nan 1.38428834 0.41210035 0.46097447 0.41715415 0.55790675
+ 0.6082265  0.34927503 0.36195947 0.94894419 0.32056252 0.21562537]
+LR: [        nan         nan  6.62167379         nan         nan 23.92852771
+         nan 11.97832968  5.00492894         nan  9.35982331  4.45634493]
+SR: [       nan 1.02667791 0.41129883 0.36624098 0.39300739 0.60889194
+ 0.66294338 0.35306719 0.32756684 0.75553127 0.28640833 0.22337626]
+Diff LR-HR: [        nan         nan  6.20957344         nan         nan 23.37062096
+         nan 11.62905466  4.64296946         nan  9.0392608   4.24071955]
+Diff SR-HR: [        nan -0.35761043 -0.00080152 -0.09473348 -0.02414675  0.05098519
+  0.05471688  0.00379216 -0.03439264 -0.19341292 -0.03415419  0.00775089]
+[trabecular_spacing_std]
+  LR - HR: mean_diff = 9.8554, std_diff = 7.1897, MAE = 9.8554
+  SR - HR: mean_diff = -0.0565, std_diff = 0.1215, MAE = 0.0779
+
+All values for metric: trabecular_number
+HR: [0.0930676  0.16053365 0.30723783 0.2006999  0.27354326 0.08194931
+ 0.43867214 0.53140868 0.55310994 0.23060886 0.65811244 1.06889882]
+LR: [0.00050224 0.00171218 0.01076844 0.00115967 0.00121641 0.00514497
+ 0.00462121 0.00996046 0.01983329 0.00102846 0.01746564 0.06843705]
+SR: [0.07664622 0.17576684 0.34535909 0.25761209 0.33442326 0.08984138
+ 0.52994317 0.58515251 0.60555305 0.2999572  0.74107987 1.12131435]
+Diff LR-HR: [-0.09256536 -0.15882147 -0.29646939 -0.19954023 -0.27232685 -0.07680434
+ -0.43405093 -0.52144822 -0.53327665 -0.2295804  -0.64064681 -1.00046178]
+Diff SR-HR: [-0.01642138  0.01523319  0.03812126  0.05691219  0.06088     0.00789207
+  0.09127102  0.05374383  0.0524431   0.06934834  0.08296743  0.05241553]
+[trabecular_number]
+  LR - HR: mean_diff = -0.3713, std_diff = 0.2689, MAE = 0.3713
+  SR - HR: mean_diff = 0.0471, std_diff = 0.0313, MAE = 0.0498

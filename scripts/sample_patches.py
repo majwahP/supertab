@@ -12,7 +12,7 @@ from supertrab.sr_dataset_utils import create_dataloader
 from supertrab.analysis_utils import has_empty_slice
 
 PATCH_SIZE = 256
-DS_FACTOR = 4
+DS_FACTOR = 8
 
 
 
