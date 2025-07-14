@@ -8,22 +8,26 @@ This script:
 """
 
 from pathlib import Path
+import sys
+sys.path.append(str(Path(__file__).resolve().parents[1]))
 from supertrab.sr_dataset_utils import create_dataloader
 from supertrab.analysis_utils import plot_random_samples_from_dataloader, check_patch_uniqueness
 
 
 def main():
     zarr_path = Path("/usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr")
-    output_path = "images/random_patches.png"
+    output_path = "samples/images/random_patches.png"
 
-    dataloader = create_dataloader(zarr_path)
+    groups = ["2019_L", "1955_L", "1956_L", "1996_R", "2005_L", "2007_L"]
+
+    dataloader = create_dataloader(zarr_path, groups_to_use=groups, patch_size=(1,256,256), downsample_factor=10)
     print("done creating dataloader")
 
     print("Plotting samples")
-    plot_random_samples_from_dataloader(dataloader, output_path)
+    plot_random_samples_from_dataloader(dataloader, output_path, max_samples=21)
 
-    print("Check uniqueness")
-    check_patch_uniqueness(dataloader)
+    # print("Check uniqueness")
+    # check_patch_uniqueness(dataloader)
 
     print("Done!")
 

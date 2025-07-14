@@ -10,7 +10,7 @@ import time
 sys.path.append(str(Path(__file__).resolve().parents[1]))
 
 from supertrab.sr_dataset_utils import create_dataloader
-from supertrab.inferance_utils import load_model, generate_dps_sr_images, generate_sr_images
+from supertrab.inferance_utils import load_model, generate_sr_images, scale
 from diffusers import DDPMScheduler
 
 
@@ -18,7 +18,7 @@ if len(sys.argv) < 2:
     raise ValueError("Usage: python 2Dto3D.py <PART>")
 
 PART = int(sys.argv[1])
-ds_factor = 10
+ds_factor = int(sys.argv[2])
 
 
 def main(
@@ -35,24 +35,24 @@ def main(
 
     # Original volume information
     if PART == 0:
-        original = root[f"2019_L/QCT_split/part_1"]
+        original = root[f"2019_L/registered_LR_upscaled_trimmed_split/part_1"]
         volume_shape = original.shape  
         chunk_shape = original.chunks  # must match patch_size
         print(f"Original volume shape: {volume_shape}, chunks: {chunk_shape}")
         print(f"Part_1")
         print(device)
         output_path = f"2019_L/{sr_dataset_name}/part_1"
-        image_group_name = f"QCT_split/part_1"
+        image_group_name = f"registered_LR_upscaled_trimmed_split/part_1"
         mask_group_name = f"part_1"
     else:
-        original = root[f"2019_L/QCT_split/part_2_split/part_{PART}"]
+        original = root[f"2019_L/registered_LR_upscaled_trimmed_split/part_2_split/part_{PART}"]
         volume_shape = original.shape  
         chunk_shape = original.chunks  # must match patch_size
         print(f"Original volume shape: {volume_shape}, chunks: {chunk_shape}")
         print(f"Part_{PART}")
         print(device)
         output_path = f"2019_L/{sr_dataset_name}/part_2_split/part_{PART}"
-        image_group_name = f"QCT_split/part_2_split/part_{PART}"
+        image_group_name = f"registered_LR_upscaled_trimmed_split/part_2_split/part_{PART}"
         mask_group_name = f"part_2_split/part_{PART}"
 
 
@@ -98,11 +98,12 @@ def main(
     for batch in tqdm(dataloader, desc="Patches"):
         # print("Starting batch")
         # start_time = time.time()
-        lr_images = batch["hr_image"].to(device) # TODO add normalizations
+        QCT_images = batch["hr_image"].to(device)
+        QCT_images_scaled = scale(QCT_images * 32768.0) / 32768.0
         sr_images = generate_sr_images(
             model,
             scheduler,
-            lr_images,
+            QCT_images_scaled,
             target_size=patch_size[-1],
             device=device
         )
@@ -144,9 +145,9 @@ if __name__ == "__main__":
 
     main(
         zarr_path="/usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr",
-        weights_path=f"samples/supertrab-diffusion-sr-2d-v5/{PATCH_SIZE}_ds{DS_FACTOR}/models/final_model_weights_{PATCH_SIZE}_ds{DS_FACTOR}.pth",
+        weights_path=f"samples/supertrab-diffusion-sr-2d-ds10_blur/{PATCH_SIZE}_ds{DS_FACTOR}/models/final_model_weights_{PATCH_SIZE}_ds{DS_FACTOR}.pth",
         patch_size=(1, PATCH_SIZE, PATCH_SIZE),
         downsample_factor=DS_FACTOR,
         batch_size=16, 
-        sr_dataset_name=f"sr_volume_{PATCH_SIZE}_{DS_FACTOR}_QCT_LR_data"
+        sr_dataset_name=f"sr_volume_{PATCH_SIZE}_QCT_ds10_blur_model_with_scaling"
     )

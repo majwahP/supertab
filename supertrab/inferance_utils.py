@@ -351,3 +351,11 @@ def reassemble_patches(patches, padded_shape, image_shape, patch_size):
 
     # Crop to original image size
     return full_image[:image_shape[0], :image_shape[1]]
+
+
+
+def scale(image):
+
+    scaled_image = (2.5902297 * image) + 1983.3156
+    
+    return scaled_image

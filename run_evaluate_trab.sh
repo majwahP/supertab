@@ -11,4 +11,5 @@ export PYTHONUNBUFFERED=1
 
 
 ##################################################################################
-python /usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/scripts/trabecular_metrics.py
+# python /usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/scripts/trabecular_metrics.py
+python /usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/scripts/trab_metrics_QCT.py

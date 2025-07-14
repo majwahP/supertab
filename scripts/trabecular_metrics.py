@@ -14,7 +14,7 @@ from supertrab.metrics_utils import compute_trab_metrics, ensure_3d_volume
 from supertrab.analysis_utils import has_empty_slice
 
 PATCH_SIZE = 256
-DS_FACTOR = 8
+DS_FACTOR = 4
 
 
 def main(
@@ -101,7 +101,7 @@ def main(
             # print("HR")
             hr_metrics = compute_trab_metrics(hr_vol, voxel_size_mm, masktype="ormir")
             # print("LR")
-            lr_metrics = compute_trab_metrics(lr_vol, voxel_size_mm * DS_FACTOR, masktype="otsu")
+            lr_metrics = compute_trab_metrics(lr_vol, voxel_size_mm, masktype="otsu")
             # print("SR")
             sr_metrics = compute_trab_metrics(sr_vol, voxel_size_mm, masktype="ormir")
 

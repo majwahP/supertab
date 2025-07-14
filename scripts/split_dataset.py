@@ -4,11 +4,11 @@ from pathlib import Path
 
 # Define paths
 zarr_path=Path("/usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr")
-# image_path = zarr_path / "2019_L" / "image"  
-# save_root = zarr_path / "2019_L" / "image_split" 
+# image_path = zarr_path / "2019_L" / "registered_LR_upscaled_trimmed"  
+# save_root = zarr_path / "2019_L" / "registered_LR_upscaled_trimmed_split" 
 
-image_path = zarr_path / "2019_L" / "image_split" / "part_2" 
-save_root = zarr_path / "2019_L" / "image_split" / "part_2_split"
+image_path = zarr_path / "2019_L" / "registered_LR_upscaled_trimmed_split" / "part_2" 
+save_root = zarr_path / "2019_L" / "registered_LR_upscaled_trimmed_split" / "part_2_split"
 
 # image_path = zarr_path / "2019_L" / "image_trabecular_mask"  
 # save_root = zarr_path / "2019_L" / "image_trabecular_mask_split" 

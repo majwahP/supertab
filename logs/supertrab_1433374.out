@@ -1,0 +1,22 @@
+Found 1 groups:
+  - 2019_L
+Found 1 groups:
+  - 2019_L
+Skipped patch 0 due to air (13.23%)
+Skipped patch 2 due to air (27.92%)
+Skipped patch 4 due to air (15.71%)
+Skipped patch 6 due to air (6.37%)
+Skipped patch 8 due to air (16.82%)
+Skipped patch 16 due to air (11.16%)
+Skipped patch 18 due to air (15.21%)
+Skipped patch 20 due to air (8.16%)
+Skipped patch 22 due to air (11.29%)
+Skipped patch 24 due to air (17.15%)
+Skipped patch 26 due to air (5.72%)
+Skipped patch 32 due to air (6.80%)
+Skipped patch 36 due to air (15.71%)
+Skipped patch 46 due to air (9.85%)
+Skipped patch 50 due to air (11.59%)
+Skipped patch 58 due to air (7.78%)
+
+Saved metrics to: metric_outputs/trabecular_metrics_LR_HR_HRblurred.csv

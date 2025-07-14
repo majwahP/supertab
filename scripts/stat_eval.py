@@ -8,13 +8,13 @@ DS_FACTOR = 8
 
 # Path to your CSV
 project_root = Path(__file__).resolve().parents[1]
-csv_path = project_root / "stat_outputs" / f"all_patch_metrics_ds{DS_FACTOR}.csv"
+csv_path = project_root / "stat_outputs" / f"all_patch_metrics_ds{DS_FACTOR}_otsu.csv"
 
 # Load the data
 df = pd.read_csv(csv_path)
 
 # Output folder for plots
-output_dir = "boxplots"
+output_dir = "boxplots_otsu"
 os.makedirs(output_dir, exist_ok=True)
 
 # List of metrics to plot (exclude metadata columns)

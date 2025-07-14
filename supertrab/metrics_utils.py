@@ -212,7 +212,7 @@ def get_mask(image: torch.Tensor, sigma: float = 0.8, erosion_radius=1.5, dilati
 
 
 
-def get_mask_ormir(image: torch.Tensor, sigma: float = 0.5, voxel_size_mm: float = 0.0303, erosion_radius=1, dilation_radius=1) -> torch.Tensor:
+def get_mask_ormir(image: torch.Tensor, sigma: float = 0.5, voxel_size_mm: float = 0.0303) -> torch.Tensor:
     """
     Performs trabecular bone segmentation using the IPL-based method from ORMiR_XCT.
     Kuczynski, M.T., et al. "ORMIR_XCT: A Python package for high resolution peripheral quantitative computed tomography image processing." arXiv preprint arXiv:2309.04602 (2023).

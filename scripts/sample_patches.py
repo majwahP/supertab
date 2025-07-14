@@ -12,7 +12,7 @@ from supertrab.sr_dataset_utils import create_dataloader
 from supertrab.analysis_utils import has_empty_slice
 
 PATCH_SIZE = 256
-DS_FACTOR = 8
+DS_FACTOR = 4
 
 
 
@@ -23,7 +23,9 @@ def normalize_patch(patch):
     return patch
 
 def visualize_patch_grid(hr_list, lr_list, sr_list, save_path="patch_grid.png"):
-    assert len(hr_list) == len(lr_list) == len(sr_list), "Mismatch in number of patches"
+# def visualize_patch_grid(hr_list, lr_list, save_path="patch_grid.png"):
+
+    #assert len(hr_list) == len(lr_list) == len(sr_list), "Mismatch in number of patches"
     num_samples = len(hr_list)
 
     # Check dimensionality (2D or 3D)
@@ -33,6 +35,8 @@ def visualize_patch_grid(hr_list, lr_list, sr_list, save_path="patch_grid.png"):
     if is_3d:
         # 3 orthogonal views per patch (HR, LR, SR)
         fig, axes = plt.subplots(num_samples, 9, figsize=(18, 2 * num_samples))
+        # fig, axes = plt.subplots(num_samples, 6, figsize=(12, 2 * num_samples))
+
         for i in range(num_samples):
             for j, (patch, label) in enumerate(zip(
                 [hr_list[i], lr_list[i], sr_list[i]], 
@@ -51,7 +55,7 @@ def visualize_patch_grid(hr_list, lr_list, sr_list, save_path="patch_grid.png"):
                     ax.axis('off')
 
     else:
-        fig, axes = plt.subplots(num_samples, 3, figsize=(6, num_samples * 2))
+        fig, axes = plt.subplots(num_samples, 3, figsize=(9, num_samples * 2))
         for i in range(num_samples):
             for j, (patch, label) in enumerate(zip(
                 [hr_list[i], lr_list[i], sr_list[i]], 
@@ -120,16 +124,21 @@ def main(
     sample_idx = 0
 
     for batch_HR_LR, batch_SR in tqdm(zip(dataloader_HR_LR, dataloader_SR), desc="Collecting patches"):
+    # for batch_HR_LR in tqdm(dataloader_HR_LR, desc="Collecting patches"):
+
         lr_images = batch_HR_LR["lr_image"].to(device)
         hr_images = batch_HR_LR["hr_image"].to(device)
         sr_images = batch_SR["hr_image"].to(device) * 32768.0
 
         for hr_patch, lr_patch, sr_patch in zip(hr_images, lr_images, sr_images):
-            if sample_idx % 10 == 0:
+        # for hr_patch, lr_patch in zip(hr_images, lr_images):
 
-                sr = sr_patch[0].cpu()
+            if sample_idx % 500 == 0:
+
+                # sr = sr_patch[0].cpu()
                 hr = hr_patch[0].cpu()
                 lr = lr_patch[0].cpu()
+                sr = sr_patch[0].cpu()
 
                 if sr.sum() == 0 or has_empty_slice(sr):
                     continue
@@ -147,16 +156,18 @@ def main(
             break
 
     print(f"Collected {total_patches} patches. Saving grid...")
-    save_path = os.path.join(output_dir, f"patch_grid_ds{DS_FACTOR}_{data_dim}.png")
+    save_path = os.path.join(output_dir, f"patch_grid_ds{DS_FACTOR}_{data_dim}_with_blur.png")
     visualize_patch_grid(saved_hr, saved_lr, saved_sr, save_path=save_path)
+    # visualize_patch_grid(saved_hr, saved_lr, save_path=save_path)
+
 
 if __name__ == "__main__":
     main(
         zarr_path=Path("/usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr"),
-        patch_size=(PATCH_SIZE, PATCH_SIZE, PATCH_SIZE),
-        data_dim="3d",
+        patch_size=(1, PATCH_SIZE, PATCH_SIZE),
+        data_dim="2d",
         downsample_factor=DS_FACTOR,
         output_dir="patch_outputs",
         groups_to_use=["2019_L"],
-        nr_samples=10
+        nr_samples=20
     )

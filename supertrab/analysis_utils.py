@@ -10,9 +10,21 @@ from tqdm import tqdm
 import matplotlib.pyplot as plt
 from collections import defaultdict
 import gc
+import numpy as np
+
+
+def normalize_tensor(tensor):
+    return (tensor - tensor.min()) / (tensor.max() - tensor.min() + 1e-8)
 
 def has_empty_slice(volume: torch.Tensor) -> bool:
-    return torch.any(torch.all(volume == 0, dim=(1, 2)))
+    if volume.ndim == 2:
+        # For 2D: check if the whole patch is zero
+        return torch.all(volume == 0)
+    elif volume.ndim == 3:
+        # For 3D: check if any slice along depth is completely zero
+        return torch.any(torch.all(volume == 0, dim=(1, 2)))
+    else:
+        raise ValueError(f"Unsupported volume shape {volume.shape}")
 
 
 def check_patch_uniqueness(dataloader):
@@ -122,29 +134,24 @@ def visualize_3d_masks(hr_list, lr_list, sr_list, save_path="mask_grid_3d.png"):
     plt.savefig(save_path, dpi=300)
     print(f"Saved 3D orthogonal slice grid to {save_path}")
 
-def plot_random_samples_from_dataloader(dataloader, output_path="samples.png", max_samples=50):
+def plot_random_samples_from_dataloader(dataloader, output_path="samples.png", max_samples=50, spacer_width=5):
     """
-    Randomly selects and visualizes HR/LR image patch pairs from a PyTorch DataLoader, 
-    arranging them in a grid and saving the result as a PNG image.
-
-    Each sample is displayed with the low-resolution (LR) patch on the left and the 
-    corresponding high-resolution (HR) patch on the right, making it easy to inspect 
-    the quality and alignment of the generated data.
+    Visualizes random HR/LR patch pairs from a DataLoader with labels and spacing between them.
+    Each sample shows the LR patch on the left, a blank spacer, and the HR patch on the right.
 
     Args:
-        dataloader (torch.utils.data.DataLoader): A DataLoader yielding batches that include 
-            'hr_image' and 'lr_image' tensors of shape [B, 1, H, W].
-        output_path (str): File path where the resulting image grid will be saved.
-        max_samples (int): Maximum number of HR/LR pairs to visualize.
+        dataloader (torch.utils.data.DataLoader): Yields batches with 'hr_image' and 'lr_image'.
+        output_path (str): Where to save the resulting grid image.
+        max_samples (int): Max number of samples to show.
+        spacer_width (int): Width (in pixels) of blank space between LR and HR images.
     """
-
     output_path = Path(output_path)
     output_path.parent.mkdir(parents=True, exist_ok=True)
 
-    grid_cols = 5
+    grid_cols = 3
     grid_rows = (max_samples + grid_cols - 1) // grid_cols
 
-    fig, axes = plt.subplots(grid_rows, grid_cols, figsize=(grid_cols * 3, grid_rows * 3))
+    fig, axes = plt.subplots(grid_rows, grid_cols, figsize=(grid_cols * 2.5, grid_rows))
     axes = axes.flatten()
 
     collected = 0
@@ -159,25 +166,35 @@ def plot_random_samples_from_dataloader(dataloader, output_path="samples.png", m
             if collected >= max_samples:
                 break
 
-            hr = batch_hr[idx]
-            lr = batch_lr[idx]
-            pair = torch.cat([lr, hr], dim=-1)  # concat left-right
+            hr = normalize_tensor(batch_hr[idx, 0]).cpu().numpy()
+            lr = normalize_tensor(batch_lr[idx, 0]).cpu().numpy()
+
+            # Create a spacer (same height, spacer_width width)
+            spacer = np.ones((hr.shape[0], spacer_width)) * 1.0  # white strip for spacing
+
+            # Concatenate LR, spacer, HR
+            pair = np.concatenate([lr, spacer, hr], axis=1)
 
             ax = axes[collected]
-            ax.imshow(pair[0].cpu().numpy(), cmap="gray")
+            ax.imshow(pair, cmap="gray")
             ax.axis("off")
+
+            # Add LR/HR labels
+            ax.text(5,  hr.shape[0] -5 , "LR", color="red", fontsize=8, weight="bold", backgroundcolor="white")
+            ax.text(pair.shape[1] - 25, 10, "HR", color="green", fontsize=8, weight="bold", backgroundcolor="white")
+
             collected += 1
 
         if collected >= max_samples:
             break
 
-    # Hide any unused subplots
+    # Hide unused subplots
     for idx in range(collected, len(axes)):
         axes[idx].axis('off')
-    print("Saving image")
-    plt.tight_layout()
-    plt.savefig(output_path)
-    plt.close(fig)  # Important to free memory!
+
+    print("Saving image to", output_path)
+    plt.savefig(output_path, dpi=300)
+    plt.close(fig)
     gc.collect()
 
 

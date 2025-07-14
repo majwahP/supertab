@@ -32,6 +32,7 @@ from torch.utils.data import DataLoader
 import zarr
 import scipy.ndimage
 import numpy as np
+from scipy.ndimage import gaussian_filter
 
 
 class ImageSample:
@@ -105,13 +106,15 @@ class SRDataset(zds.ZarrDataset):
     downsample_factor (int): Factor by which to downsample HR patches to obtain LR.
     **kwargs: Additional arguments passed to the base ZarrDataset class.
     """
-    def __init__(self, sigma=1.3, downsample_factor=4, data_dim="2d", **kwargs):
+    def __init__(self, sigma=1.3, downsample_factor=4, data_dim="2d", with_blur = False, **kwargs):
         super().__init__(**kwargs)
         self.sigma = sigma
         self.downsample_factor = downsample_factor
         self.data_dim = data_dim
+        self.with_blur = with_blur
         if self.data_dim == "2d":
             self.gaussian_blur = T.GaussianBlur(kernel_size=5, sigma=sigma)
+        
     
     def generate_lr(self, hr_patch):
         """
@@ -153,6 +156,11 @@ class SRDataset(zds.ZarrDataset):
                 mode="trilinear",
                 align_corners=False,
             )
+
+            # ADD blur for match QCT data - remove for other
+            if self.with_blur:
+                restored = gaussian_filter(restored, sigma=9)
+
             return restored.squeeze(0).squeeze(0) 
         
         else:
@@ -300,7 +308,8 @@ def create_dataloader(zarr_path,
                       image_group="image", 
                       mask_group="image_trabecular_mask", 
                       mask_base_path=None, 
-                      data_dim="2d"):
+                      data_dim="2d",
+                      with_blur = False):
     """
     Creates a PyTorch DataLoader that samples patch pairs (HR and LR) from all groups 
     in a Zarr dataset for use in super-resolution tasks.
@@ -393,6 +402,7 @@ def create_dataloader(zarr_path,
             sigma=sigma,
             downsample_factor=downsample_factor,
             data_dim=data_dim,
+            with_blur=with_blur,
         )
     else:
         print("original zarr dataset")
