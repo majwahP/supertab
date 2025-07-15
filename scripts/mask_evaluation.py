@@ -159,5 +159,5 @@ if __name__ == "__main__":
         downsample_factor=DS_FACTOR,
         output_dir="stat_outputs",
         groups_to_use=["2019_L"],
-        nr_samples = 20
+        nr_samples = 10
     )
