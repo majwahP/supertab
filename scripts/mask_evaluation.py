@@ -19,7 +19,7 @@ from supertrab.metrics_utils import get_mask_ormir, get_mask_otsu
 from supertrab.analysis_utils import has_empty_slice, visualize_3d_masks, visualize_masks
 
 PATCH_SIZE = 256
-DS_FACTOR = 8
+DS_FACTOR = 10
 
 def compute_dice(mask1, mask2):
     intersection = torch.sum((mask1 & mask2).float())
@@ -34,7 +34,7 @@ def compute_jaccard(mask1, mask2):
 
 def main(
     zarr_path,
-    dim = "2d",
+    dim = "3d",
     patch_size=(PATCH_SIZE, PATCH_SIZE, PATCH_SIZE),
     downsample_factor=DS_FACTOR,
     batch_size=4,
@@ -98,12 +98,13 @@ def main(
         sr_images = batch_SR["hr_image"].to(device)* 32768.0 #otherwise double devision! devide when fetching hr_image but SR data alsready in range -1,1
 
         for hr_patch, lr_patch, sr_patch in zip(hr_images, lr_images, sr_images):
-            if sample_idx % 500 == 0:
+            if sample_idx % 100 == 0:
                 sr = sr_patch[0].cpu()
                 hr = hr_patch[0].cpu()
                 lr = lr_patch[0].cpu()
 
                 if sr.sum() == 0 or has_empty_slice(sr):
+                    print("contain empty region, skipping")
                     continue
                 
                 mask_hr = get_mask_ormir(hr)
@@ -154,8 +155,8 @@ def main(
 if __name__ == "__main__":
     main(
         zarr_path=Path("/usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr"),
-        dim = "2d",
-        patch_size=(1, PATCH_SIZE, PATCH_SIZE),
+        dim = "3d",
+        patch_size=(PATCH_SIZE, PATCH_SIZE, PATCH_SIZE),
         downsample_factor=DS_FACTOR,
         output_dir="stat_outputs",
         groups_to_use=["2019_L"],

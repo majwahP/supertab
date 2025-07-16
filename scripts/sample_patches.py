@@ -12,7 +12,7 @@ from supertrab.sr_dataset_utils import create_dataloader
 from supertrab.analysis_utils import has_empty_slice
 
 PATCH_SIZE = 256
-DS_FACTOR = 4
+DS_FACTOR = 10
 
 
 
@@ -75,13 +75,13 @@ def visualize_patch_grid(hr_list, lr_list, sr_list, save_path="patch_grid.png"):
 def main(
     zarr_path,
     data_dim,
-    patch_size=(1, PATCH_SIZE, PATCH_SIZE),
+    patch_size=(PATCH_SIZE, PATCH_SIZE, PATCH_SIZE),
     downsample_factor=DS_FACTOR,
     batch_size=8,
     output_dir="patch_outputs",
     groups_to_use=["2019_L"],
     device="cuda" if torch.cuda.is_available() else "cpu",
-    nr_samples = 20,
+    nr_samples = 10,
 ):
     os.makedirs(output_dir, exist_ok=True)
 
@@ -133,7 +133,7 @@ def main(
         for hr_patch, lr_patch, sr_patch in zip(hr_images, lr_images, sr_images):
         # for hr_patch, lr_patch in zip(hr_images, lr_images):
 
-            if sample_idx % 500 == 0:
+            if sample_idx % 100 == 0:
 
                 # sr = sr_patch[0].cpu()
                 hr = hr_patch[0].cpu()
@@ -141,6 +141,7 @@ def main(
                 sr = sr_patch[0].cpu()
 
                 if sr.sum() == 0 or has_empty_slice(sr):
+                    print("contain empty region, skipping")
                     continue
 
                 saved_hr.append(hr)
@@ -156,7 +157,7 @@ def main(
             break
 
     print(f"Collected {total_patches} patches. Saving grid...")
-    save_path = os.path.join(output_dir, f"patch_grid_ds{DS_FACTOR}_{data_dim}_with_blur.png")
+    save_path = os.path.join(output_dir, f"patch_grid_ds{DS_FACTOR}_{data_dim}.png")
     visualize_patch_grid(saved_hr, saved_lr, saved_sr, save_path=save_path)
     # visualize_patch_grid(saved_hr, saved_lr, save_path=save_path)
 
@@ -164,8 +165,8 @@ def main(
 if __name__ == "__main__":
     main(
         zarr_path=Path("/usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr"),
-        patch_size=(1, PATCH_SIZE, PATCH_SIZE),
-        data_dim="2d",
+        patch_size=(PATCH_SIZE, PATCH_SIZE, PATCH_SIZE),
+        data_dim="3d",
         downsample_factor=DS_FACTOR,
         output_dir="patch_outputs",
         groups_to_use=["2019_L"],

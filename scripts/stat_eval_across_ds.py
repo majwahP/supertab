@@ -5,7 +5,7 @@ import seaborn as sns
 import os
 
 # Downsampling factors to include
-DS_FACTORS = [4, 6, 8]  
+DS_FACTORS = [4, 6, 8, 10]  
 
 # Path to your CSVs
 project_root = Path(__file__).resolve().parents[1]
@@ -28,6 +28,15 @@ box_dir = os.path.join(output_dir, "boxplots_all_sources")
 box_hrsr_dir = os.path.join(output_dir, "boxplots_hr_sr_only")
 violin_dir = os.path.join(output_dir, "violinplots_all_sources")
 violin_hrsr_dir = os.path.join(output_dir, "violinplots_hr_sr_only")
+
+plt.rcParams.update({
+    'axes.titlesize': 18,       # Title font size
+    'axes.labelsize': 16,       # X and Y label size
+    'xtick.labelsize': 14,      # X tick label size
+    'ytick.labelsize': 14,      # Y tick label size
+    'legend.fontsize': 14,      # Legend font size
+    'legend.title_fontsize': 15 # Legend title font size
+})
 
 for d in [box_dir, box_hrsr_dir, violin_dir, violin_hrsr_dir]:
     os.makedirs(d, exist_ok=True)

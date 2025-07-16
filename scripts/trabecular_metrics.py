@@ -30,7 +30,7 @@ def main(
 ):
     os.makedirs(output_dir, exist_ok=True)
 
-    print(f"ds factor = {DS_FACTOR}, patch size = {patch_size[-1]}")
+    # print(f"ds factor = {DS_FACTOR}, patch size = {patch_size[-1]}")
 
     dataloader_HR_LR = create_dataloader(
         zarr_path=zarr_path,
@@ -61,7 +61,8 @@ def main(
         data_dim=dim, 
         num_workers=0, 
         prefetch=None,
-        image_group=f"sr_volume_256_{DS_FACTOR}/reassembled",        
+        # image_group=f"sr_volume_256_{DS_FACTOR}/reassembled", 
+        image_group="sr_volume_256_QCT_ds10_blur_model_with_scaling/reassembled",     
         mask_base_path="image_trabecular_mask_split/reassembled",
         mask_group=""
     )
