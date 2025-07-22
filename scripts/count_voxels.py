@@ -8,8 +8,8 @@ sys.path.append(str(Path(__file__).resolve().parents[1]))  # adjust if needed
 from supertrab.sr_dataset_utils import create_dataloader
 from supertrab.inferance_utils import scale
 
-PATCH_SIZE = (1, 256, 256)
-DOWN_FACTOR = 4
+PATCH_SIZE = (256, 256, 256)
+DOWN_FACTOR = 10
 BATCH_SIZE = 1
 
 def count_patches_for_part(zarr_path, part):
@@ -44,7 +44,7 @@ def count_patches_for_part(zarr_path, part):
         enable_sr_dataset=True,
         num_workers=0,
         prefetch=None,
-        data_dim="2d",
+        data_dim="3d",
         groups_to_use=["2019_L"],
         image_group=group_path.replace("2019_L/", ""),
         mask_base_path="image_trabecular_mask_split",

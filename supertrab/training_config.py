@@ -32,6 +32,6 @@ class TrainingConfig:
     save_image_epochs: int = 10
     ds_factor: int = 10
     mixed_precision: str = "fp16"
-    output_dir: str = f"samples/supertrab-diffusion-sr-2d-ds10_blur" # Name change
+    output_dir: str = f"samples/supertrab-diffusion-sr-2d-pure_qct" # Name change
     seed: int = 0
     cfg_dropout_prob: float = 0.1 # 10% of the time, drop the LR image during training

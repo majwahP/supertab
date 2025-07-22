@@ -55,6 +55,36 @@ def visualize_hr_lr_srs(hr_list, lr_list, sr_repeat_list, save_path):
     print(f"Saved HR–LR–10xSR grid to: {save_path}")
 
 
+def visualize_hr_lr_sr_rows(hr_list, lr_list, sr_list, save_path):
+    """
+    Visualize HR, LR, SR in one row per sample.
+    Each row = 1 sample. Each column = HR, LR, SR
+    """
+    num_samples = len(hr_list)
+    fig, axes = plt.subplots(num_samples, 3, figsize=(3 * 3, num_samples * 3))  # 3 columns: HR, LR, SR
+
+    if num_samples == 1:
+        axes = np.expand_dims(axes, axis=0)  # Ensure 2D indexing
+
+    for i in range(num_samples):
+        axes[i][0].imshow(hr_list[i], cmap="gray")
+        axes[i][0].set_title("HR")
+        axes[i][0].axis("off")
+
+        axes[i][1].imshow(lr_list[i], cmap="gray")
+        axes[i][1].set_title("LR")
+        axes[i][1].axis("off")
+
+        axes[i][2].imshow(sr_list[i], cmap="gray")
+        axes[i][2].set_title("SR")
+        axes[i][2].axis("off")
+
+    plt.tight_layout()
+    plt.savefig(save_path, dpi=300)
+    plt.close()
+    print(f"Saved HR–LR–SR row-wise grid to: {save_path}")
+
+
 def main():
     output_dir = "outlier_sr_samples_repeat"
     os.makedirs(output_dir, exist_ok=True)
@@ -93,13 +123,14 @@ def main():
         mask_group=""
     )
 
-    hr_images, lr_images = [], []
+    hr_images, lr_images, sr_images = [], [], []
     sample_idx = 0
 
     for batch_hr, batch_sr in tqdm(zip(dataloader_hr, dataloader_sr), desc="Scanning patches"):
         hr_imgs = batch_hr["hr_image"].to(device)
         lr_imgs = batch_hr["lr_image"].to(device)
         sr_imgs = batch_sr["hr_image"].to(device) * 32768.0
+        position = batch_sr["position"]
 
         for hr, lr, sr in zip(hr_imgs, lr_imgs, sr_imgs):
             hr_img = hr[0].cpu()
@@ -116,34 +147,38 @@ def main():
             if area_diff > AREA_DIFF_THRESHOLD:
                 hr_images.append(hr_img)
                 lr_images.append(lr_img)
+                sr_images.append(sr_img)
                 sample_idx += 1
+                print(position)
                 print(f"Collected: {sample_idx}")
                 if sample_idx >= NUM_SAMPLES_TO_KEEP:
                     break
         if sample_idx >= NUM_SAMPLES_TO_KEEP:
             break
 
-    # Load model and scheduler
-    weights_path = f"samples/supertrab-diffusion-sr-2d-v5/{PATCH_SIZE}_ds{DS_FACTOR}/models/final_model_weights_{PATCH_SIZE}_ds{DS_FACTOR}.pth"
-    model = load_model(weights_path, image_size=PATCH_SIZE, device=device)
-    model.eval()
-    scheduler = DDPMScheduler(num_train_timesteps=1000)
+    # # Load model and scheduler
+    # weights_path = f"samples/supertrab-diffusion-sr-2d-v5/{PATCH_SIZE}_ds{DS_FACTOR}/models/final_model_weights_{PATCH_SIZE}_ds{DS_FACTOR}.pth"
+    # model = load_model(weights_path, image_size=PATCH_SIZE, device=device)
+    # model.eval()
+    # scheduler = DDPMScheduler(num_train_timesteps=1000)
 
-    # Run inference multiple times for each LR
-    print(f"Generating {NUM_SR_REPEATS} SR samples per LR...")
-    all_sr_repeats = []
-    with torch.no_grad():
-        for i, lr_img in enumerate(tqdm(lr_images, desc="Inferring SRs")):
-            lr_input = lr_img.unsqueeze(0).unsqueeze(0).to(device)  # [1, 1, H, W]
-            repeats = []
-            for _ in range(NUM_SR_REPEATS):
-                sr = generate_sr_images(model, scheduler, lr_input, target_size=PATCH_SIZE, device=device)
-                repeats.append(sr[0][0].cpu())  # remove batch and channel
-            all_sr_repeats.append(repeats)
+    # # Run inference multiple times for each LR
+    # print(f"Generating {NUM_SR_REPEATS} SR samples per LR...")
+    # all_sr_repeats = []
+    # with torch.no_grad():
+    #     for i, lr_img in enumerate(tqdm(lr_images, desc="Inferring SRs")):
+    #         lr_input = lr_img.unsqueeze(0).unsqueeze(0).to(device)  # [1, 1, H, W]
+    #         repeats = []
+    #         for _ in range(NUM_SR_REPEATS):
+    #             sr = generate_sr_images(model, scheduler, lr_input, target_size=PATCH_SIZE, device=device)
+    #             repeats.append(sr[0][0].cpu())  # remove batch and channel
+    #         all_sr_repeats.append(repeats)
 
     # Plot and save
     save_path = os.path.join(output_dir, f"hr_lr_sr_repeats_ds{DS_FACTOR}.png")
-    visualize_hr_lr_srs(hr_images, lr_images, all_sr_repeats, save_path)
+    # visualize_hr_lr_srs(hr_images, lr_images, all_sr_repeats, save_path)
+    visualize_hr_lr_sr_rows(hr_images, lr_images, sr_images, save_path)
+
 
 
 if __name__ == "__main__":

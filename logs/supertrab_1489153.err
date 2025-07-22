@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/scripts/upscale_image.py", line 45, in <module>
+    assert image_upscaled.shape == upscaled_shape, "[ERROR] Shape mismatch after zoom!"
+AssertionError: [ERROR] Shape mismatch after zoom!

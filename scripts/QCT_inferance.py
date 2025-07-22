@@ -6,6 +6,8 @@ import numpy as np
 from tqdm import tqdm
 import zarr
 import time
+import pandas as pd
+
 
 sys.path.append(str(Path(__file__).resolve().parents[1]))
 
@@ -89,33 +91,49 @@ def main(
         groups_to_use=["2019_L"],    
         image_group=image_group_name,        
         mask_base_path="image_trabecular_mask_split",
-        mask_group=mask_group_name
+        mask_group=mask_group_name,
+        override_air_values=False,
+        with_blur=False,
     )
 
     print("Starting inference over full volume...")
+    threshold = 1000  
+    air_fraction_limit = 0.05 
     patch_counter = 0
+    positions_to_exclude = []
+
 
     for batch in tqdm(dataloader, desc="Patches"):
-        # print("Starting batch")
-        # start_time = time.time()
-        QCT_images = batch["hr_image"].to(device)
-        QCT_images_scaled = scale(QCT_images * 32768.0) / 32768.0
-        sr_images = generate_sr_images(
-            model,
-            scheduler,
-            QCT_images_scaled,
-            target_size=patch_size[-1],
-            device=device
-        )
 
-        # mid_time = time.time()
-        # elapsed = mid_time - start_time
-        # print(f"{elapsed} time for inferance", flush=True)
-        for sr_patch, position in zip(sr_images, batch["position"]):
-            z, y, x = position[:, 0].tolist()  # extract start indices
+        hr_images = batch["hr_image"].to(device)      
+        positions = batch["position"]    
+        for i in range(hr_images.shape[0]):
+            patch = hr_images[i]                    
+            patch_scaled = scale(patch * 32768.0)     
+
+            air_mask = patch_scaled < threshold
+
+            air_fraction = air_mask.float().mean().item()
+
+            if air_fraction > air_fraction_limit:
+                # Save position for exclusion later
+                z, y, x = positions[i][:, 0].tolist()
+                positions_to_exclude.append([z, y, x])
+
+            patch_input = patch_scaled / 32768.0
+            patch_input = patch_input.unsqueeze(0)  
+            sr_patch = generate_sr_images(
+                model,
+                scheduler,
+                patch_input,
+                target_size=patch_size[-1],
+                device=device
+            )[0] 
+
+            z, y, x = positions[i][:, 0].tolist()
             dz, dy, dx = patch_size
             sr_np = sr_patch.cpu().numpy().astype(np.float32)
-            sr_dataset[z:z+dz, y:y+dy, x:x+dx] = sr_np #save to zarr volume
+            sr_dataset[z:z+dz, y:y+dy, x:x+dx] = sr_np
             patch_counter += 1
 
         #DBG
@@ -134,6 +152,16 @@ def main(
         # print(f"{elapsed} time for saving to volume", flush=True)
         print(f"{patch_counter} patches processed", flush=True)
 
+    # Save excluded positions to CSV
+    project_root = Path(__file__).resolve().parents[1]
+    csv_output_dir = project_root / "air_patches_positions"
+    csv_output_dir.mkdir(exist_ok=True)
+
+    exclude_csv_path = csv_output_dir / f"excluded_positions_part{PART}_ds{downsample_factor}.csv"
+    df_exclude = pd.DataFrame(positions_to_exclude, columns=["z", "y", "x"])
+    df_exclude.to_csv(exclude_csv_path, index=False)
+
+    print(f"\nExcluded patch positions saved to: {exclude_csv_path}")
 
     print(f"\nSuper-resolved volume saved at: {output_path}")
     print(f"\nTotal patches super-resolved and written: {patch_counter}")
@@ -149,5 +177,5 @@ if __name__ == "__main__":
         patch_size=(1, PATCH_SIZE, PATCH_SIZE),
         downsample_factor=DS_FACTOR,
         batch_size=16, 
-        sr_dataset_name=f"sr_volume_{PATCH_SIZE}_QCT_ds10_blur_model_with_scaling"
+        sr_dataset_name=f"sr_volume_{PATCH_SIZE}_QCT_ds10_blur_model_scaled_QCT"
     )

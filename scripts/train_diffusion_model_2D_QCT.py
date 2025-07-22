@@ -29,10 +29,18 @@ from pathlib import Path
 from supertrab.sr_dataset_utils import create_dataloader
 from dataclasses import asdict
 from pprint import pprint
-from supertrab.training_utils import train_loop_2D_diffusion, evaluate
+from supertrab.training_utils import train_loop_2D_QCT_diffusion, evaluate_QCT
 from supertrab.training_config import TrainingConfig
 
+def make_train_filter(split=0.8):
+    def _filter(im_id, chk_id):
+        return chk_id % 10 < int(10 * split)
+    return _filter
 
+def make_val_filter(split=0.8):
+    def _filter(im_id, chk_id):
+        return chk_id % 10 >= int(10 * split)
+    return _filter
 
 def main():
     config = TrainingConfig()
@@ -42,13 +50,14 @@ def main():
     # Create dataloaders ------------------------------------------------------------
     zarr_path = Path("/usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr")
 
-    train_groups = ["1955_L", "1956_L", "1996_R", "2005_L"]
-    val_groups = ["2007_L"]
+    train_groups = ["1996_R"]
+    val_groups = ["1996_R"]
     test_groups = ["2019_L"]
 
-    train_dataloader = create_dataloader(zarr_path, downsample_factor=config.ds_factor, patch_size=(1,config.image_size,config.image_size), groups_to_use=train_groups, data_dim="2d")
-    val_dataloader = create_dataloader(zarr_path, downsample_factor=config.ds_factor, patch_size=(1,config.image_size,config.image_size), groups_to_use=val_groups,data_dim="2d")
-    test_dataloader = create_dataloader(zarr_path, downsample_factor=config.ds_factor, patch_size=(1,config.image_size,config.image_size), groups_to_use=test_groups, data_dim="2d")
+    gt_dataloader = create_dataloader(zarr_path, downsample_factor=config.ds_factor, patch_size=(1, config.image_size, config.image_size), groups_to_use=train_groups, data_dim="2d", with_blur=False, chunk_filter=make_train_filter())
+    train_dataloader = create_dataloader(zarr_path, downsample_factor=config.ds_factor, patch_size=(1, config.image_size, config.image_size), groups_to_use=train_groups, data_dim="2d", with_blur=False, chunk_filter=make_train_filter(), image_group="registered_LR_upscaled_rechunked")
+    val_dataloader = create_dataloader(zarr_path, downsample_factor=config.ds_factor, patch_size=(1, config.image_size, config.image_size), groups_to_use=val_groups, data_dim="2d", with_blur=False, chunk_filter=make_val_filter(), image_group="registered_LR_upscaled_rechunked")
+    test_dataloader = create_dataloader(zarr_path, downsample_factor=config.ds_factor, patch_size=(1,config.image_size,config.image_size), groups_to_use=test_groups, data_dim="2d", with_blur=False, image_group="registered_LR_upscaled_trimmed")
 
     #Define the model --------------------------------------------------------------------
     model = UNet2DModel(
@@ -74,7 +83,7 @@ def main():
     print("Has one batch")
     sample_image = batch["hr_image"][0].unsqueeze(0)
     print("Input shape:", sample_image.shape)
-    sample_lr = batch["lr_image"][0].unsqueeze(0)
+    sample_lr = batch["hr_image"][0].unsqueeze(0)
     sample_lr_resized = F.interpolate(sample_lr, size=sample_image.shape[-2:], mode='bilinear', align_corners=False)
     model_input = torch.cat([sample_image, sample_lr_resized], dim=1)
     print("Output shape:", model(model_input, timestep=0).sample.shape)
@@ -99,8 +108,8 @@ def main():
 
     print("Starting training loop")
 
-    train_loop_2D_diffusion(config, model, noise_scheduler, optimizer, train_dataloader, val_dataloader, lr_scheduler, steps_per_epoch)
-    evaluate(config, "final_test", model, noise_scheduler, test_dataloader, device="cuda")
+    train_loop_2D_QCT_diffusion(config, model, noise_scheduler, optimizer, train_dataloader, val_dataloader, gt_dataloader, lr_scheduler, steps_per_epoch)
+    evaluate_QCT(config, "final_test", model, noise_scheduler, test_dataloader, gt_dataloader, device="cuda")
 
 
 

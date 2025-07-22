@@ -19,7 +19,7 @@ from supertrab.metrics_utils import get_mask_ormir, get_mask_otsu
 from supertrab.analysis_utils import has_empty_slice, visualize_3d_masks, visualize_masks
 
 PATCH_SIZE = 256
-DS_FACTOR = 10
+DS_FACTOR = 8
 
 def compute_dice(mask1, mask2):
     intersection = torch.sum((mask1 & mask2).float())

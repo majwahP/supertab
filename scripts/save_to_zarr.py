@@ -19,15 +19,15 @@ from supertrab.file_save_utils import save_mhd_image_to_zarr_group
 
 
 file_path = Path("/usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr")
-data_dir = "/usr/terminus/data-xrm-01/stamplab/external/tacosound/QCT/QCTFEMUR_2019L/2019_L_R_HR_elastix_01/2019_L_R_HR_elastix_resampled.mhd"
+data_dir = "/usr/terminus/data-xrm-01/stamplab/external/tacosound/QCT/QCT1996R/1996_R_R_HR_elastix_03/result.0.mhd"
 #choose group
 
 # group_name = "1955_L"
 # group_name = "1956_L"
-# group_name = "1996_R"
+group_name = "1996_R"
 # group_name = "2005_L"
 # group_name = "2007_L"
-group_name = "2019_L"
+# group_name = "2019_L"
 #patch_size = (2, 4, 4) #must be bigger for the variance mask
 #variance_threshold = 1
 

@@ -351,6 +351,63 @@ def evaluate_3D(config, epoch, model, noise_scheduler, dataloader, device="cuda"
     gc.collect()
     torch.cuda.empty_cache()
 
+@torch.no_grad()
+def evaluate_QCT(config, epoch, model, noise_scheduler, dataloader, gt_dataloader, device="cuda", global_step=None):
+    """
+    Generates super-resolved images from the model and saves a grid comparing LR, SR, and HR images.
+
+    Args:
+        config (TrainingConfig): Configuration dataclass with experiment settings.
+        epoch (int or str): Current epoch number (used for naming output).
+        model (UNet2DModel): Trained denoising model.
+        noise_scheduler (DDPMScheduler): Scheduler for reverse diffusion steps.
+        dataloader (DataLoader): DataLoader for evaluation patches.
+        device (str): Device to run evaluation on.
+        global_step (int or None): Optional global step for logging to Weights & Biases.
+    """
+    model.eval()
+    model.to(device)
+
+    lr_batch = next(iter(dataloader))
+    hr_batch = next(iter(gt_dataloader))
+    lr_images = lr_batch["hr_image"].to(device)
+    hr_images = hr_batch["hr_image"].to(device)
+
+    sr_images = generate_sr_images(model, noise_scheduler, lr_images, config.image_size, device)
+
+    # Clamp and move to CPU for visualization
+    sr_images = sr_images.clamp(0.0, 1.0).cpu()
+    lr_images_up = F.interpolate(lr_images, size=(config.image_size, config.image_size),
+                                 mode="bilinear", align_corners=False).clamp(0.0, 1.0).cpu()
+    hr_images = hr_images.cpu().clamp(0.0, 1.0)
+
+    # Compute metrics and create image grid
+    batch_metrics = compute_image_metrics(sr_images, hr_images, "2d")
+
+    # Only save images every 10th epoch and on last epoch
+    save_images = (
+        isinstance(epoch, int)
+        and (epoch == 0 or epoch % config.save_image_epochs == 0 or epoch == config.num_epochs - 1)
+    )
+
+    if save_images:
+        base_name = f"{epoch:04d}_ds{config.ds_factor}_size{config.image_size}.png"
+        output_subdir = os.path.join(config.output_dir, f"{config.image_size}_ds{config.ds_factor}/images", base_name) # Name change
+        os.makedirs(output_subdir, exist_ok=True)
+
+        image_to_save = create_sample_image(lr_images_up, sr_images, hr_images, metrics=batch_metrics)
+        image_to_save.save(os.path.join(output_subdir, "overview.png"))
+        save_sr_outputs(lr_images_up, sr_images, hr_images, output_subdir, base_name)
+    else:
+        output_subdir = None  # avoid invalid path use in logging
+
+    # Log metrics and artifacts
+    log_metrics_and_artifacts(image_to_save if save_images else None, batch_metrics, epoch, global_step, output_subdir)
+
+
+def get_mid_slice(x): 
+    return x[:, :, x.shape[2] // 2]
+
 
 def train_loop_2D_diffusion(config, model, noise_scheduler, optimizer, train_dataloader, val_dataloader, lr_scheduler, steps_per_epoch, starting_epoch = 0):
     """
@@ -379,7 +436,7 @@ def train_loop_2D_diffusion(config, model, noise_scheduler, optimizer, train_dat
     if accelerator.is_main_process:
         if config.output_dir is not None:
             os.makedirs(config.output_dir, exist_ok=True)
-        run_name = f"supertrab_ddpm_{config.image_size}px_ds{config.ds_factor}_{config.num_epochs}ep_v5" # Name change
+        run_name = f"supertrab_ddpm_{config.image_size}px_ds{config.ds_factor}_{config.num_epochs}ep_blur" # Name change
         accelerator.init_trackers(
             project_name="supertrab", 
             config=vars(config),
@@ -636,3 +693,126 @@ def load_model_and_optimizer(config, checkpoint_path):
     start_epoch = checkpoint["epoch"]
 
     return model, optimizer, start_epoch
+
+
+def train_loop_2D_QCT_diffusion(config, model, noise_scheduler, optimizer, train_dataloader, val_dataloader, gt_dataloader, lr_scheduler, steps_per_epoch, starting_epoch = 0):
+    """
+    Trains a UNet-based 2D DDPM model for super-resolution with classifier-free guidance.
+
+    Args:
+        config (TrainingConfig): Training configuration.
+        model (UNet2DModel): Diffusion model to train.
+        noise_scheduler (DDPMScheduler): Scheduler for forward diffusion steps.
+        optimizer (torch.optim.Optimizer): Optimizer for updating model weights.
+        train_dataloader (DataLoader): DataLoader for training patches.
+        val_dataloader (DataLoader): DataLoader for validation patches.
+        lr_scheduler (Scheduler): Learning rate scheduler.
+        steps_per_epoch (int): Number of training steps per epoch.
+        starting_epoch (int): from which epoch we are training, allows resuming training
+    """
+
+    # Initialize accelerator and tensorboard logging
+    accelerator = Accelerator(
+        mixed_precision=config.mixed_precision,
+        gradient_accumulation_steps=config.gradient_accumulation_steps,
+        log_with="wandb",
+        project_dir=os.path.join(config.output_dir, "logs"),
+    )
+    # assure only one process creates directories or logs
+    if accelerator.is_main_process:
+        if config.output_dir is not None:
+            os.makedirs(config.output_dir, exist_ok=True)
+        run_name = f"supertrab_ddpm_{config.image_size}px_ds{config.ds_factor}_{config.num_epochs}ep_pure_QCT" # Name change
+        accelerator.init_trackers(
+            project_name="supertrab", 
+            config=vars(config),
+            init_kwargs={"wandb": {"name": run_name}}
+        )
+
+
+    # Prepare everything
+    # There is no specific order to remember, you just need to unpack the
+    # objects in the same order you gave them to the prepare method.
+    model, optimizer, train_dataloader, gt_dataloader, lr_scheduler = accelerator.prepare(
+    model, optimizer, train_dataloader, gt_dataloader, lr_scheduler
+)
+
+
+    global_step = 0
+
+    # Now you train the model
+    for epoch in range(starting_epoch, config.num_epochs):
+        if accelerator.is_local_main_process:
+            print(f"Starting Epoch {epoch}...")
+
+
+        for step, (batch_lr, batch_gt) in enumerate(zip(train_dataloader, gt_dataloader)):
+            if step >= steps_per_epoch:
+                break
+            clean_images = batch_gt["hr_image"]          
+            conditioning = batch_lr["hr_image"]  
+            # Sample noise to add to the images
+            noise = torch.randn_like(clean_images)
+            
+
+            # Sample a random timestep for each image
+            timesteps = torch.randint(0, noise_scheduler.config.num_train_timesteps, (clean_images.size(0),), device=clean_images.device)
+
+            # Add noise to the clean images according to the noise magnitude at each timestep
+            # (this is the forward diffusion process)
+            noisy_images = noise_scheduler.add_noise(clean_images, noise, timesteps)
+
+
+            # Backpropagation
+            with accelerator.accumulate(model):
+                # Predict the noise residual
+                conditioning_resized = F.interpolate(conditioning, size=clean_images.shape[-2:], mode='bilinear', align_corners=False)
+
+                # Classifier-Free Guidance: randomly drop conditioning
+                if torch.rand(1).item() < config.cfg_dropout_prob:
+                    conditioning_resized = torch.zeros_like(conditioning_resized)
+
+
+                # Concatenate LR with noisy HR as input to the model
+                model_input = torch.cat([noisy_images, conditioning_resized], dim=1)
+
+                # Predict noise
+                noise_pred = model(model_input, timesteps).sample
+                loss = F.mse_loss(noise_pred, noise)
+                accelerator.backward(loss)
+
+                # Avoid exploding gradients
+                if accelerator.sync_gradients:
+                    accelerator.clip_grad_norm_(model.parameters(), 1.0)
+                optimizer.step()
+                lr_scheduler.step()
+                optimizer.zero_grad()
+
+            logs = {"loss": loss.detach().item(), "lr": lr_scheduler.get_last_lr()[0], "step": global_step}
+            accelerator.log(logs, step=global_step)
+            global_step += 1
+
+        # After each epoch you optionally sample some demo images with evaluate() and save the model
+        if accelerator.is_main_process:
+            #evaluate after every epoch
+            evaluate_QCT(config, epoch, model, noise_scheduler, val_dataloader, gt_dataloader, device=accelerator.device, global_step=global_step)
+
+            # Save final model and inference weights at last epoch
+            if epoch == config.num_epochs - 1:
+                models_dir = os.path.join(config.output_dir, f"{config.image_size}_ds{config.ds_factor}/models") # Name change
+                os.makedirs(models_dir, exist_ok=True)
+
+                final_ckpt_path = os.path.join(models_dir, f"final_training_checkpoint_{config.image_size}_ds{config.ds_factor}.pth") # Name change
+                weights_path = os.path.join(models_dir, f"final_model_weights_{config.image_size}_ds{config.ds_factor}.pth") # Name change
+
+                # Save full training checkpoint
+                save_checkpoint(accelerator.unwrap_model(model), optimizer, epoch+1, final_ckpt_path)
+                # artifact = wandb.Artifact("final_training_checkpoint", type="model")
+                # artifact.add_file(final_ckpt_path)
+                # wandb.log_artifact(artifact)
+
+                # Save inference weights only
+                torch.save(accelerator.unwrap_model(model).state_dict(), weights_path)
+                # artifact = wandb.Artifact("final_model_weights", type="model")
+                # artifact.add_file(weights_path)
+                # wandb.log_artifact(artifact)

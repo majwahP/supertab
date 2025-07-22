@@ -33,6 +33,18 @@ import zarr
 import scipy.ndimage
 import numpy as np
 from scipy.ndimage import gaussian_filter
+from scipy.ndimage import binary_dilation, binary_erosion
+
+
+def scale(image):
+
+    scaled_image = (2.5902297 * image) + 1983.3156
+    
+    return scaled_image
+
+def inverse_scale(scaled_image):
+    image = (scaled_image - 1983.3156) / 2.5902297
+    return image
 
 
 class ImageSample:
@@ -106,12 +118,14 @@ class SRDataset(zds.ZarrDataset):
     downsample_factor (int): Factor by which to downsample HR patches to obtain LR.
     **kwargs: Additional arguments passed to the base ZarrDataset class.
     """
-    def __init__(self, sigma=1.3, downsample_factor=4, data_dim="2d", with_blur = False, **kwargs):
+    def __init__(self, sigma=1.3, downsample_factor=4, data_dim="2d", with_blur = False, override_air_values=False, chunk_filter = None, **kwargs):
         super().__init__(**kwargs)
         self.sigma = sigma
         self.downsample_factor = downsample_factor
         self.data_dim = data_dim
         self.with_blur = with_blur
+        self.override_air_values = override_air_values
+        self.chunk_filter = chunk_filter
         if self.data_dim == "2d":
             self.gaussian_blur = T.GaussianBlur(kernel_size=5, sigma=sigma)
         
@@ -137,7 +151,14 @@ class SRDataset(zds.ZarrDataset):
                 mode="bilinear",
                 align_corners=False,
             )
-            return restored.squeeze(0).squeeze(0) 
+
+            if self.with_blur:
+                restored_np = gaussian_filter(restored.squeeze().cpu().numpy(), sigma=9)
+                restored = torch.from_numpy(restored_np).unsqueeze(0).unsqueeze(0).to(dtype=hr_patch.dtype, device=hr_patch.device)
+
+            
+            return restored.squeeze(0).squeeze(0)
+
 
         elif self.data_dim == "3d":
             hr_np = hr_patch.numpy()
@@ -159,7 +180,8 @@ class SRDataset(zds.ZarrDataset):
 
             # ADD blur for match QCT data - remove for other
             if self.with_blur:
-                restored = gaussian_filter(restored, sigma=9)
+                restored_np = gaussian_filter(restored.squeeze().cpu().numpy(), sigma=9)
+                restored = torch.from_numpy(restored_np).unsqueeze(0).unsqueeze(0).to(dtype=hr_patch.dtype, device=hr_patch.device)
 
             return restored.squeeze(0).squeeze(0) 
         
@@ -179,7 +201,9 @@ class SRDataset(zds.ZarrDataset):
             ImageSample(im_id, chk_id, shuffle=self._shuffle)
             for im_id in range(len(self._arr_lists))
             for chk_id in range(len(self._toplefts[im_id]))
+            if self.chunk_filter is None or self.chunk_filter(im_id, chk_id)
         ]
+
         #randomly shuffle the samples if shuffeling is enabeled and we want samples from same chunk untill we have all samples from that chunk
         if self._shuffle and self._draw_same_chunk:
             random.shuffle(samples)
@@ -262,9 +286,62 @@ class SRDataset(zds.ZarrDataset):
                 assert hr_patch.ndim == 3, f"Expected 3D patch but got shape {hr_patch.shape}"
             else:
                 raise ValueError(f"Unknown data_dim: {self.data_dim}")
+            
+            if self.override_air_values:
+                scaled = scale(hr_patch)
+
+                air_threshold = 1000
+                marrow_mean = 2138.55
+                marrow_std = 978.53
+
+                air_mask_np = (scaled < air_threshold).cpu().numpy()
+                dilated_mask_np = binary_dilation(air_mask_np, iterations=15)
+                air_mask = torch.from_numpy(dilated_mask_np).to(device=scaled.device)
+
+                num_air_voxels = air_mask.sum()
+
+                if num_air_voxels > 0:
+                    # 2. Generate marrow samples
+                    marrow_samples = torch.normal(
+                        mean=marrow_mean,
+                        std=marrow_std,
+                        size=(num_air_voxels,),
+                        device=scaled.device,
+                    )
+                    marrow_only = torch.zeros_like(scaled)
+                    marrow_only[air_mask] = marrow_samples
+
+                    # 3. Apply Gaussian blur
+                    blurred_marrow = torch.from_numpy(
+                        gaussian_filter(marrow_only.cpu().numpy(), sigma=9.0)
+                    ).to(device=scaled.device, dtype=scaled.dtype)
+
+                    # 4. Erode the air mask to avoid edge artifacts
+                    D, H, W = dilated_mask_np.shape
+                    margin = 10  # match number of erosion iterations
+
+                    # Create valid region (inner core where erosion is allowed)
+                    valid_region = np.zeros_like(dilated_mask_np, dtype=bool)
+                    valid_region[margin:D - margin, margin:H - margin, margin:W - margin] = True
+
+                    # Perform erosion
+                    eroded_temp = binary_erosion(dilated_mask_np, iterations=margin)
+
+                    # Keep only eroded region that is inside valid core
+                    eroded_mask_np = np.logical_and(eroded_temp, valid_region)
+
+                    # Convert to PyTorch
+                    insert_mask = torch.from_numpy(eroded_mask_np).to(device=scaled.device)
+
+                    # 5. Insert blurred marrow into eroded region only
+                    scaled = torch.where(insert_mask, blurred_marrow, scaled)
+
+                hr_patch = inverse_scale(scaled)
 
             # Normalize HR patch to (-1, 1]
             hr_patch = hr_patch / 32768.0
+
+            
             
             #print(f"After norm: {hr_patch.dtype}, shape: {hr_patch.shape}, min: {hr_patch.min()}, max: {hr_patch.max()}")
 
@@ -309,7 +386,9 @@ def create_dataloader(zarr_path,
                       mask_group="image_trabecular_mask", 
                       mask_base_path=None, 
                       data_dim="2d",
-                      with_blur = False):
+                      with_blur = False,
+                      override_air_values=False,
+                      chunk_filter=None):
     """
     Creates a PyTorch DataLoader that samples patch pairs (HR and LR) from all groups 
     in a Zarr dataset for use in super-resolution tasks.
@@ -403,6 +482,8 @@ def create_dataloader(zarr_path,
             downsample_factor=downsample_factor,
             data_dim=data_dim,
             with_blur=with_blur,
+            override_air_values=override_air_values,
+            chunk_filter=chunk_filter,
         )
     else:
         print("original zarr dataset")

@@ -1,0 +1,6 @@
+Start
+Reading image
+Loaded image shape: (625, 576, 576), dtype: int16
+Saving to Zarr at: /usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr
+Done.
+done
