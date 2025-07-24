@@ -1,0 +1,153 @@
+/
+ ├── 1955_L
+ │   ├── image_trabecular_mask (64, 128, 128) int16
+ │   ├── registered_LR (740, 576, 576) float32
+ │   ├── registered_LR_upscaled (5920, 4608, 4608) float32
+ │   └── registered_LR_upscaled_rechunked (5920, 4608, 4608) float32
+ ├── 1956_L
+ │   ├── image (5214, 4608, 4608) float32
+ │   ├── image_trabecular_mask (64, 128, 128) int16
+ │   ├── registered_LR (652, 576, 576) float32
+ │   └── registered_LR_upscaled (5216, 4608, 4608) float32
+ ├── 1996_R
+ │   ├── image (5002, 4608, 4608) float32
+ │   ├── image_trabecular_mask (64, 128, 128) int16
+ │   └── registered_LR_upscaled (625, 576, 576) float32
+ ├── 2005_L
+ │   ├── image (5113, 4608, 4608) float32
+ │   ├── image_trabecular_mask (64, 128, 128) int16
+ │   ├── registered_LR (639, 576, 576) float32
+ │   └── registered_LR_upscaled (5112, 4608, 4608) float32
+ ├── 2007_L
+ │   ├── image (5136, 4608, 4608) float32
+ │   ├── image_trabecular_mask (64, 128, 128) int16
+ │   ├── registered_LR (642, 576, 576) float32
+ │   └── registered_LR_upscaled (5136, 4608, 4608) float32
+ └── 2019_L
+     ├── image (5670, 4608, 4608) float32
+     ├── image_trabecular_mask (64, 128, 128) int16
+     ├── image_trabecular_mask_variance (64, 128, 128) int16
+     ├── registered_LR (709, 576, 576) int16
+     ├── registered_LR_upscaled (5672, 4608, 4608) float32
+     ├── registered_LR_upscaled_trimmed (5670, 4608, 4608) float32
+     ├── sr_volume_256_4
+     │   ├── part_1 (2835, 4608, 4608) float32
+     │   ├── part_2_split
+     │   │   ├── part_1 (177, 4608, 4608) float32
+     │   │   ├── part_10 (177, 4608, 4608) float32
+     │   │   ├── part_11 (177, 4608, 4608) float32
+     │   │   ├── part_12 (177, 4608, 4608) float32
+     │   │   ├── part_13 (177, 4608, 4608) float32
+     │   │   ├── part_14 (177, 4608, 4608) float32
+     │   │   ├── part_15 (177, 4608, 4608) float32
+     │   │   ├── part_16 (180, 4608, 4608) float32
+     │   │   ├── part_2 (177, 4608, 4608) float32
+     │   │   ├── part_3 (177, 4608, 4608) float32
+     │   │   ├── part_4 (177, 4608, 4608) float32
+     │   │   ├── part_5 (177, 4608, 4608) float32
+     │   │   ├── part_6 (177, 4608, 4608) float32
+     │   │   ├── part_7 (177, 4608, 4608) float32
+     │   │   ├── part_8 (177, 4608, 4608) float32
+     │   │   └── part_9 (177, 4608, 4608) float32
+     │   └── reassembled (5670, 4608, 4608) float32
+     ├── sr_volume_256_6
+     │   ├── part_1 (2835, 4608, 4608) float32
+     │   ├── part_2_split
+     │   │   ├── part_1 (177, 4608, 4608) float32
+     │   │   ├── part_10 (177, 4608, 4608) float32
+     │   │   ├── part_11 (177, 4608, 4608) float32
+     │   │   ├── part_12 (177, 4608, 4608) float32
+     │   │   ├── part_13 (177, 4608, 4608) float32
+     │   │   ├── part_14 (177, 4608, 4608) float32
+     │   │   ├── part_15 (177, 4608, 4608) float32
+     │   │   ├── part_16 (180, 4608, 4608) float32
+     │   │   ├── part_2 (177, 4608, 4608) float32
+     │   │   ├── part_3 (177, 4608, 4608) float32
+     │   │   ├── part_4 (177, 4608, 4608) float32
+     │   │   ├── part_5 (177, 4608, 4608) float32
+     │   │   ├── part_6 (177, 4608, 4608) float32
+     │   │   ├── part_7 (177, 4608, 4608) float32
+     │   │   ├── part_8 (177, 4608, 4608) float32
+     │   │   └── part_9 (177, 4608, 4608) float32
+     │   └── reassembled (5670, 4608, 4608) float32
+     ├── sr_volume_256_8
+     │   ├── part_1 (2835, 4608, 4608) float32
+     │   ├── part_2_split
+     │   │   ├── part_1 (177, 4608, 4608) float32
+     │   │   ├── part_10 (177, 4608, 4608) float32
+     │   │   ├── part_11 (177, 4608, 4608) float32
+     │   │   ├── part_12 (177, 4608, 4608) float32
+     │   │   ├── part_13 (177, 4608, 4608) float32
+     │   │   ├── part_14 (177, 4608, 4608) float32
+     │   │   ├── part_15 (177, 4608, 4608) float32
+     │   │   ├── part_16 (180, 4608, 4608) float32
+     │   │   ├── part_2 (177, 4608, 4608) float32
+     │   │   ├── part_3 (177, 4608, 4608) float32
+     │   │   ├── part_4 (177, 4608, 4608) float32
+     │   │   ├── part_5 (177, 4608, 4608) float32
+     │   │   ├── part_6 (177, 4608, 4608) float32
+     │   │   ├── part_7 (177, 4608, 4608) float32
+     │   │   ├── part_8 (177, 4608, 4608) float32
+     │   │   └── part_9 (177, 4608, 4608) float32
+     │   └── reassembled (5670, 4608, 4608) float32
+     ├── sr_volume_256_QCT_ds10_blur_model_scaled_QCT
+     │   ├── part_1 (2835, 4608, 4608) float32
+     │   └── part_2_split
+     │       ├── part_1 (177, 4608, 4608) float32
+     │       ├── part_10 (177, 4608, 4608) float32
+     │       ├── part_11 (177, 4608, 4608) float32
+     │       ├── part_12 (177, 4608, 4608) float32
+     │       ├── part_13 (177, 4608, 4608) float32
+     │       ├── part_14 (177, 4608, 4608) float32
+     │       ├── part_15 (177, 4608, 4608) float32
+     │       ├── part_16 (180, 4608, 4608) float32
+     │       ├── part_2 (177, 4608, 4608) float32
+     │       ├── part_3 (177, 4608, 4608) float32
+     │       ├── part_4 (177, 4608, 4608) float32
+     │       ├── part_5 (177, 4608, 4608) float32
+     │       ├── part_6 (177, 4608, 4608) float32
+     │       ├── part_7 (177, 4608, 4608) float32
+     │       ├── part_8 (177, 4608, 4608) float32
+     │       └── part_9 (177, 4608, 4608) float32
+     ├── sr_volume_256_QCT_ds10_model_scaled_QCT
+     │   ├── part_1 (2835, 4608, 4608) float32
+     │   ├── part_2_split
+     │   │   ├── part_1 (177, 4608, 4608) float32
+     │   │   ├── part_10 (177, 4608, 4608) float32
+     │   │   ├── part_11 (177, 4608, 4608) float32
+     │   │   ├── part_12 (177, 4608, 4608) float32
+     │   │   ├── part_13 (177, 4608, 4608) float32
+     │   │   ├── part_14 (177, 4608, 4608) float32
+     │   │   ├── part_15 (177, 4608, 4608) float32
+     │   │   ├── part_16 (180, 4608, 4608) float32
+     │   │   ├── part_2 (177, 4608, 4608) float32
+     │   │   ├── part_3 (177, 4608, 4608) float32
+     │   │   ├── part_4 (177, 4608, 4608) float32
+     │   │   ├── part_5 (177, 4608, 4608) float32
+     │   │   ├── part_6 (177, 4608, 4608) float32
+     │   │   ├── part_7 (177, 4608, 4608) float32
+     │   │   ├── part_8 (177, 4608, 4608) float32
+     │   │   └── part_9 (177, 4608, 4608) float32
+     │   └── reassembled (5670, 4608, 4608) float32
+     └── sr_volume_32_4_3D
+         ├── part_1 (2835, 4608, 4608) float32
+         └── part_2_split
+             ├── part_1 (177, 4608, 4608) float32
+             ├── part_10 (177, 4608, 4608) float32
+             ├── part_11 (177, 4608, 4608) float32
+             ├── part_12 (177, 4608, 4608) float32
+             ├── part_13 (177, 4608, 4608) float32
+             ├── part_14 (177, 4608, 4608) float32
+             ├── part_15 (177, 4608, 4608) float32
+             ├── part_2 (177, 4608, 4608) float32
+             ├── part_3 (177, 4608, 4608) float32
+             ├── part_4 (177, 4608, 4608) float32
+             ├── part_5 (177, 4608, 4608) float32
+             ├── part_6 (177, 4608, 4608) float32
+             ├── part_7 (177, 4608, 4608) float32
+             ├── part_8 (177, 4608, 4608) float32
+             └── part_9 (177, 4608, 4608) float32
+[INFO] Loading dataset from: /usr/terminus/data-xrm-01/stamplab/users/mwahlin/zarr/supertrab.zarr/1955_L/image
+[INFO] Rechunking to (128, 512, 512)
+[INFO] Saving to: /usr/terminus/data-xrm-01/stamplab/RESTORE/supertrab.zarr/1955_L/image
+[✅] Done.

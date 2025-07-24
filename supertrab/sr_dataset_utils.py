@@ -118,14 +118,13 @@ class SRDataset(zds.ZarrDataset):
     downsample_factor (int): Factor by which to downsample HR patches to obtain LR.
     **kwargs: Additional arguments passed to the base ZarrDataset class.
     """
-    def __init__(self, sigma=1.3, downsample_factor=4, data_dim="2d", with_blur = False, override_air_values=False, chunk_filter = None, **kwargs):
+    def __init__(self, sigma=1.3, downsample_factor=4, data_dim="2d", with_blur = False, override_air_values=False, **kwargs):
         super().__init__(**kwargs)
         self.sigma = sigma
         self.downsample_factor = downsample_factor
         self.data_dim = data_dim
         self.with_blur = with_blur
         self.override_air_values = override_air_values
-        self.chunk_filter = chunk_filter
         if self.data_dim == "2d":
             self.gaussian_blur = T.GaussianBlur(kernel_size=5, sigma=sigma)
         
@@ -201,7 +200,6 @@ class SRDataset(zds.ZarrDataset):
             ImageSample(im_id, chk_id, shuffle=self._shuffle)
             for im_id in range(len(self._arr_lists))
             for chk_id in range(len(self._toplefts[im_id]))
-            if self.chunk_filter is None or self.chunk_filter(im_id, chk_id)
         ]
 
         #randomly shuffle the samples if shuffeling is enabeled and we want samples from same chunk untill we have all samples from that chunk
@@ -387,8 +385,7 @@ def create_dataloader(zarr_path,
                       mask_base_path=None, 
                       data_dim="2d",
                       with_blur = False,
-                      override_air_values=False,
-                      chunk_filter=None):
+                      override_air_values=False):
     """
     Creates a PyTorch DataLoader that samples patch pairs (HR and LR) from all groups 
     in a Zarr dataset for use in super-resolution tasks.
@@ -483,7 +480,6 @@ def create_dataloader(zarr_path,
             data_dim=data_dim,
             with_blur=with_blur,
             override_air_values=override_air_values,
-            chunk_filter=chunk_filter,
         )
     else:
         print("original zarr dataset")
@@ -504,3 +500,57 @@ def create_dataloader(zarr_path,
         worker_init_fn=zds.zarrdataset_worker_init_fn,
         prefetch_factor=prefetch,
     )
+
+
+# mixed dataset =======================================================================
+
+class TripletZarrDataset(torch.utils.data.Dataset):
+    def __init__(self, zarr_path, group_names, patch_size=(1, 256, 256), conditioning_mode="qct"):
+        self.conditioning_mode = conditioning_mode
+        self.patches = []
+
+        for group_name in group_names:
+            group = zarr.open(str(zarr_path), mode="r")[group_name]
+            qct = group["qct"]
+            hrpqct = group["hrpqct"]
+            lr = group["lr"]
+
+            num_patches = qct.shape[0]
+            for i in range(num_patches):
+                self.patches.append((group_name, i))
+
+        self.z = zarr.open(str(zarr_path), mode="r")
+        self.patch_size = patch_size
+
+    def __len__(self):
+        return len(self.patches)
+
+    def __getitem__(self, index):
+        group_name, idx = self.patches[index]
+        group = self.z[group_name]
+
+        hr_image = torch.tensor(group["hrpqct"][idx], dtype=torch.float32)
+        qct = torch.tensor(group["qct"][idx], dtype=torch.float32)
+        lr = torch.tensor(group["lr"][idx], dtype=torch.float32)
+
+        if self.conditioning_mode == "qct":
+            conditioning = qct
+        elif self.conditioning_mode == "lr":
+            conditioning = lr
+        elif self.conditioning_mode == "mixed":
+            conditioning = qct if torch.rand(1).item() < 0.5 else lr
+        else:
+            raise ValueError(f"Invalid conditioning_mode: {self.conditioning_mode}")
+
+        return {
+            "hr_image": hr_image,
+            "conditioning": conditioning,
+            "qct": qct,
+            "lr": lr,
+            "group": group_name,
+            "index": idx,
+        }
+
+def create_triplet_dataloader(zarr_path, group_names, conditioning_mode="qct", patch_size=(1, 256, 256), batch_size=4, num_workers=0):
+    dataset = TripletZarrDataset(zarr_path, group_names, patch_size, conditioning_mode)
+    return torch.utils.data.DataLoader(dataset, batch_size=batch_size, shuffle=True, num_workers=num_workers)

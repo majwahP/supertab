@@ -8,12 +8,12 @@ from supertrab.training_utils import train_loop_2D_diffusion, load_model_and_opt
 
 def main():
     config = TrainingConfig(
-        image_size=128,
+        image_size=256,
         train_batch_size=4,
         eval_batch_size=4,
-        num_epochs=100,  
+        num_epochs=200,  
         ds_factor=10,
-        output_dir="samples/supertrab-diffusion-sr-2d-v4"
+        output_dir="samples/supertrab-diffusion-sr-2d-v5"
     )
 
     print("Training Configuration:")
@@ -25,7 +25,7 @@ def main():
     print(f"Continuing training from checkpoint, epoch {start_epoch}. New total epochs: {config.num_epochs}")
 
     # Prepare dataloaders
-    zarr_path = Path("/usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr")
+    zarr_path = Path("/usr/terminus/data-xrm-01/stamplab/RESTORE/supertrab.zarr")
     train_groups = ["1955_L", "1956_L", "1996_R", "2005_L"]
     val_groups = ["2007_L"]
     test_groups = ["2019_L"]

@@ -3,12 +3,16 @@ from pathlib import Path
 sys.path.append(str(Path(__file__).resolve().parents[1]))
 
 import dask.array as da
+import dask
 from scipy.ndimage import zoom
 import zarr
 import numpy as np
 
 # --- Config ---
-zarr_path = Path("/usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr")
+dask.config.set(scheduler="threads")
+# zarr_path = Path("/usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr")
+zarr_path = Path("/usr/terminus/data-xrm-01/stamplab/RESTORE/supertrab.zarr")
+
 group_name = "1996_R"
 original_dataset = "registered_LR"
 new_dataset = "registered_LR_upscaled"
@@ -49,7 +53,7 @@ if new_dataset in root[group_name]:
     print(f"[WARNING] Overwriting existing dataset: {new_dataset}")
     del root[group_name][new_dataset]
 
-image_upscaled.to_zarr(f"{zarr_path}/{group_name}/{new_dataset}", overwrite=True)
+image_upscaled.to_zarr(f"{zarr_path}/{group_name}/{new_dataset}")
 print(f"[INFO] Saved raw upscaled image to '{new_dataset}'.")
 
 # --- Reload and rechunk ---
@@ -62,5 +66,5 @@ if rechunked_dataset in root[group_name]:
     print(f"[WARNING] Overwriting existing dataset: {rechunked_dataset}")
     del root[group_name][rechunked_dataset]
 
-image_rechunked.to_zarr(f"{zarr_path}/{group_name}/{rechunked_dataset}", overwrite=True)
+image_rechunked.to_zarr(f"{zarr_path}/{group_name}/{rechunked_dataset}")
 print(f"[✅] Done. Saved rechunked image to '{rechunked_dataset}' with chunks {final_chunks}")

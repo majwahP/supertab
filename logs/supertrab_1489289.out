@@ -1,0 +1,47 @@
+Running PART=15 with ds_factor=10
+Original volume shape: (184, 4608, 4608), chunks: (112, 512, 512)
+Part_15
+cpu
+Found 1 groups:
+  - 1955_L
+Starting inference over full volume...
+16 patches processed
+32 patches processed
+48 patches processed
+64 patches processed
+80 patches processed
+96 patches processed
+112 patches processed
+128 patches processed
+144 patches processed
+160 patches processed
+176 patches processed
+192 patches processed
+208 patches processed
+224 patches processed
+232 patches processed
+248 patches processed
+260 patches processed
+276 patches processed
+292 patches processed
+308 patches processed
+324 patches processed
+340 patches processed
+356 patches processed
+372 patches processed
+388 patches processed
+404 patches processed
+420 patches processed
+436 patches processed
+452 patches processed
+468 patches processed
+484 patches processed
+500 patches processed
+516 patches processed
+532 patches processed
+548 patches processed
+552 patches processed
+
+Super-resolved volume saved at: 1955_L/lr_volume_256_10/part_2_split/part_15
+
+Total patches super-resolved and written: 552

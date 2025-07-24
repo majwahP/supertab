@@ -1,0 +1,51 @@
+Running PART=0 with ds_factor=4
+Original volume shape: (2835, 4608, 4608), chunks: (128, 512, 512)
+Part_1
+cuda
+Found 1 groups:
+  - 2019_L
+Starting inference over full volume...
+16 patches processed
+32 patches processed
+48 patches processed
+64 patches processed
+80 patches processed
+96 patches processed
+112 patches processed
+128 patches processed
+144 patches processed
+160 patches processed
+176 patches processed
+192 patches processed
+208 patches processed
+224 patches processed
+227 patches processed
+243 patches processed
+259 patches processed
+275 patches processed
+291 patches processed
+307 patches processed
+323 patches processed
+339 patches processed
+353 patches processed
+369 patches processed
+385 patches processed
+388 patches processed
+404 patches processed
+420 patches processed
+436 patches processed
+452 patches processed
+468 patches processed
+484 patches processed
+500 patches processed
+516 patches processed
+532 patches processed
+548 patches processed
+564 patches processed
+573 patches processed
+589 patches processed
+605 patches processed
+621 patches processed
+637 patches processed
+653 patches processed
+669 patches processed

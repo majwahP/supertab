@@ -1,7 +1,0 @@
-Start
-Reading image
-Loaded image shape: (5672, 4608, 4608), dtype: int16
-Saving to Zarr at: /usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr
-Overwriting existing dataset: registered_LR_upscaled
-Done.
-done

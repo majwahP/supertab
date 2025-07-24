@@ -18,8 +18,12 @@ from supertrab.file_save_utils import save_mhd_image_to_zarr_group
 
 
 
-file_path = Path("/usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr")
-data_dir = "/usr/terminus/data-xrm-01/stamplab/external/tacosound/QCT/QCT1996R/1996_R_R_HR_elastix_03/result.0.mhd"
+# file_path = Path("/usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr")
+file_path = Path("/usr/terminus/data-xrm-01/stamplab/RESTORE/supertrab.zarr")
+# data_dir = "/usr/terminus/data-xrm-01/stamplab/external/tacosound/QCT/QCTFEMUR_1996R/QCTFEMUR_1996R_elastix/result.0.mhd"
+data_dir = "/usr/terminus/data-xrm-01/stamplab/external/tacosound/QCT/QCT1996R/1996_R_R_HR_elastix/result.0.mhd"
+
+
 #choose group
 
 # group_name = "1955_L"
@@ -47,7 +51,7 @@ save_mhd_image_to_zarr_group(
     mhd_path=data_dir,
     zarr_root_path=file_path,
     group_name=group_name,
-    dataset_name="registered_LR_upscaled"
+    dataset_name="registered_LR"
 )
 
 

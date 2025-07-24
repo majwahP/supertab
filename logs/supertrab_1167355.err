@@ -1,69 +1,0 @@
-Collecting samples for plot: 0it [00:00, ?it/s]
-Preloading zarr files:   0%|          | 0/1 [00:00<?, ?it/s][A
-Preloading image /usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr/1955_L:   0%|          | 0/1 [00:00<?, ?it/s][APreloading zarr files:   0%|          | 0/1 [00:00<?, ?it/s]Preloading image /usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr/1955_L:   0%|          | 0/1 [00:00<?, ?it/s]
-
-
-
-Preloading zarr files:   0%|          | 0/1 [00:00<?, ?it/s][A[A[A[A
-
-
-
-Preloading image /usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr/1955_L:   0%|          | 0/1 [00:00<?, ?it/s][A[A[A[A
-
-
-Preloading zarr files:   0%|          | 0/1 [00:00<?, ?it/s][A[A[A
-
-
-Preloading image /usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr/1955_L:   0%|          | 0/1 [00:00<?, ?it/s][A[A[A
-
-Preloading zarr files:   0%|          | 0/1 [00:00<?, ?it/s][A[A
-
-Preloading image /usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr/1955_L:   0%|          | 0/1 [00:00<?, ?it/s][A[A
-
-
-
-
-Preloading zarr files:   0%|          | 0/1 [00:00<?, ?it/s][A[A[A[A[A
-
-
-
-
-Preloading image /usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr/1955_L:   0%|          | 0/1 [00:00<?, ?it/s][A[A[A[A[ACollecting samples for plot: 0it [02:09, ?it/s]
-Traceback (most recent call last):
-  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1243, in _try_get_data
-    data = self._data_queue.get(timeout=timeout)
-  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/queues.py", line 113, in get
-    if not self._poll(timeout):
-  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/connection.py", line 257, in poll
-    return self._poll(timeout)
-  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/connection.py", line 424, in _poll
-    r = wait([self], timeout)
-  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/multiprocessing/connection.py", line 931, in wait
-    ready = selector.select(timeout)
-  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/selectors.py", line 416, in select
-    fd_event_list = self._selector.poll(timeout)
-  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/torch/utils/data/_utils/signal_handling.py", line 73, in handler
-    _error_if_any_worker_fails()
-RuntimeError: DataLoader worker (pid 171656) is killed by signal: Killed. 
-
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/prepare_dataset/create_dataloader.py", line 407, in <module>
-    main()
-  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/prepare_dataset/create_dataloader.py", line 400, in main
-    plot_random_samples_from_dataloader(dataloader, output_path)
-  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/prepare_dataset/create_dataloader.py", line 353, in plot_random_samples_from_dataloader
-    for batch in tqdm(dataloader, desc="Collecting samples for plot"):
-  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/tqdm/std.py", line 1181, in __iter__
-    for obj in iterable:
-  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 701, in __next__
-    data = self._next_data()
-  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1448, in _next_data
-    idx, data = self._get_data()
-  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1412, in _get_data
-    success, data = self._try_get_data()
-  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1256, in _try_get_data
-    raise RuntimeError(
-RuntimeError: DataLoader worker (pid(s) 171656) exited unexpectedly
-slurmstepd: error: Detected 1 oom_kill event in StepId=1167355.batch. Some of the step tasks have been OOM Killed.

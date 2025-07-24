@@ -1,0 +1,51 @@
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/scripts/upscale_image.py", line 56, in <module>
+    image_upscaled.to_zarr(f"{zarr_path}/{group_name}/{new_dataset}")
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/dask/array/core.py", line 3041, in to_zarr
+    return to_zarr(self, *args, **kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/dask/array/core.py", line 3962, in to_zarr
+    return arr.store(z, lock=False, compute=compute, return_stored=return_stored)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/dask/array/core.py", line 1819, in store
+    r = store([self], [target], **kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/dask/array/core.py", line 1262, in store
+    compute_as_if_collection(Array, store_dsk, map_keys, **kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/dask/base.py", line 395, in compute_as_if_collection
+    return schedule(dsk2, keys, **kwargs)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/dask/threaded.py", line 91, in get
+    results = get_async(
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/dask/local.py", line 516, in get_async
+    raise_exception(exc, tb)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/dask/local.py", line 324, in reraise
+    raise exc
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/dask/local.py", line 229, in execute_task
+    result = task(data)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/dask/_task_spec.py", line 755, in __call__
+    return self.func(*new_argspec)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/dask/_task_spec.py", line 203, in _execute_subgraph
+    res = execute_graph(final, keys=[outkey])
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/dask/_task_spec.py", line 1027, in execute_graph
+    cache[key] = node(cache)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/dask/_task_spec.py", line 755, in __call__
+    return self.func(*new_argspec)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/dask/array/core.py", line 4634, in store_chunk
+    return load_store_chunk(x, out, index, lock, return_stored, False)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/dask/array/core.py", line 4616, in load_store_chunk
+    out[index] = x
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/zarr/core.py", line 1447, in __setitem__
+    self.set_orthogonal_selection(pure_selection, value, fields=fields)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/zarr/core.py", line 1636, in set_orthogonal_selection
+    self._set_selection(indexer, value, fields=fields)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/zarr/core.py", line 1988, in _set_selection
+    self._chunk_setitem(chunk_coords, chunk_selection, chunk_value, fields=fields)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/zarr/core.py", line 2261, in _chunk_setitem
+    self._chunk_setitem_nosync(chunk_coords, chunk_selection, value, fields=fields)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/zarr/core.py", line 2271, in _chunk_setitem_nosync
+    self.chunk_store[ckey] = self._encode_chunk(cdata)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/zarr/core.py", line 2395, in _encode_chunk
+    cdata = self._compressor.encode(chunk)
+  File "numcodecs/blosc.pyx", line 559, in numcodecs.blosc.Blosc.encode
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/numcodecs/compat.py", line 151, in ensure_contiguous_ndarray
+    ensure_contiguous_ndarray_like(buf, max_buffer_size=max_buffer_size, flatten=flatten)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/numcodecs/compat.py", line 117, in ensure_contiguous_ndarray_like
+    raise ValueError(msg)
+ValueError: Codec does not support buffers of > 2147483647 bytes

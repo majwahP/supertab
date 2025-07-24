@@ -1,8 +1,0 @@
-ds factor = 8, patch sixe = 128
-Found 1 groups:
-  - 2019_L
-Total patches included: 101
-[bone_volume_fraction]
-  LR vs HR: t=2.9172, p=4.3613e-03, mean_diff=-0.0023, std_diff=0.0079
-  SR vs HR: t=-16.2519, p=8.0622e-30, mean_diff=0.0618, std_diff=0.0382
-MAE - LR: 0.0062, SR: 0.0618

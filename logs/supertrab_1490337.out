@@ -1,0 +1,3 @@
+Original shape: (5112, 4608, 4608)
+Padded shape: (5113, 4608, 4608)
+Trimmed data saved to: /usr/terminus/data-xrm-01/stamplab/RESTORE/supertrab.zarr/2005_L/registered_LR_upscaled_trimmed

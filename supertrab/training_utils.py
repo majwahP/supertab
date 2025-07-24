@@ -33,7 +33,11 @@ import gc
 import os
 import psutil
 
+def scale(image):
 
+    scaled_image = (2.5902297 * image) + 1983.3156
+    
+    return scaled_image
 
 def normalize_tensor(tensor):
     """
@@ -352,7 +356,7 @@ def evaluate_3D(config, epoch, model, noise_scheduler, dataloader, device="cuda"
     torch.cuda.empty_cache()
 
 @torch.no_grad()
-def evaluate_QCT(config, epoch, model, noise_scheduler, dataloader, gt_dataloader, device="cuda", global_step=None):
+def evaluate_QCT(config, epoch, model, noise_scheduler, dataloader, device="cuda", global_step=None, conditioning_mode="qct"):
     """
     Generates super-resolved images from the model and saves a grid comparing LR, SR, and HR images.
 
@@ -368,10 +372,19 @@ def evaluate_QCT(config, epoch, model, noise_scheduler, dataloader, gt_dataloade
     model.eval()
     model.to(device)
 
-    lr_batch = next(iter(dataloader))
-    hr_batch = next(iter(gt_dataloader))
-    lr_images = lr_batch["hr_image"].to(device)
-    hr_images = hr_batch["hr_image"].to(device)
+    batch = next(iter(dataloader))
+    
+    if conditioning_mode == "qct":
+        lr_images = batch["qct"].to(device)
+    elif conditioning_mode == "mix":
+        qct = batch["qct"].to(device)
+        lr  = batch["lr"].to(device)
+        rand_mask = torch.rand(qct.shape[0], device=qct.device) < 0.5
+        lr_images = torch.where(rand_mask[:, None, None, None], qct, lr)
+    else:
+        raise ValueError(f"Unknown conditioning_mode: {conditioning_mode}")
+
+    hr_images = batch["hrpqct"].to(device)
 
     sr_images = generate_sr_images(model, noise_scheduler, lr_images, config.image_size, device)
 
@@ -436,7 +449,7 @@ def train_loop_2D_diffusion(config, model, noise_scheduler, optimizer, train_dat
     if accelerator.is_main_process:
         if config.output_dir is not None:
             os.makedirs(config.output_dir, exist_ok=True)
-        run_name = f"supertrab_ddpm_{config.image_size}px_ds{config.ds_factor}_{config.num_epochs}ep_blur" # Name change
+        run_name = f"supertrab_ddpm_{config.image_size}px_ds{config.ds_factor}_{config.num_epochs}ep" # Name change
         accelerator.init_trackers(
             project_name="supertrab", 
             config=vars(config),
@@ -695,7 +708,7 @@ def load_model_and_optimizer(config, checkpoint_path):
     return model, optimizer, start_epoch
 
 
-def train_loop_2D_QCT_diffusion(config, model, noise_scheduler, optimizer, train_dataloader, val_dataloader, gt_dataloader, lr_scheduler, steps_per_epoch, starting_epoch = 0):
+def train_loop_2D_QCT_diffusion(config, model, noise_scheduler, optimizer, train_dataloader, val_dataloader, lr_scheduler, steps_per_epoch, starting_epoch = 0, conditioning_mode = "qct"):
     """
     Trains a UNet-based 2D DDPM model for super-resolution with classifier-free guidance.
 
@@ -722,7 +735,7 @@ def train_loop_2D_QCT_diffusion(config, model, noise_scheduler, optimizer, train
     if accelerator.is_main_process:
         if config.output_dir is not None:
             os.makedirs(config.output_dir, exist_ok=True)
-        run_name = f"supertrab_ddpm_{config.image_size}px_ds{config.ds_factor}_{config.num_epochs}ep_pure_QCT" # Name change
+        run_name = f"supertrab_ddpm_{config.image_size}px_ds{config.ds_factor}_{config.num_epochs}ep__conditioning_{conditioning_mode}" # Name change
         accelerator.init_trackers(
             project_name="supertrab", 
             config=vars(config),
@@ -733,12 +746,14 @@ def train_loop_2D_QCT_diffusion(config, model, noise_scheduler, optimizer, train
     # Prepare everything
     # There is no specific order to remember, you just need to unpack the
     # objects in the same order you gave them to the prepare method.
-    model, optimizer, train_dataloader, gt_dataloader, lr_scheduler = accelerator.prepare(
-    model, optimizer, train_dataloader, gt_dataloader, lr_scheduler
+    model, optimizer, train_dataloader, lr_scheduler = accelerator.prepare(
+    model, optimizer, train_dataloader, lr_scheduler
 )
 
 
     global_step = 0
+    threshold = 1000  
+    air_fraction_limit = 0.05 
 
     # Now you train the model
     for epoch in range(starting_epoch, config.num_epochs):
@@ -746,11 +761,45 @@ def train_loop_2D_QCT_diffusion(config, model, noise_scheduler, optimizer, train
             print(f"Starting Epoch {epoch}...")
 
 
-        for step, (batch_lr, batch_gt) in enumerate(zip(train_dataloader, gt_dataloader)):
+        for step, (batch) in enumerate(train_dataloader):
             if step >= steps_per_epoch:
                 break
-            clean_images = batch_gt["hr_image"]          
-            conditioning = batch_lr["hr_image"]  
+            clean_images = batch["hrpqct"]         
+            if conditioning_mode == "qct":
+                conditioning = batch["qct"]
+            elif conditioning_mode == "mix":
+                # Randomly pick either QCT or LR for each sample
+                rand_mask = torch.rand(clean_images.size(0), device=clean_images.device) < 0.5
+                conditioning = torch.where(
+                    rand_mask[:, None, None, None],  # match shape
+                    batch["qct"],
+                    batch["lr"]
+                )
+            else:
+                raise ValueError(f"Unsupported conditioning_mode: {conditioning_mode}")  
+
+
+            #filter out patches with more than 5% air
+            conditioning_scaled = scale(conditioning * 32768.0)
+            air_mask = conditioning_scaled < threshold
+            air_fraction = air_mask.view(air_mask.size(0), -1).float().mean(dim=1)
+
+            keep_mask = air_fraction < air_fraction_limit
+            if keep_mask.sum() == 0:
+                continue  # Skip batch if no valid patches
+
+            # Filter all relevant tensors
+            clean_images = clean_images[keep_mask]
+            conditioning = (conditioning_scaled[keep_mask])/32768.0
+            noise = torch.randn_like(clean_images)
+            timesteps = torch.randint(
+                0,
+                noise_scheduler.config.num_train_timesteps,
+                (clean_images.size(0),),
+                device=clean_images.device
+            )
+
+
             # Sample noise to add to the images
             noise = torch.randn_like(clean_images)
             
@@ -795,7 +844,7 @@ def train_loop_2D_QCT_diffusion(config, model, noise_scheduler, optimizer, train
         # After each epoch you optionally sample some demo images with evaluate() and save the model
         if accelerator.is_main_process:
             #evaluate after every epoch
-            evaluate_QCT(config, epoch, model, noise_scheduler, val_dataloader, gt_dataloader, device=accelerator.device, global_step=global_step)
+            evaluate_QCT(config, epoch, model, noise_scheduler, val_dataloader, device=accelerator.device, global_step=global_step)
 
             # Save final model and inference weights at last epoch
             if epoch == config.num_epochs - 1:

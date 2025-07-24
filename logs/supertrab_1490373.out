@@ -1,0 +1,40 @@
+Training Configuration:
+{'cfg_dropout_prob': 0.1,
+ 'ds_factor': 10,
+ 'eval_batch_size': 8,
+ 'gradient_accumulation_steps': 1,
+ 'image_size': 256,
+ 'learning_rate': 0.0001,
+ 'lr_warmup_steps': 500,
+ 'mixed_precision': 'fp16',
+ 'num_epochs': 100,
+ 'output_dir': 'samples/supertrab-diffusion-sr-2d-pure_qct',
+ 'save_image_epochs': 10,
+ 'seed': 0,
+ 'train_batch_size': 8}
+Found 4 groups:
+  - 1955_L
+  - 1956_L
+  - 1996_R
+  - 2005_L
+Found 4 groups:
+  - 1955_L
+  - 1956_L
+  - 1996_R
+  - 2005_L
+Found 1 groups:
+  - 2007_L
+Found 1 groups:
+  - 2007_L
+Found 1 groups:
+  - 2019_L
+Found 1 groups:
+  - 2019_L
+Has one batch
+Input shape: torch.Size([1, 1, 256, 256])
+Output shape: torch.Size([1, 1, 256, 256])
+Starting training loop
+Starting Epoch 0...
+Setting up [LPIPS] perceptual loss: trunk [vgg], v[0.1], spatial [off]
+Loading model from: /usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/lpips/weights/v0.1/vgg.pth
+Starting Epoch 1...

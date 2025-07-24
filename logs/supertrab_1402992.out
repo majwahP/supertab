@@ -1,9 +1,0 @@
-Saving slices 0:708 to /usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr/2019_L/image_split/part_1
-Saving slices 708:1416 to /usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr/2019_L/image_split/part_2
-Saving slices 1416:2124 to /usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr/2019_L/image_split/part_3
-Saving slices 2124:2832 to /usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr/2019_L/image_split/part_4
-Saving slices 2832:3540 to /usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr/2019_L/image_split/part_5
-Saving slices 3540:4248 to /usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr/2019_L/image_split/part_6
-Saving slices 4248:4956 to /usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr/2019_L/image_split/part_7
-Saving slices 4956:5670 to /usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr/2019_L/image_split/part_8
-Done splitting and saving.
