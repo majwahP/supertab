@@ -14,7 +14,7 @@ from supertrab.metrics_utils import compute_trab_metrics, ensure_3d_volume
 from supertrab.analysis_utils import has_empty_slice
 
 PATCH_SIZE = 256
-DS_FACTOR = 4
+DS_FACTOR = 6
 
 
 def main(
@@ -61,8 +61,8 @@ def main(
         data_dim=dim, 
         num_workers=0, 
         prefetch=None,
-        # image_group=f"sr_volume_256_{DS_FACTOR}/reassembled", 
-        image_group="sr_volume_256_QCT_ds10_blur_model_with_scaling/reassembled",     
+        image_group=f"sr_volume_256_{DS_FACTOR}/reassembled", 
+        # image_group="sr_volume_256_QCT_ds10_blur_model_with_scaling/reassembled",     
         mask_base_path="image_trabecular_mask_split/reassembled",
         mask_group=""
     )
@@ -71,10 +71,13 @@ def main(
 
     hr_metrics_list, lr_metrics_list, sr_metrics_list = [], [], []
     total_patches = 0
-    stop_flag = False
+    total_attempted = 0
+    excluded_empty_or_zero = 0
+    excluded_metric_fail = 0
 
     # DBG - for batch_HR_LR, batch_SR in tqdm(zip([1], [2]), desc="Processing patches"):
     for batch_HR_LR, batch_SR in tqdm(zip(dataloader_HR_LR, dataloader_SR), desc="Processing patches"):
+        
         lr_images = batch_HR_LR["lr_image"].to(device)  
         # DBG - lr_images = hr_images = sr_images = torch.ones([1, 1, 256, 256, 256])
         hr_images = batch_HR_LR["hr_image"].to(device)
@@ -89,22 +92,29 @@ def main(
             print(f"SR positions: {pos_SR}")
 
         for hr_patch, lr_patch, sr_patch, pos in zip(hr_images, lr_images, sr_images, pos_HR_LR):
-            
+            total_attempted += 1
+
             sr = sr_patch[0].cpu()
             if sr.sum() == 0 or has_empty_slice(sr):
+                excluded_empty_or_zero += 1
                 continue
             
             hr_vol = ensure_3d_volume(hr_patch)
             lr_vol = ensure_3d_volume(lr_patch)
             sr_vol = ensure_3d_volume(sr_patch)
 
-            # print("get metrics")
-            # print("HR")
-            hr_metrics = compute_trab_metrics(hr_vol, voxel_size_mm, masktype="ormir")
-            # print("LR")
-            lr_metrics = compute_trab_metrics(lr_vol, voxel_size_mm, masktype="otsu")
-            # print("SR")
-            sr_metrics = compute_trab_metrics(sr_vol, voxel_size_mm, masktype="ormir")
+            try:
+                hr_vol = ensure_3d_volume(hr_patch)
+                lr_vol = ensure_3d_volume(lr_patch)
+                sr_vol = ensure_3d_volume(sr_patch)
+
+                hr_metrics = compute_trab_metrics(hr_vol, voxel_size_mm, masktype="ormir")
+                lr_metrics = compute_trab_metrics(lr_vol, voxel_size_mm, masktype="otsu")
+                sr_metrics = compute_trab_metrics(sr_vol, voxel_size_mm, masktype="ormir")
+            except Exception as e:
+                excluded_metric_fail += 1
+                print(f"Skipping patch at {tuple(pos.tolist())} due to metric error: {e}")
+                continue
 
             position = tuple(pos.tolist())
             hr_metrics["position"] = position
@@ -128,7 +138,10 @@ def main(
         # if stop_flag: 
         #     break
     
+    print(f"Total patches attempted: {total_attempted}")
     print(f"Total patches included: {total_patches}")
+    print(f"Excluded (empty or mostly air): {excluded_empty_or_zero}")
+    print(f"Excluded (metric computation failed): {excluded_metric_fail}")
 
     # Add source label to each metric set
     hr_df = pd.DataFrame(hr_metrics_list)
@@ -148,14 +161,14 @@ def main(
     all_metrics_df = pd.concat([hr_df, lr_df, sr_df], ignore_index=True)
 
     # Save to CSV
-    csv_path = os.path.join(output_dir, f"all_patch_metrics_ds{DS_FACTOR}_otsu.csv")
+    csv_path = os.path.join(output_dir, f"trabecular_metrics_ds{DS_FACTOR}.csv")
     all_metrics_df.to_csv(csv_path, index=False, na_rep="NaN")
     print(f"Saved per-patch metrics to: {csv_path}")
 
 
     
     keys = hr_metrics_list[0].keys()
-    with open(os.path.join(output_dir, f"metric_summary_ds{DS_FACTOR}_otsu.txt"), "w") as f:
+    with open(os.path.join(output_dir, f"trabecular_metrics_ds{DS_FACTOR}.txt"), "w") as f:
         f.write(f"Total patches processed: {total_patches}\n\n")
 
         for key in keys:
@@ -171,7 +184,7 @@ def main(
             
 if __name__ == "__main__":
     main(
-        zarr_path=Path("/usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr"),
+        zarr_path=Path("/usr/terminus/data-xrm-01/stamplab/RESTORE/supertrab.zarr"),
         patch_size=(PATCH_SIZE, PATCH_SIZE, PATCH_SIZE),
         batch_size=1,
         dim = "3d",

@@ -3,8 +3,7 @@
 #SBATCH --output=logs/supertrab_%j.out
 #SBATCH --error=logs/supertrab_%j.err
 #SBATCH --cpus-per-task=4
-#SBATCH --mem=16G
-#SBATCH --gres=gpu:1   
+#SBATCH --mem=16G 
 #SBATCH --time=24:00:00
 
 export PYTHONUNBUFFERED=1

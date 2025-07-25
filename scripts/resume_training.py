@@ -12,7 +12,7 @@ def main():
         train_batch_size=4,
         eval_batch_size=4,
         num_epochs=200,  
-        ds_factor=10,
+        ds_factor=8,
         output_dir="samples/supertrab-diffusion-sr-2d-v5"
     )
 

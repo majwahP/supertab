@@ -49,7 +49,7 @@ def main():
     zarr_path = Path("/usr/terminus/data-xrm-01/stamplab/RESTORE/supertrab.zarr")
 
 
-    train_groups = ["1955_L", "1956_L", "1996_R", "2005_L","1955_L_LR", "1956_L_LR", "1996_R_LR", "2005_L_LR"]
+    train_groups = ["1955_L", "1956_L", "1996_R", "2005_L"',"1955_L_LR", "1956_L_LR", "1996_R_LR", "2005_L_LR"']
     val_groups = ["2007_L"]
     test_groups = ["2019_L"]
 

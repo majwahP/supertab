@@ -172,7 +172,7 @@ if __name__ == "__main__":
     DS_FACTOR = ds_factor
 
     main(
-        zarr_path="/usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr",
+        zarr_path="/usr/terminus/data-xrm-01/stamplab/RESTORE/supertrab.zarr",
         weights_path=f"samples/supertrab-diffusion-sr-2d-ds10_blur/{PATCH_SIZE}_ds{DS_FACTOR}/models/final_model_weights_{PATCH_SIZE}_ds{DS_FACTOR}.pth",
         patch_size=(1, PATCH_SIZE, PATCH_SIZE),
         downsample_factor=DS_FACTOR,

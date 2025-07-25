@@ -4,7 +4,7 @@ from pathlib import Path
 sys.path.append(str(Path(__file__).resolve().parents[1]))
 
 PATCH_SIZE = 256
-DS_FACTOR = 10
+DS_FACTOR = 8
 
 run = wandb.init(project="supertrab", job_type="upload-model", name=f"upload_weights_{PATCH_SIZE}_{DS_FACTOR}_200_ep")
 

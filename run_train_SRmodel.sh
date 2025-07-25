@@ -6,6 +6,8 @@
 #SBATCH --mem=32G
 #SBATCH --gres=gpu:1   
 #SBATCH --time=48:00:00
+#SBATCH --nodelist=hardin01
+
 
 export PYTHONPATH=$(pwd):$PYTHONPATH
 export PYTHONUNBUFFERED=1

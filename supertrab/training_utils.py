@@ -384,7 +384,7 @@ def evaluate_QCT(config, epoch, model, noise_scheduler, dataloader, device="cuda
     else:
         raise ValueError(f"Unknown conditioning_mode: {conditioning_mode}")
 
-    hr_images = batch["hrpqct"].to(device)
+    hr_images = batch["hr_image"].to(device)
 
     sr_images = generate_sr_images(model, noise_scheduler, lr_images, config.image_size, device)
 
@@ -735,7 +735,7 @@ def train_loop_2D_QCT_diffusion(config, model, noise_scheduler, optimizer, train
     if accelerator.is_main_process:
         if config.output_dir is not None:
             os.makedirs(config.output_dir, exist_ok=True)
-        run_name = f"supertrab_ddpm_{config.image_size}px_ds{config.ds_factor}_{config.num_epochs}ep__conditioning_{conditioning_mode}" # Name change
+        run_name = f"supertrab_ddpm_{config.image_size}px_ds{config.ds_factor}_{config.num_epochs}ep_conditioning_{conditioning_mode}" # Name change
         accelerator.init_trackers(
             project_name="supertrab", 
             config=vars(config),
@@ -764,7 +764,7 @@ def train_loop_2D_QCT_diffusion(config, model, noise_scheduler, optimizer, train
         for step, (batch) in enumerate(train_dataloader):
             if step >= steps_per_epoch:
                 break
-            clean_images = batch["hrpqct"]         
+            clean_images = batch["hr_image"]         
             if conditioning_mode == "qct":
                 conditioning = batch["qct"]
             elif conditioning_mode == "mix":

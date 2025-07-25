@@ -1,0 +1,19 @@
+Training Configuration:
+{'cfg_dropout_prob': 0.1,
+ 'ds_factor': 10,
+ 'eval_batch_size': 8,
+ 'gradient_accumulation_steps': 1,
+ 'image_size': 256,
+ 'learning_rate': 0.0001,
+ 'lr_warmup_steps': 500,
+ 'mixed_precision': 'fp16',
+ 'num_epochs': 100,
+ 'output_dir': 'samples/supertrab-diffusion-sr-2d-pure_qct',
+ 'save_image_epochs': 10,
+ 'seed': 0,
+ 'train_batch_size': 8}
+Starting training loop
+Starting Epoch 0...
+[1;34mwandb[0m: 
+[1;34mwandb[0m: 🚀 View run [33msupertrab_ddpm_256px_ds10_100ep__conditioning_qct[0m at: [34mhttps://wandb.ai/mwahlin-eth-z-rich/supertrab/runs/l9wj0zn8[0m
+[1;34mwandb[0m: Find logs at: [1;35m../../../../../../tmp/wandb/run-20250724_202128-l9wj0zn8/logs[0m

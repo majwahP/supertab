@@ -537,7 +537,7 @@ class TripletZarrDataset(torch.utils.data.Dataset):
             conditioning = qct
         elif self.conditioning_mode == "lr":
             conditioning = lr
-        elif self.conditioning_mode == "mixed":
+        elif self.conditioning_mode == "mix":
             conditioning = qct if torch.rand(1).item() < 0.5 else lr
         else:
             raise ValueError(f"Invalid conditioning_mode: {self.conditioning_mode}")

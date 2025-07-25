@@ -1,0 +1,42 @@
+The following values were not passed to `accelerate launch` and had defaults used instead:
+	`--num_processes` was set to a value of `1`
+	`--num_machines` was set to a value of `1`
+	`--mixed_precision` was set to a value of `'no'`
+	`--dynamo_backend` was set to a value of `'no'`
+To avoid this warning pass in values for each of the problematic parameters or run `accelerate config`.
+wandb: Using wandb-core as the SDK backend.  Please refer to https://wandb.me/wandb-core for more information.
+wandb: WARNING Path /home/mwahlin/myterminus/2025/trab_master/supertrab/wandb_data/run_logs/wandb/ wasn't writable, using system temp directory
+wandb: Currently logged in as: mwahlin (mwahlin-eth-z-rich) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: WARNING Path /home/mwahlin/myterminus/2025/trab_master/supertrab/wandb_data/run_logs/wandb/ wasn't writable, using system temp directory.
+wandb: Tracking run with wandb version 0.19.7
+wandb: Run data is saved locally in /tmp/wandb/run-20250724_202128-l9wj0zn8
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run supertrab_ddpm_256px_ds10_100ep__conditioning_qct
+wandb: ⭐️ View project at https://wandb.ai/mwahlin-eth-z-rich/supertrab
+wandb: 🚀 View run at https://wandb.ai/mwahlin-eth-z-rich/supertrab/runs/l9wj0zn8
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/scripts/train_diffusion_model_2D_QCT.py", line 96, in <module>
+    main()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/scripts/train_diffusion_model_2D_QCT.py", line 89, in main
+    train_loop_2D_QCT_diffusion(config, model, noise_scheduler, optimizer, train_dataloader, val_dataloader, lr_scheduler,steps_per_epoch, conditioning_mode=conditioning_mode)
+  File "/home/mwahlin/myterminus/2025/trab_master/supertrab/supertrab/training_utils.py", line 767, in train_loop_2D_QCT_diffusion
+    clean_images = batch["hrpqct"]
+KeyError: 'hrpqct'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/scripts/train_diffusion_model_2D_QCT.py", line 96, in <module>
+    main()
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/scripts/train_diffusion_model_2D_QCT.py", line 89, in main
+    train_loop_2D_QCT_diffusion(config, model, noise_scheduler, optimizer, train_dataloader, val_dataloader, lr_scheduler,steps_per_epoch, conditioning_mode=conditioning_mode)
+  File "/home/mwahlin/myterminus/2025/trab_master/supertrab/supertrab/training_utils.py", line 767, in train_loop_2D_QCT_diffusion
+    clean_images = batch["hrpqct"]
+KeyError: 'hrpqct'
+Traceback (most recent call last):
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/bin/accelerate", line 8, in <module>
+    sys.exit(main())
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/accelerate/commands/accelerate_cli.py", line 48, in main
+    args.func(args)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/accelerate/commands/launch.py", line 1194, in launch_command
+    simple_launcher(args)
+  File "/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/lib/python3.10/site-packages/accelerate/commands/launch.py", line 780, in simple_launcher
+    raise subprocess.CalledProcessError(returncode=process.returncode, cmd=cmd)
+subprocess.CalledProcessError: Command '['/usr/terminus/data-xrm-01/stamplab/users/mwahlin/mamba/envs/ML_env/bin/python3.10', '/usr/terminus/data-xrm-01/stamplab/users/mwahlin/2025/trab_master/supertrab/scripts/train_diffusion_model_2D_QCT.py']' returned non-zero exit status 1.

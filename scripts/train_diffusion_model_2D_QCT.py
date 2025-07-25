@@ -41,7 +41,7 @@ def main():
     # zarr_path = Path("/usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr")
     zarr_path = Path("/usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/paired_patch_dataset.zarr")
 
-    conditioning_mode = "qct"  # or "mix"
+    conditioning_mode = "mix"  #"qct"  or "mix"
 
     train_groups = ["1955_L", "1956_L", "1996_R", "2005_L"]
     val_groups = ["2007_L"]
