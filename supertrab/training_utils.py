@@ -268,7 +268,7 @@ def evaluate(config, epoch, model, noise_scheduler, dataloader, device="cuda", g
 
     if save_images:
         base_name = f"{epoch:04d}_ds{config.ds_factor}_size{config.image_size}.png"
-        output_subdir = os.path.join(config.output_dir, f"{config.image_size}_ds{config.ds_factor}/images", base_name) # Name change
+        output_subdir = os.path.join(config.output_dir, f"{config.image_size}_ds{config.ds_factor}_blur/images", base_name) # Name change
         os.makedirs(output_subdir, exist_ok=True)
 
         image_to_save = create_sample_image(lr_images_up, sr_images, hr_images, metrics=batch_metrics)
@@ -374,16 +374,8 @@ def evaluate_QCT(config, epoch, model, noise_scheduler, dataloader, device="cuda
 
     batch = next(iter(dataloader))
     
-    if conditioning_mode == "qct":
-        lr_images = batch["qct"].to(device)
-    elif conditioning_mode == "mix":
-        qct = batch["qct"].to(device)
-        lr  = batch["lr"].to(device)
-        rand_mask = torch.rand(qct.shape[0], device=qct.device) < 0.5
-        lr_images = torch.where(rand_mask[:, None, None, None], qct, lr)
-    else:
-        raise ValueError(f"Unknown conditioning_mode: {conditioning_mode}")
 
+    lr_images = batch["conditioning"].to(device)
     hr_images = batch["hr_image"].to(device)
 
     sr_images = generate_sr_images(model, noise_scheduler, lr_images, config.image_size, device)
@@ -405,7 +397,7 @@ def evaluate_QCT(config, epoch, model, noise_scheduler, dataloader, device="cuda
 
     if save_images:
         base_name = f"{epoch:04d}_ds{config.ds_factor}_size{config.image_size}.png"
-        output_subdir = os.path.join(config.output_dir, f"{config.image_size}_ds{config.ds_factor}/images", base_name) # Name change
+        output_subdir = os.path.join(config.output_dir, f"{config.image_size}_ds{config.ds_factor}_blur/images", base_name) # Name change
         os.makedirs(output_subdir, exist_ok=True)
 
         image_to_save = create_sample_image(lr_images_up, sr_images, hr_images, metrics=batch_metrics)
@@ -449,7 +441,7 @@ def train_loop_2D_diffusion(config, model, noise_scheduler, optimizer, train_dat
     if accelerator.is_main_process:
         if config.output_dir is not None:
             os.makedirs(config.output_dir, exist_ok=True)
-        run_name = f"supertrab_ddpm_{config.image_size}px_ds{config.ds_factor}_{config.num_epochs}ep" # Name change
+        run_name = f"supertrab_ddpm_{config.image_size}px_ds{config.ds_factor}_{config.num_epochs}ep_with_blur" # Name change
         accelerator.init_trackers(
             project_name="supertrab", 
             config=vars(config),
@@ -525,11 +517,11 @@ def train_loop_2D_diffusion(config, model, noise_scheduler, optimizer, train_dat
 
             # Save final model and inference weights at last epoch
             if epoch == config.num_epochs - 1:
-                models_dir = os.path.join(config.output_dir, f"{config.image_size}_ds{config.ds_factor}/models") # Name change
+                models_dir = os.path.join(config.output_dir, f"{config.image_size}_ds{config.ds_factor}_blur/models") # Name change
                 os.makedirs(models_dir, exist_ok=True)
 
-                final_ckpt_path = os.path.join(models_dir, f"final_training_checkpoint_{config.image_size}_ds{config.ds_factor}.pth") # Name change
-                weights_path = os.path.join(models_dir, f"final_model_weights_{config.image_size}_ds{config.ds_factor}.pth") # Name change
+                final_ckpt_path = os.path.join(models_dir, f"final_training_checkpoint_{config.image_size}_ds{config.ds_factor}_blur.pth") # Name change
+                weights_path = os.path.join(models_dir, f"final_model_weights_{config.image_size}_ds{config.ds_factor}_blur.pth") # Name change
 
                 # Save full training checkpoint
                 save_checkpoint(accelerator.unwrap_model(model), optimizer, epoch+1, final_ckpt_path)
@@ -735,7 +727,7 @@ def train_loop_2D_QCT_diffusion(config, model, noise_scheduler, optimizer, train
     if accelerator.is_main_process:
         if config.output_dir is not None:
             os.makedirs(config.output_dir, exist_ok=True)
-        run_name = f"supertrab_ddpm_{config.image_size}px_ds{config.ds_factor}_{config.num_epochs}ep_conditioning_{conditioning_mode}" # Name change
+        run_name = f"supertrab_ddpm_{config.image_size}px_ds{config.ds_factor}_{config.num_epochs}ep_conditioning_{conditioning_mode}_v2" # Name change
         accelerator.init_trackers(
             project_name="supertrab", 
             config=vars(config),
@@ -752,8 +744,6 @@ def train_loop_2D_QCT_diffusion(config, model, noise_scheduler, optimizer, train
 
 
     global_step = 0
-    threshold = 1000  
-    air_fraction_limit = 0.05 
 
     # Now you train the model
     for epoch in range(starting_epoch, config.num_epochs):
@@ -765,32 +755,8 @@ def train_loop_2D_QCT_diffusion(config, model, noise_scheduler, optimizer, train
             if step >= steps_per_epoch:
                 break
             clean_images = batch["hr_image"]         
-            if conditioning_mode == "qct":
-                conditioning = batch["qct"]
-            elif conditioning_mode == "mix":
-                # Randomly pick either QCT or LR for each sample
-                rand_mask = torch.rand(clean_images.size(0), device=clean_images.device) < 0.5
-                conditioning = torch.where(
-                    rand_mask[:, None, None, None],  # match shape
-                    batch["qct"],
-                    batch["lr"]
-                )
-            else:
-                raise ValueError(f"Unsupported conditioning_mode: {conditioning_mode}")  
+            conditioning = batch["conditioning"]
 
-
-            #filter out patches with more than 5% air
-            conditioning_scaled = scale(conditioning * 32768.0)
-            air_mask = conditioning_scaled < threshold
-            air_fraction = air_mask.view(air_mask.size(0), -1).float().mean(dim=1)
-
-            keep_mask = air_fraction < air_fraction_limit
-            if keep_mask.sum() == 0:
-                continue  # Skip batch if no valid patches
-
-            # Filter all relevant tensors
-            clean_images = clean_images[keep_mask]
-            conditioning = (conditioning_scaled[keep_mask])/32768.0
             noise = torch.randn_like(clean_images)
             timesteps = torch.randint(
                 0,
@@ -848,7 +814,7 @@ def train_loop_2D_QCT_diffusion(config, model, noise_scheduler, optimizer, train
 
             # Save final model and inference weights at last epoch
             if epoch == config.num_epochs - 1:
-                models_dir = os.path.join(config.output_dir, f"{config.image_size}_ds{config.ds_factor}/models") # Name change
+                models_dir = os.path.join(config.output_dir, f"{config.image_size}_ds{config.ds_factor}_QCT_v2/models") # Name change
                 os.makedirs(models_dir, exist_ok=True)
 
                 final_ckpt_path = os.path.join(models_dir, f"final_training_checkpoint_{config.image_size}_ds{config.ds_factor}.pth") # Name change

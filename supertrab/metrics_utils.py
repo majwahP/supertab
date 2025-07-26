@@ -125,6 +125,7 @@ def compute_trab_metrics(volume: torch.Tensor, voxel_size_mm: float = 0.0303, ma
         th_mean, th_std, _, _, _ = calc_structure_thickness_statistics(mask_np, spacing_mm, 0, skeletonize=False)
     else:
         th_mean, th_std = np.nan, np.nan
+        print("Patch discarded for thickness: BV/TV too high (> 0.96)")
     # print(f"TH_mean: {th_mean}")
  
     #trabecular spacing
@@ -133,6 +134,7 @@ def compute_trab_metrics(volume: torch.Tensor, voxel_size_mm: float = 0.0303, ma
         sp_mean, sp_std, _, _, _ = calc_structure_thickness_statistics(marrow_mask_np, spacing_mm, 0)
     else:
         sp_mean, sp_std = np.nan, np.nan
+        print("Patch discarded for spacing: BV/TV too low (< 0.04)")
     # print(f"SP_mean: {sp_mean}")
 
     # #trabecular number

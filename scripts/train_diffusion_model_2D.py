@@ -40,15 +40,15 @@ def main():
     pprint(asdict(config))
 
     # Create dataloaders ------------------------------------------------------------
-    zarr_path = Path("/usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr")
+    zarr_path = Path("/usr/terminus/data-xrm-01/stamplab/RESTORE/supertrab.zarr")
 
     train_groups = ["1955_L", "1956_L", "1996_R", "2005_L"]
     val_groups = ["2007_L"]
     test_groups = ["2019_L"]
 
-    train_dataloader = create_dataloader(zarr_path, downsample_factor=config.ds_factor, patch_size=(1,config.image_size,config.image_size), groups_to_use=train_groups, data_dim="2d")
-    val_dataloader = create_dataloader(zarr_path, downsample_factor=config.ds_factor, patch_size=(1,config.image_size,config.image_size), groups_to_use=val_groups,data_dim="2d")
-    test_dataloader = create_dataloader(zarr_path, downsample_factor=config.ds_factor, patch_size=(1,config.image_size,config.image_size), groups_to_use=test_groups, data_dim="2d")
+    train_dataloader = create_dataloader(zarr_path, downsample_factor=config.ds_factor, patch_size=(1,config.image_size,config.image_size), groups_to_use=train_groups, data_dim="2d", with_blur=True)
+    val_dataloader = create_dataloader(zarr_path, downsample_factor=config.ds_factor, patch_size=(1,config.image_size,config.image_size), groups_to_use=val_groups,data_dim="2d", with_blur=True)
+    test_dataloader = create_dataloader(zarr_path, downsample_factor=config.ds_factor, patch_size=(1,config.image_size,config.image_size), groups_to_use=test_groups, data_dim="2d", with_blur=True)
 
     #Define the model --------------------------------------------------------------------
     model = UNet2DModel(
@@ -70,14 +70,14 @@ def main():
     # print("Get one batch")
     # print(f"Dataset class: {type(train_dataloader.dataset)}")
 
-    batch = next(iter(train_dataloader))
-    print("Has one batch")
-    sample_image = batch["hr_image"][0].unsqueeze(0)
-    print("Input shape:", sample_image.shape)
-    sample_lr = batch["lr_image"][0].unsqueeze(0)
-    sample_lr_resized = F.interpolate(sample_lr, size=sample_image.shape[-2:], mode='bilinear', align_corners=False)
-    model_input = torch.cat([sample_image, sample_lr_resized], dim=1)
-    print("Output shape:", model(model_input, timestep=0).sample.shape)
+    # batch = next(iter(train_dataloader))
+    # print("Has one batch")
+    # sample_image = batch["hr_image"][0].unsqueeze(0)
+    # print("Input shape:", sample_image.shape)
+    # sample_lr = batch["lr_image"][0].unsqueeze(0)
+    # sample_lr_resized = F.interpolate(sample_lr, size=sample_image.shape[-2:], mode='bilinear', align_corners=False)
+    # model_input = torch.cat([sample_image, sample_lr_resized], dim=1)
+    # print("Output shape:", model(model_input, timestep=0).sample.shape)
 
     # Define noise scheduler ----------------------------------------------------------
 

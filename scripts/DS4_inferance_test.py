@@ -17,7 +17,7 @@ from diffusers import DDPMScheduler
 PATCH_SIZE = 256
 DS_FACTOR = 4
 NUM_SAMPLES_TO_KEEP = 5
-AREA_DIFF_THRESHOLD = 2500
+AREA_DIFF_THRESHOLD = 1000
 NUM_SR_REPEATS = 10
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
@@ -90,36 +90,37 @@ def main():
     os.makedirs(output_dir, exist_ok=True)
 
     dataloader_hr = create_dataloader(
-        zarr_path=Path("/usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr"),
+        zarr_path = Path("/usr/terminus/data-xrm-01/stamplab/RESTORE/supertrab.zarr"),
         patch_size=(1, PATCH_SIZE, PATCH_SIZE),
         downsample_factor=DS_FACTOR,
         groups_to_use=["2019_L"],
-        batch_size=4,
+        batch_size=16,
         draw_same_chunk=True,
         shuffle=False,
         enable_sr_dataset=True,
         data_dim="2d",
         num_workers=0,
         prefetch=None,
-        image_group="image_split/reassembled_HR",
-        mask_base_path="image_trabecular_mask_split/reassembled",
+        image_group="image_split/part_2_split/part_3",
+        mask_base_path="image_trabecular_mask_split/part_2_split/part_3",
         mask_group=""
     )
 
     dataloader_sr = create_dataloader(
-        zarr_path=Path("/usr/terminus/data-xrm-01/stamplab/external/tacosound/HR-pQCT_II/zarr_data/supertrab.zarr"),
+        zarr_path = Path("/usr/terminus/data-xrm-01/stamplab/RESTORE/supertrab.zarr"),
         patch_size=(1, PATCH_SIZE, PATCH_SIZE),
         downsample_factor=DS_FACTOR,
         groups_to_use=["2019_L"],
-        batch_size=4,
+        batch_size=16,
         draw_same_chunk=True,
         shuffle=False,
         enable_sr_dataset=True,
         data_dim="2d",
         num_workers=0,
         prefetch=None,
-        image_group=f"sr_volume_{PATCH_SIZE}_{DS_FACTOR}/reassembled",
-        mask_base_path="image_trabecular_mask_split/reassembled",
+        image_group=f"sr_volume_{PATCH_SIZE}_{DS_FACTOR}_200ep/part_2_split/part_3",
+        # image_group=f"sr_volume_{PATCH_SIZE}_{DS_FACTOR}/part_2_split/part_7",
+        mask_base_path="image_trabecular_mask_split/part_2_split/part_3",
         mask_group=""
     )
 
@@ -175,7 +176,7 @@ def main():
     #         all_sr_repeats.append(repeats)
 
     # Plot and save
-    save_path = os.path.join(output_dir, f"hr_lr_sr_repeats_ds{DS_FACTOR}.png")
+    save_path = os.path.join(output_dir, f"hr_lr_sr__ds{DS_FACTOR}_200ep.png")
     # visualize_hr_lr_srs(hr_images, lr_images, all_sr_repeats, save_path)
     visualize_hr_lr_sr_rows(hr_images, lr_images, sr_images, save_path)
 

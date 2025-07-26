@@ -104,10 +104,7 @@ def main(
             sr_vol = ensure_3d_volume(sr_patch)
 
             try:
-                hr_vol = ensure_3d_volume(hr_patch)
-                lr_vol = ensure_3d_volume(lr_patch)
-                sr_vol = ensure_3d_volume(sr_patch)
-
+        
                 hr_metrics = compute_trab_metrics(hr_vol, voxel_size_mm, masktype="ormir")
                 lr_metrics = compute_trab_metrics(lr_vol, voxel_size_mm, masktype="otsu")
                 sr_metrics = compute_trab_metrics(sr_vol, voxel_size_mm, masktype="ormir")

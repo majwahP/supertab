@@ -12,8 +12,8 @@ def main():
         train_batch_size=4,
         eval_batch_size=4,
         num_epochs=200,  
-        ds_factor=8,
-        output_dir="samples/supertrab-diffusion-sr-2d-v5"
+        ds_factor=10,
+        output_dir="samples/supertrab-diffusion-sr-2d-ds10_blur"
     )
 
     print("Training Configuration:")
@@ -35,7 +35,8 @@ def main():
         batch_size=config.train_batch_size,
         downsample_factor=config.ds_factor,
         groups_to_use=train_groups,
-        num_workers=4
+        num_workers=4, 
+        with_blur=True
     )   
     val_dataloader = create_dataloader(
         zarr_path=zarr_path,
@@ -43,7 +44,8 @@ def main():
         batch_size=config.train_batch_size,
         downsample_factor=config.ds_factor,
         groups_to_use=val_groups,
-        num_workers=4
+        num_workers=4,
+        with_blur=True
     )   
     test_dataloader = create_dataloader(
         zarr_path=zarr_path,
@@ -51,7 +53,8 @@ def main():
         batch_size=config.train_batch_size,
         downsample_factor=config.ds_factor,
         groups_to_use=test_groups,
-        num_workers=4
+        num_workers=4,
+        with_blur=True
     )   
 
     steps_per_epoch = 1000

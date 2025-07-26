@@ -67,7 +67,7 @@ def main(
         shape=volume_shape,
         chunks=chunk_shape,
         dtype="f4",
-        overwrite=True
+        overwrite=False
     )
 
     # Load model and scheduler
@@ -97,11 +97,7 @@ def main(
     )
 
     print("Starting inference over full volume...")
-    threshold = 1000  
-    air_fraction_limit = 0.05 
     patch_counter = 0
-    positions_to_exclude = []
-
 
     for batch in tqdm(dataloader, desc="Patches"):
 
@@ -110,16 +106,6 @@ def main(
         for i in range(hr_images.shape[0]):
             patch = hr_images[i]                    
             patch_scaled = scale(patch * 32768.0)     
-
-            air_mask = patch_scaled < threshold
-
-            air_fraction = air_mask.float().mean().item()
-
-            if air_fraction > air_fraction_limit:
-                # Save position for exclusion later
-                z, y, x = positions[i][:, 0].tolist()
-                positions_to_exclude.append([z, y, x])
-
             patch_input = patch_scaled / 32768.0
             patch_input = patch_input.unsqueeze(0)  
             sr_patch = generate_sr_images(
@@ -153,15 +139,15 @@ def main(
         print(f"{patch_counter} patches processed", flush=True)
 
     # Save excluded positions to CSV
-    project_root = Path(__file__).resolve().parents[1]
-    csv_output_dir = project_root / "air_patches_positions"
-    csv_output_dir.mkdir(exist_ok=True)
+    # project_root = Path(__file__).resolve().parents[1]
+    # csv_output_dir = project_root / "air_patches_positions"
+    # csv_output_dir.mkdir(exist_ok=True)
 
-    exclude_csv_path = csv_output_dir / f"excluded_positions_part{PART}_ds{downsample_factor}.csv"
-    df_exclude = pd.DataFrame(positions_to_exclude, columns=["z", "y", "x"])
-    df_exclude.to_csv(exclude_csv_path, index=False)
+    # exclude_csv_path = csv_output_dir / f"excluded_positions_part{PART}_ds{downsample_factor}.csv"
+    # df_exclude = pd.DataFrame(positions_to_exclude, columns=["z", "y", "x"])
+    # df_exclude.to_csv(exclude_csv_path, index=False)
 
-    print(f"\nExcluded patch positions saved to: {exclude_csv_path}")
+    # print(f"\nExcluded patch positions saved to: {exclude_csv_path}")
 
     print(f"\nSuper-resolved volume saved at: {output_path}")
     print(f"\nTotal patches super-resolved and written: {patch_counter}")
@@ -173,9 +159,9 @@ if __name__ == "__main__":
 
     main(
         zarr_path="/usr/terminus/data-xrm-01/stamplab/RESTORE/supertrab.zarr",
-        weights_path=f"samples/supertrab-diffusion-sr-2d-ds10_blur/{PATCH_SIZE}_ds{DS_FACTOR}/models/final_model_weights_{PATCH_SIZE}_ds{DS_FACTOR}.pth",
+        weights_path=f"samples/supertrab-diffusion-sr-2d-v5/{PATCH_SIZE}_ds{DS_FACTOR}/models/final_model_weights_{PATCH_SIZE}_ds{DS_FACTOR}.pth",
         patch_size=(1, PATCH_SIZE, PATCH_SIZE),
         downsample_factor=DS_FACTOR,
         batch_size=16, 
-        sr_dataset_name=f"sr_volume_{PATCH_SIZE}_QCT_ds10_blur_model_scaled_QCT"
+        sr_dataset_name=f"sr_volume_{PATCH_SIZE}_{ds_factor}_200ep_given_QCT"
     )
