@@ -125,14 +125,14 @@ for batch_HR_LR, batch_SR in tqdm(zip(dataloader_HR_LR, dataloader_SR), desc="Sc
         if sr.sum() == 0 or has_empty_slice(sr):
             no_slice_counter  += 1
             print("pos: ",pos)
-            visualize_patch_and_mask(hr, mask_hr, "HR", pos, SAVE_DIR)
-            visualize_patch_and_mask(lr, mask_lr, "LR", pos, SAVE_DIR)
-            visualize_patch_and_mask(sr, mask_sr, "SR", pos, SAVE_DIR)
+            # visualize_patch_and_mask(hr, mask_hr, "HR", pos, SAVE_DIR)
+            # visualize_patch_and_mask(lr, mask_lr, "LR", pos, SAVE_DIR)
+            # visualize_patch_and_mask(sr, mask_sr, "SR", pos, SAVE_DIR)
 
         if min(bvf_hr, bvf_lr, bvf_sr) <= BVF_THRESHOLD or max(bvf_hr, bvf_lr, bvf_sr) >= BVF_THRESHOLD_HIGH:
-            visualize_patch_and_mask(hr, mask_hr, "HR", pos, SAVE_DIR)
-            visualize_patch_and_mask(lr, mask_lr, "LR", pos, SAVE_DIR)
-            visualize_patch_and_mask(sr, mask_sr, "SR", pos, SAVE_DIR)
+            # visualize_patch_and_mask(hr, mask_hr, "HR", pos, SAVE_DIR)
+            # visualize_patch_and_mask(lr, mask_lr, "LR", pos, SAVE_DIR)
+            # visualize_patch_and_mask(sr, mask_sr, "SR", pos, SAVE_DIR)
             bvf_counter += 1
         
 
