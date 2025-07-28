@@ -19,7 +19,10 @@ stat_dir = project_root / "stat_outputs"
 # Load and combine all datasets
 df_all = []
 for ds in DS_FACTORS:
-    csv_path = stat_dir / f"all_patch_metrics_ds{ds}_otsu.csv"
+    if ds == 4:
+        csv_path = stat_dir / f"trabecular_metrics_ds{4}_200ep.csv"
+    else: 
+        csv_path = stat_dir / f"all_patch_metrics_ds{ds}_otsu.csv"
     df_tmp = pd.read_csv(csv_path)
     df_tmp["ds_factor"] = ds
     df_all.append(df_tmp)
@@ -47,12 +50,12 @@ violin_dir = os.path.join(output_dir, "violinplots_all_sources")
 violin_hrsr_dir = os.path.join(output_dir, "violinplots_hr_sr_only")
 
 plt.rcParams.update({
-    'axes.titlesize': 18,
-    'axes.labelsize': 16,
-    'xtick.labelsize': 14,
-    'ytick.labelsize': 14,
-    'legend.fontsize': 14,
-    'legend.title_fontsize': 15
+    'axes.titlesize': 26,
+    'axes.labelsize': 20,
+    'xtick.labelsize': 18,
+    'ytick.labelsize': 18,
+    'legend.fontsize': 18,
+    'legend.title_fontsize': 16
 })
 
 for d in [box_dir, box_hrsr_dir, violin_dir, violin_hrsr_dir]:

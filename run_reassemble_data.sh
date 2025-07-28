@@ -2,7 +2,7 @@
 #SBATCH --job-name=supertrab_%j
 #SBATCH --output=logs/supertrab_%j.out
 #SBATCH --error=logs/supertrab_%j.err
-#SBATCH --cpus-per-task=32
+#SBATCH --cpus-per-task=6
 #SBATCH --mem=32G
 #SBATCH --time=5:00:00
 

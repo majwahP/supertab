@@ -14,7 +14,7 @@ from supertrab.metrics_utils import compute_trab_metrics, ensure_3d_volume
 from supertrab.analysis_utils import has_empty_slice
 
 PATCH_SIZE = 256
-DS_FACTOR = 6
+DS_FACTOR = 10
 
 
 def main(
@@ -61,7 +61,7 @@ def main(
         data_dim=dim, 
         num_workers=0, 
         prefetch=None,
-        image_group=f"sr_volume_256_{DS_FACTOR}/reassembled", 
+        image_group=f"sr_volume_256_{DS_FACTOR}_200ep_given_QCT/reassembled", 
         # image_group="sr_volume_256_QCT_ds10_blur_model_with_scaling/reassembled",     
         mask_base_path="image_trabecular_mask_split/reassembled",
         mask_group=""
@@ -137,7 +137,7 @@ def main(
     
     print(f"Total patches attempted: {total_attempted}")
     print(f"Total patches included: {total_patches}")
-    print(f"Excluded (empty or mostly air): {excluded_empty_or_zero}")
+    print(f"Excluded (empty or mostly air, empty slices): {excluded_empty_or_zero}")
     print(f"Excluded (metric computation failed): {excluded_metric_fail}")
 
     # Add source label to each metric set
@@ -158,14 +158,14 @@ def main(
     all_metrics_df = pd.concat([hr_df, lr_df, sr_df], ignore_index=True)
 
     # Save to CSV
-    csv_path = os.path.join(output_dir, f"trabecular_metrics_ds{DS_FACTOR}.csv")
+    csv_path = os.path.join(output_dir, f"trabecular_metrics_ds{DS_FACTOR}_200ep.csv")
     all_metrics_df.to_csv(csv_path, index=False, na_rep="NaN")
     print(f"Saved per-patch metrics to: {csv_path}")
 
 
     
     keys = hr_metrics_list[0].keys()
-    with open(os.path.join(output_dir, f"trabecular_metrics_ds{DS_FACTOR}.txt"), "w") as f:
+    with open(os.path.join(output_dir, f"trabecular_metrics_ds{DS_FACTOR}_200ep.txt"), "w") as f:
         f.write(f"Total patches processed: {total_patches}\n\n")
 
         for key in keys:

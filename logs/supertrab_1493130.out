@@ -1,0 +1,22 @@
+Running PART=15 with ds_factor=10
+Original volume shape: (177, 4608, 4608), chunks: (95, 512, 512)
+Part_15
+cuda
+Found 1 groups:
+  - 2019_L
+Starting inference over full volume...
+16 patches processed
+32 patches processed
+48 patches processed
+64 patches processed
+80 patches processed
+96 patches processed
+112 patches processed
+128 patches processed
+144 patches processed
+160 patches processed
+176 patches processed
+192 patches processed
+208 patches processed
+224 patches processed
+240 patches processed

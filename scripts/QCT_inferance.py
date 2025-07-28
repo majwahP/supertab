@@ -101,10 +101,10 @@ def main(
 
     for batch in tqdm(dataloader, desc="Patches"):
 
-        hr_images = batch["hr_image"].to(device)      
+        QCT_images = batch["hr_image"].to(device)      
         positions = batch["position"]    
-        for i in range(hr_images.shape[0]):
-            patch = hr_images[i]                    
+        for i in range(QCT_images.shape[0]):
+            patch = QCT_images[i]                    
             patch_scaled = scale(patch * 32768.0)     
             patch_input = patch_scaled / 32768.0
             patch_input = patch_input.unsqueeze(0)  
@@ -159,9 +159,9 @@ if __name__ == "__main__":
 
     main(
         zarr_path="/usr/terminus/data-xrm-01/stamplab/RESTORE/supertrab.zarr",
-        weights_path=f"samples/supertrab-diffusion-sr-2d-v5/{PATCH_SIZE}_ds{DS_FACTOR}/models/final_model_weights_{PATCH_SIZE}_ds{DS_FACTOR}.pth",
+        weights_path=f"samples/supertrab-diffusion-sr-2d-QCT_v2/{PATCH_SIZE}_ds{DS_FACTOR}_QCT_v2/models/final_model_weights_{PATCH_SIZE}_ds{DS_FACTOR}.pth",
         patch_size=(1, PATCH_SIZE, PATCH_SIZE),
         downsample_factor=DS_FACTOR,
         batch_size=16, 
-        sr_dataset_name=f"sr_volume_{PATCH_SIZE}_{ds_factor}_200ep_given_QCT"
+        sr_dataset_name=f"sr_volume_trained_QCT_given_QCT"
     )

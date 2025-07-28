@@ -93,7 +93,7 @@ dataloader_SR = create_dataloader(
     shuffle=False,
     enable_sr_dataset=True,
     data_dim="3d",
-    image_group=f"sr_volume_256_{DS_FACTOR}/reassembled",
+    image_group=f"sr_volume_256_{DS_FACTOR}_200ep_given_QCT/reassembled",
     mask_base_path="image_trabecular_mask_split/reassembled",
     mask_group=""
 )
@@ -110,12 +110,8 @@ for batch_HR_LR, batch_SR in tqdm(zip(dataloader_HR_LR, dataloader_SR), desc="Sc
     lr = ensure_3d_volume(batch_HR_LR["lr_image"][0])
     sr = ensure_3d_volume(batch_SR["hr_image"][0]) * 32768.0 
 
-    pos = tuple(batch_HR_LR["position"][0].tolist())
-
+    pos = tuple(batch_SR["position"][0].tolist())
     sr = sr.cpu()
-    if sr.sum() == 0 or has_empty_slice(sr):
-        no_slice_counter  += 1
-        continue
 
     try:
         mask_hr = get_mask_ormir(hr)
@@ -126,10 +122,17 @@ for batch_HR_LR, batch_SR in tqdm(zip(dataloader_HR_LR, dataloader_SR), desc="Sc
         bvf_lr = compute_bvf(mask_lr)
         bvf_sr = compute_bvf(mask_sr)
 
+        if sr.sum() == 0 or has_empty_slice(sr):
+            no_slice_counter  += 1
+            print("pos: ",pos)
+            visualize_patch_and_mask(hr, mask_hr, "HR", pos, SAVE_DIR)
+            visualize_patch_and_mask(lr, mask_lr, "LR", pos, SAVE_DIR)
+            visualize_patch_and_mask(sr, mask_sr, "SR", pos, SAVE_DIR)
+
         if min(bvf_hr, bvf_lr, bvf_sr) <= BVF_THRESHOLD or max(bvf_hr, bvf_lr, bvf_sr) >= BVF_THRESHOLD_HIGH:
-            # visualize_patch_and_mask(hr, mask_hr, "HR", pos, SAVE_DIR)
-            # visualize_patch_and_mask(lr, mask_lr, "LR", pos, SAVE_DIR)
-            # visualize_patch_and_mask(sr, mask_sr, "SR", pos, SAVE_DIR)
+            visualize_patch_and_mask(hr, mask_hr, "HR", pos, SAVE_DIR)
+            visualize_patch_and_mask(lr, mask_lr, "LR", pos, SAVE_DIR)
+            visualize_patch_and_mask(sr, mask_sr, "SR", pos, SAVE_DIR)
             bvf_counter += 1
         
 

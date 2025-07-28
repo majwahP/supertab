@@ -1,0 +1,2 @@
+Pearson Correlation: mean = 0.7079, std = 0.1056
+Jaccard Index:       mean = 0.6168, std = 0.1155
