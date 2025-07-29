@@ -1,0 +1,47 @@
+Loading part_1...
+  - Shape: (2835, 4608, 4608)
+  - Dtype: float32
+  - Min: -0.1287817358970642, Max: 0.32586807012557983
+Loading part_2_split...
+  - /usr/terminus/data-xrm-01/stamplab/RESTORE/supertrab.zarr/2019_L/sr_volume_256_10_200ep_given_QCT/part_2_split/part_1
+    > Shape: (177, 4608, 4608), Min: -0.11227856576442719, Max: 0.3426054120063782
+  - /usr/terminus/data-xrm-01/stamplab/RESTORE/supertrab.zarr/2019_L/sr_volume_256_10_200ep_given_QCT/part_2_split/part_2
+    > Shape: (177, 4608, 4608), Min: -0.10740222036838531, Max: 0.3426649570465088
+  - /usr/terminus/data-xrm-01/stamplab/RESTORE/supertrab.zarr/2019_L/sr_volume_256_10_200ep_given_QCT/part_2_split/part_3
+    > Shape: (177, 4608, 4608), Min: -0.11121425777673721, Max: 0.3493584096431732
+  - /usr/terminus/data-xrm-01/stamplab/RESTORE/supertrab.zarr/2019_L/sr_volume_256_10_200ep_given_QCT/part_2_split/part_4
+    > Shape: (177, 4608, 4608), Min: -0.10835734754800797, Max: 0.346199095249176
+  - /usr/terminus/data-xrm-01/stamplab/RESTORE/supertrab.zarr/2019_L/sr_volume_256_10_200ep_given_QCT/part_2_split/part_5
+    > Shape: (177, 4608, 4608), Min: -0.11405085027217865, Max: 0.326043963432312
+  - /usr/terminus/data-xrm-01/stamplab/RESTORE/supertrab.zarr/2019_L/sr_volume_256_10_200ep_given_QCT/part_2_split/part_6
+    > Shape: (177, 4608, 4608), Min: -0.10482919216156006, Max: 0.331684410572052
+  - /usr/terminus/data-xrm-01/stamplab/RESTORE/supertrab.zarr/2019_L/sr_volume_256_10_200ep_given_QCT/part_2_split/part_7
+    > Shape: (177, 4608, 4608), Min: -0.1131594106554985, Max: 0.33849629759788513
+  - /usr/terminus/data-xrm-01/stamplab/RESTORE/supertrab.zarr/2019_L/sr_volume_256_10_200ep_given_QCT/part_2_split/part_8
+    > Shape: (177, 4608, 4608), Min: -0.11086081713438034, Max: 0.2985208034515381
+  - /usr/terminus/data-xrm-01/stamplab/RESTORE/supertrab.zarr/2019_L/sr_volume_256_10_200ep_given_QCT/part_2_split/part_9
+    > Shape: (177, 4608, 4608), Min: -0.10408149659633636, Max: 0.31344765424728394
+  - /usr/terminus/data-xrm-01/stamplab/RESTORE/supertrab.zarr/2019_L/sr_volume_256_10_200ep_given_QCT/part_2_split/part_10
+    > Shape: (177, 4608, 4608), Min: -0.1070573553442955, Max: 0.29967498779296875
+  - /usr/terminus/data-xrm-01/stamplab/RESTORE/supertrab.zarr/2019_L/sr_volume_256_10_200ep_given_QCT/part_2_split/part_11
+    > Shape: (177, 4608, 4608), Min: -0.10057087987661362, Max: 0.3171970248222351
+  - /usr/terminus/data-xrm-01/stamplab/RESTORE/supertrab.zarr/2019_L/sr_volume_256_10_200ep_given_QCT/part_2_split/part_12
+    > Shape: (177, 4608, 4608), Min: -0.10238511115312576, Max: 0.28200602531433105
+  - /usr/terminus/data-xrm-01/stamplab/RESTORE/supertrab.zarr/2019_L/sr_volume_256_10_200ep_given_QCT/part_2_split/part_13
+    > Shape: (177, 4608, 4608), Min: -0.13369810581207275, Max: 0.2822626829147339
+  - /usr/terminus/data-xrm-01/stamplab/RESTORE/supertrab.zarr/2019_L/sr_volume_256_10_200ep_given_QCT/part_2_split/part_14
+    > Shape: (177, 4608, 4608), Min: -0.09123507142066956, Max: 0.29078012704849243
+  - /usr/terminus/data-xrm-01/stamplab/RESTORE/supertrab.zarr/2019_L/sr_volume_256_10_200ep_given_QCT/part_2_split/part_15
+    > Shape: (177, 4608, 4608), Min: -0.07461961358785629, Max: 0.2764354348182678
+  - /usr/terminus/data-xrm-01/stamplab/RESTORE/supertrab.zarr/2019_L/sr_volume_256_10_200ep_given_QCT/part_2_split/part_16
+    > Shape: (180, 4608, 4608), Min: 0.0, Max: 0.0
+
+🔹 Concatenating part_2...
+  - part2 shape: (2835, 4608, 4608)
+  - part2 min/max: -0.13369810581207275 / 0.3493584096431732
+
+🔹 Combining part_1 and part_2...
+  - full_volume shape: (5670, 4608, 4608)
+  - full_volume min/max: -0.13369810581207275 / 0.3493584096431732
+Saving reassembled volume to: /usr/terminus/data-xrm-01/stamplab/RESTORE/supertrab.zarr/2019_L/sr_volume_256_10_200ep_given_QCT/reassembled_2
+Done reassembling.
