@@ -159,9 +159,9 @@ if __name__ == "__main__":
 
     main(
         zarr_path="/usr/terminus/data-xrm-01/stamplab/RESTORE/supertrab.zarr",
-        weights_path=f"samples/supertrab-diffusion-sr-2d-QCT_v2/{PATCH_SIZE}_ds{DS_FACTOR}_QCT_v2/models/final_model_weights_{PATCH_SIZE}_ds{DS_FACTOR}.pth",
+        weights_path=f"samples/supertrab-diffusion-sr-2d-QCT-mix_v2/{PATCH_SIZE}_ds{DS_FACTOR}_QCT_v2/models/final_model_weights_{PATCH_SIZE}_ds{DS_FACTOR}.pth",
         patch_size=(1, PATCH_SIZE, PATCH_SIZE),
         downsample_factor=DS_FACTOR,
         batch_size=16, 
-        sr_dataset_name=f"sr_volume_trained_QCT_given_QCT"
+        sr_dataset_name=f"sr_volume_trained_QCT_mix_given_QCT"
     )

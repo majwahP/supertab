@@ -320,3 +320,9 @@ Starting inference over full volume...
 4894 patches processed
 4910 patches processed
 4926 patches processed
+4942 patches processed
+4955 patches processed
+
+Super-resolved volume saved at: 2019_L/sr_volume_256_10_and_blur_given_QCT/part_2_split/part_10
+
+Total patches super-resolved and written: 4955
